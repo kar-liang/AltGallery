@@ -1,0 +1,42 @@
+# altgen config for the WQ Files AltStore source.
+# Run: uvx altgen -c config.toml
+# Note: the single release asset is named WQFiles.ipa without a version, so
+# asset_pattern matches on the exact name.
+
+[github]
+repo = "kolbicz/WQFiles"
+
+[source]
+name = "WQ Files"
+subtitle = "免越狱文件管理器 AltStore 源"
+description = "Auto-updated AltStore source for WQ Files"
+icon_url = "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/icon.png"
+website = "https://github.com/kolbicz/WQFiles"
+tint_color = "#1E5A96"
+
+[app]
+name = "WQ Files"
+bundle_identifier = "cz.kolbi.wqfiles"
+developer_name = "kolbicz"
+subtitle = "免越狱的文件管理器与缓存清理器"
+description = """iOS 26 / 27 的文件浏览器、应用数据管理器和缓存清理器。
+
+基于 worse_query 沙盒技术，无需越狱、无需内核漏洞即可读取其他应用与扩展容器的文件，提供缓存清理与崩溃日志查看。
+
+系统要求：iOS 26.0 及以上（已在 26.7.1、27.0.1、27.2 上测试）。"""
+icon_url = "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/icon.png"
+screenshots = []
+tint_color = "#1E5A96"
+min_os_version = "26.0"
+
+[versions]
+strip_v_prefix = true
+include_prereleases = false
+asset_pattern = "WQFiles\\.ipa$"
+
+[news]
+title_template = "{name} {version} · {date}"
+image_url = "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/images/news.png"
+
+[output]
+path = "apps.json"

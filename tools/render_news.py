@@ -100,18 +100,28 @@ _HEX_RE = re.compile(r"^#[0-9a-fA-F]{6}$")
 # be bolder than the description.
 FONT_CANDIDATES = {
     "latin": [
-        ("/System/Library/Fonts/Helvetica.ttc", 0),  # Regular
+        ("/System/Library/Fonts/Helvetica.ttc", 0),  # macOS Regular
+        ("C:/Windows/Fonts/arial.ttf", 0),  # Windows
+        ("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 0),  # Linux CI
     ],
     "latin_bold": [
-        ("/System/Library/Fonts/Helvetica.ttc", 1),  # Bold
+        ("/System/Library/Fonts/Helvetica.ttc", 1),  # macOS Bold
+        ("C:/Windows/Fonts/arialbd.ttf", 0),  # Windows
+        ("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 0),  # Linux CI
     ],
     "cjk": [
-        ("/System/Library/Fonts/Hiragino Sans GB.ttc", 0),  # W3
-        ("/System/Library/Fonts/STHeiti Medium.ttc", 1),  # Heiti SC Medium
+        ("/System/Library/Fonts/Hiragino Sans GB.ttc", 0),  # macOS W3
+        ("/System/Library/Fonts/STHeiti Medium.ttc", 1),  # macOS Heiti SC Medium
+        ("C:/Windows/Fonts/msyh.ttc", 0),  # Windows Microsoft YaHei
+        ("/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc", 0),  # Linux CI
+        ("/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc", 0),
     ],
     "cjk_bold": [
-        ("/System/Library/Fonts/Hiragino Sans GB.ttc", 2),  # W6
-        ("/System/Library/Fonts/STHeiti Medium.ttc", 0),  # Heiti TC Medium
+        ("/System/Library/Fonts/Hiragino Sans GB.ttc", 2),  # macOS W6
+        ("/System/Library/Fonts/STHeiti Medium.ttc", 0),  # macOS Heiti TC Medium
+        ("C:/Windows/Fonts/msyhbd.ttc", 0),  # Windows Microsoft YaHei Bold
+        ("/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc", 0),  # Linux CI
+        ("/usr/share/fonts/truetype/noto/NotoSansCJK-Bold.ttc", 0),
     ],
 }
 

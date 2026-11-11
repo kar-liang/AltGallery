@@ -1,0 +1,41 @@
+# altgen config for the Coolapk Desktop AltStore source.
+# Run: uvx altgen -c config.toml
+# Note: upstream repo is archived, so no new versions will be picked up.
+
+[github]
+repo = "daimiaopeng/coolapk-desktop"
+
+[source]
+name = "酷安"
+subtitle = "非官方酷安客户端 AltStore 源"
+description = "Auto-updated AltStore source for Coolapk Desktop"
+icon_url = "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/CoolapkDesktop/icon.png"
+website = "https://github.com/daimiaopeng/coolapk-desktop"
+tint_color = "#17B45C"
+
+[app]
+name = "酷安"
+bundle_identifier = "com.coolapk.desktop"
+developer_name = "daimiaopeng"
+subtitle = "非官方酷安客户端（桌面版移植）"
+description = """基于 Tauri 2 + Vue 3 + Rust 的非官方酷安客户端，iOS 版为桌面界面的移植构建。
+
+支持浏览酷安动态、图文与评论，兼容酷安 Token V3 接口签名。
+
+注意：这是社区维护的非官方客户端，与酷安官方无隶属或授权关系；上游仓库已归档，后续不会再有版本更新。"""
+icon_url = "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/CoolapkDesktop/icon.png"
+screenshots = []
+tint_color = "#17B45C"
+min_os_version = "14.0"
+
+[versions]
+strip_v_prefix = true
+include_prereleases = false
+asset_pattern = "coolapk-v.*-ios-arm64-unsigned\\.ipa$"
+
+[news]
+title_template = "{name} {version} · {date}"
+image_url = "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/CoolapkDesktop/images/news.png"
+
+[output]
+path = "apps.json"

@@ -26,3 +26,9 @@ dist/
 /apps/*/apps.json
 /apps/*/apps-proxy.json
 all-apps-proxy.json
+
+# Local-only test artifacts (not for upstream)
+/all-apps-local.json
+/all-apps-local-proxy.json
+/*.bat
+.venv/

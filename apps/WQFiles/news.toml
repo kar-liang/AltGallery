@@ -1,0 +1,7 @@
+# render_news.py config: python3 tools/render_news.py --out apps/WQFiles
+# Colors left unset are auto-derived from config.toml and the icon.
+
+name = "WQ Files"
+tagline = "免越狱文件管理器"
+
+[colors]

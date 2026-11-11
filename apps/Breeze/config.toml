@@ -1,0 +1,40 @@
+# altgen config for the Breeze AltStore source.
+# Run: uvx altgen -c config.toml
+
+[github]
+repo = "breeze-project-org/Breeze"
+
+[source]
+name = "Breeze"
+subtitle = "多源漫画阅读器 AltStore 源"
+description = "Auto-updated AltStore source for Breeze"
+icon_url = "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Breeze/icon.png"
+website = "https://github.com/breeze-project-org/Breeze"
+tint_color = "#E23B38"
+
+[app]
+name = "Breeze"
+bundle_identifier = "com.zephyr.breeze"
+developer_name = "windy"
+subtitle = "多源漫画阅读器，支持插件与 AI 超分"
+description = """使用 Flutter 构建的漫画阅读器，通过插件提供多源漫画支持。
+
+内置包子漫画、拷贝漫画、MangaDex、e-hentai、nhentai、WEBTOON、禁漫天堂等数十个数据源，支持 AI 图片超分辨率、本地漫画库、阅读进度同步。插件系统仍在 beta 阶段，接口可能变动。
+
+iOS 版为无签名 ipa，需通过 AltStore / SideStore 自签名安装。"""
+icon_url = "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Breeze/icon.png"
+screenshots = []
+tint_color = "#E23B38"
+min_os_version = "15.0"
+
+[versions]
+strip_v_prefix = true
+include_prereleases = false
+asset_pattern = "Breeze-iOS-v.*\\.ipa$"
+
+[news]
+title_template = "{name} {version} · {date}"
+image_url = "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Breeze/images/news.png"
+
+[output]
+path = "apps.json"

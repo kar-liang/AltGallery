@@ -1,0 +1,97 @@
+name: Add app from a GitHub link
+
+# Triggered by the qq-bridge (repository_dispatch, event type "add-app") when a
+# GitHub repo URL is sent to the bot in a private chat.
+#
+# Payload: { "repo": "owner/name" }
+#
+# This workflow does the whole job in one run: generate the app entry, rebuild
+# every source, and commit. It rebuilds in-run instead of relying on update-sources.yml
+# because commits pushed with GITHUB_TOKEN do not trigger other workflows.
+
+on:
+  repository_dispatch:
+    types: [add-app]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: add-app
+  cancel-in-progress: false
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v7
+
+      # Pillow renders images/news.png; fonts-noto-cjk gives the renderer a
+      # font that actually has Chinese glyphs (the ubuntu image has none).
+      - name: Install image dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk
+          pip install --quiet pillow
+
+      - name: Add the app
+        id: add
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -o pipefail
+          python tools/add_app.py --repo "${{ github.event.client_payload.repo }}" | tee /tmp/add.log
+          if grep -q '^SUMMARY ' /tmp/add.log; then
+            echo "added=true" >> "$GITHUB_OUTPUT"
+            echo "dir=$(grep '^SUMMARY ' /tmp/add.log | tail -1 | cut -d'|' -f5)" >> "$GITHUB_OUTPUT"
+            echo "summary=$(grep '^SUMMARY ' /tmp/add.log | tail -1 | cut -d'|' -f1-4)" >> "$GITHUB_OUTPUT"
+          else
+            echo "added=false" >> "$GITHUB_OUTPUT"
+            echo "这个 app 已经在源里，或者上游不可用，见上面的日志"
+          fi
+
+      - name: Render news image
+        if: steps.add.outputs.added == 'true'
+        run: python tools/render_news.py --out "${{ steps.add.outputs.dir }}"
+
+      - name: Regenerate every source
+        if: steps.add.outputs.added == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: ./update.sh
+
+      - name: Generate proxy mirrors
+        if: steps.add.outputs.added == 'true'
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          for source in apps/*/apps.json; do
+            python3 tools/make_proxy.py "$source" "${source%/apps.json}/apps-proxy.json"
+          done
+          python3 tools/make_proxy.py all-apps.json all-apps-proxy.json
+
+      - name: Commit
+        if: steps.add.outputs.added == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git add -f all-apps.json all-apps-proxy.json apps/*/apps.json apps/*/apps-proxy.json
+          if git diff --cached --quiet; then
+            echo "Nothing to commit"
+            exit 0
+          fi
+          git commit -m "feat: add ${{ github.event.client_payload.repo }}"
+          git push
+
+      - name: Summary
+        if: steps.add.outputs.added == 'true'
+        run: |
+          echo "### 已加入：${{ steps.add.outputs.summary }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "目录：\`${{ steps.add.outputs.dir }}\`" >> "$GITHUB_STEP_SUMMARY"

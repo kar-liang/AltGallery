@@ -1,4 +1,0 @@
-# render_news.py config: ./.venv/bin/python tools/render_news.py --out apps/Orchard
-
-name = "Orchard"
-tagline = "macOS Ventura on iPhone"

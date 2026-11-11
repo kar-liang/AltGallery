@@ -1,6 +1,6 @@
 name: PR checks
 
-# update.yml regenerates and commits the sources on master. This workflow runs
+# update-sources.yml regenerates and commits the sources on master. This workflow runs
 # on a pull request and checks the one thing that matters before merging:
 # altgen can still build apps.json from the changed app's config.toml, and the
 # sources still merge into all-apps.json.
