@@ -481,7 +481,7 @@
       "developerName": "Yoroin",
       "subtitle": "全局高刷悬浮窗：基于 iOS 画中画的悬浮窗工具，可辅助解锁 ProMotion 120Hz 表现，支持自定义悬浮窗大小（可完全隐藏）和后台保活。/ iOS PiP-based floating window that helps unlo",
       "localizedDescription": "全局高刷悬浮窗：基于 iOS 画中画的悬浮窗工具，可辅助解锁 ProMotion 120Hz 表现，支持自定义悬浮窗大小（可完全隐藏）和后台保活。/ iOS PiP-based floating window that helps unlock ProMotion 120Hz behavior, with custom-sized overlays and background keep-alive.",
-      "iconURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/App/icon.png",
+      "iconURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/GlobalRefreshPiP/icon.png",
       "tintColor": "#30A0F0",
       "versions": [
         {
@@ -720,7 +720,7 @@
       "caption": "全局高刷 1.1.1 is available.",
       "date": "2026-10-08T17:02:16Z",
       "tintColor": "#30A0F0",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/App/images/news.png",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/GlobalRefreshPiP/images/news.png",
       "notify": true,
       "url": "https://github.com/Yoroin/GlobalRefresh-PiP/releases/tag/v1.1.1"
     },

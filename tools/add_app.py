@@ -347,11 +347,12 @@ def main() -> int:
             shutil.copyfile(icon, app_dir / "icon.png")
         (app_dir / "config.toml").write_text(build_config(info, app), encoding="utf-8")
         # Tagline: first sentence, cut on a word boundary — a hard slice mid-word
-        # looks broken on the news card ("for iO").
+        # looks broken on the news card ("for iO"). Split on CJK punctuation too,
+        # otherwise a Chinese description never breaks and gets sliced mid-phrase.
         desc = (info.get("description") or "").strip()
-        tagline = desc.split(".")[0].strip() if desc else ""
-        if len(tagline) > 34:
-            tagline = tagline[:34].rsplit(" ", 1)[0].rstrip(",;:")
+        tagline = re.split(r"[.。!！?？]", desc)[0].strip() if desc else ""
+        if len(tagline) > 26:
+            tagline = tagline[:26]
         if not tagline:
             tagline = "v" + version
         (app_dir / "news.toml").write_text(

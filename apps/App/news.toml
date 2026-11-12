@@ -1,5 +1,0 @@
-# render_news.py config: python3 tools/render_news.py --out apps/App
-name = "全局高刷"
-tagline = "全局高刷悬浮窗：基于 iOS 画中画的悬浮窗工具，可辅助解锁"
-
-[colors]
