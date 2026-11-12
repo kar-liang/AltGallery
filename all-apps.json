@@ -476,6 +476,25 @@
       ]
     },
     {
+      "name": "全局高刷",
+      "bundleIdentifier": "com.yoroin.globalrefresh",
+      "developerName": "Yoroin",
+      "subtitle": "全局高刷悬浮窗：基于 iOS 画中画的悬浮窗工具，可辅助解锁 ProMotion 120Hz 表现，支持自定义悬浮窗大小（可完全隐藏）和后台保活。/ iOS PiP-based floating window that helps unlo",
+      "localizedDescription": "全局高刷悬浮窗：基于 iOS 画中画的悬浮窗工具，可辅助解锁 ProMotion 120Hz 表现，支持自定义悬浮窗大小（可完全隐藏）和后台保活。/ iOS PiP-based floating window that helps unlock ProMotion 120Hz behavior, with custom-sized overlays and background keep-alive.",
+      "iconURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/App/icon.png",
+      "tintColor": "#30A0F0",
+      "versions": [
+        {
+          "version": "1.1.1",
+          "date": "2026-10-08",
+          "localizedDescription": "# 全局高刷 1.1.1（26.10.9）\n\n本版本提供正式版通用未签名 IPA，可通过牛蛙助手、AltStore、Sideloadly 等工具自行签名安装。\n\n构建号：`2026100902`\n\nIPA 文件：`GlobalRefresh_1.1.1_2026100902_unsigned.ipa`\n\nSHA-256：`b2f364ee9e059b091ae1cd84faa1b837276d233f56ed98b94aa4c34139bf4cf8`\n\n## 重新打包说明（26.10.9）\n\n构建号更新为 `2026100902`，修复部分签名工具无法导入 IPA 的问题：主包 `Info.plist` 改回 XML 格式。除构建号与打包格式外，程序代码及悬浮窗逻辑未变。\n\n此前下载 `2026100901` 且无法导入的用户，请重新下载下方 `2026100902` 附件后自行签名。已经成功安装的用户无需因本次重新打包再次安装。\n\n## 更新内容\n\n- \\* 优化默认悬浮窗VideoCall方案，修复部分锁60的游戏和B站弹幕卡顿的问题\n- \\* 新增悬浮窗共存保护，与其他画中画同时运行，避免被其他悬浮窗挤掉或打断\n- \\* 修复 悬浮窗未拖至侧面而导致的无法熄屏\n- 适配iPhone Duo\n- 优化一键0.1pt：未开启时点击可直接启动隐藏悬浮窗，已开启时则调整高度；首页、快捷指令及URL入口保持一致，其他兼容模式保留原开启流程\n- 精简快捷指令入口，仅保留打开并隐藏悬浮窗\n- 优化 上次关闭时间 显示逻辑\n- 减少仅PiP模式的音频预加载及后台页面刷新开销，内存紧张时清理未使用的音频和诊断缓存，不销毁悬浮窗\n- 补充轻量运行记录和系统诊断，便于排查异常中断；关闭调试模式时仍保留有限的低频记录，不强行判断唯一原因\n- 帧率演示的120Hz开关仅改变App前台页面和动画的刷新请求，关闭后按旧正式版请求最高80Hz，不再更改后台悬浮窗的刷新与播放策略；实际帧率仍由系统决定\n- 新增默认悬浮窗方案升级演示，优化首次显示与重播动画，并同步常见问题说明\n- 默认方案优化适用于iOS15-27的VideoCall与仅PiP保活组合；并存、熄屏及高刷效果仍依赖系统、设备与前台App，其他模式保留兼容流程\n\n## 来源与署名\n\n本项目以 CaiWanFeng/PiP 的原始 PiP Demo 为起点，由 Yoroin 持续开发与维护。感谢 CaiWanFeng 提供原始示例。\n\n原 Demo 项目：https://github.com/CaiWanFeng/PiP\n\n当前项目：https://github.com/Yoroin/GlobalRefresh-PiP\n\n集成、修改、分发或发布时，请保留原始 Demo 作者 CaiWanFeng、后续开发者 Yoroin 及对应项目地址，明确所使用代码的来源。\n\n## 自签说明\n\n通用未签名 IPA 不绑定个人证书，不包含 `embedded.mobileprovision` 和 `_CodeSignature`，主程序及内嵌框架均已核验为未签名。用户需要使用自己的证书或 Apple ID 自行签名安装，不能直接安装未签名 IPA。",
+          "downloadURL": "https://github.com/Yoroin/GlobalRefresh-PiP/releases/download/v1.1.1/GlobalRefresh_1.1.1_2026100902_unsigned.ipa",
+          "size": 7763893,
+          "minOSVersion": "15.0"
+        }
+      ]
+    },
+    {
       "name": "酷安",
       "bundleIdentifier": "com.coolapk.desktop",
       "developerName": "daimiaopeng",
@@ -693,6 +712,17 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/PureLive/images/news.png",
       "notify": true,
       "url": "https://github.com/liuchuancong/pure_live/releases/tag/v3.1.19"
+    },
+    {
+      "appID": "com.yoroin.globalrefresh",
+      "title": "全局高刷 1.1.1 · 08 Oct 2026",
+      "identifier": "全局高刷-release-v1.1.1",
+      "caption": "全局高刷 1.1.1 is available.",
+      "date": "2026-10-08T17:02:16Z",
+      "tintColor": "#30A0F0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/App/images/news.png",
+      "notify": true,
+      "url": "https://github.com/Yoroin/GlobalRefresh-PiP/releases/tag/v1.1.1"
     },
     {
       "appID": "com.mak5er.aircard",
