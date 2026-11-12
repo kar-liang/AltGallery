@@ -1,0 +1,5 @@
+# render_news.py config: python3 tools/render_news.py --out apps/Husk
+name = "Husk"
+tagline = "Run Android on iOS"
+
+[colors]
