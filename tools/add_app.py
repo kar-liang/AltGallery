@@ -194,8 +194,17 @@ def sample_tint(icon: Path | None) -> str:
         return DEFAULT_TINT
 
 
-def safe_dir_name(name: str) -> str:
+def safe_dir_name(name: str, fallback: str = "") -> str:
+    """A filesystem-safe folder name. Keep ASCII alnum only.
+
+    Many apps ship a CJK display name (e.g. 全局刷新) which strips down to
+    nothing — fall back to the repo name instead of a generic "App", otherwise
+    every Chinese-named app would collide in the same folder.
+    """
     cleaned = re.sub(r"[^0-9A-Za-z]+", "", name)
+    if cleaned:
+        return cleaned
+    cleaned = re.sub(r"[^0-9A-Za-z]+", "", fallback)
     return cleaned or "App"
 
 
@@ -303,7 +312,7 @@ def main() -> int:
         version = plist.get("version") or info["tag"].lstrip("vV")
         print(f"INFO  name={app_name} bundle={bundle_id} version={version} minOS={min_os}")
 
-        dir_name = safe_dir_name(app_name)
+        dir_name = safe_dir_name(app_name, repo.split("/")[-1])
         app_dir = ROOT / "apps" / dir_name
         if app_dir.exists() and not args.force:
             existing = (app_dir / "config.toml").read_text(encoding="utf-8")

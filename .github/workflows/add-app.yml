@@ -88,7 +88,20 @@ jobs:
             exit 0
           fi
           git commit -m "feat: add ${{ github.event.client_payload.repo }}"
-          git push
+          # Two links sent seconds apart produce two runs that finish at nearly
+          # the same time; whichever pushes second is rejected as
+          # non-fast-forward. Rebase onto whatever landed first and retry.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push rejected (attempt $attempt), rebasing onto origin/master"
+            git pull --rebase origin master || { git rebase --abort 2>/dev/null; true; }
+            sleep 5
+          done
+          echo "::error::could not push after 5 attempts"
+          exit 1
 
       - name: Summary
         if: steps.add.outputs.added == 'true'
