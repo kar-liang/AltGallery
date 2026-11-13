@@ -113,11 +113,11 @@
       "tintColor": "#124EB3",
       "versions": [
         {
-          "version": "2.6.7",
-          "date": "2026-11-02T19:29:02Z",
-          "localizedDescription": "### 🔄 更新内容\r\n\r\n## 2.6.7 更新\r\n\r\n## 新增\r\n\r\n- 播放页竖屏时播放器右上角添加更多功能按钮 #118\r\n- 页面标题栏和导航栏支持磨砂玻璃风格(可在页面设置中关闭恢复旧版风格)\r\n- 新增设备原生播放器内核(支持Android、ios、Macos)，可在视频设置中切换\r\n- 规则下载支持更多线路选择\r\n- 应用内版本更新支持镜像加速选择(下个版本生效)\r\n\r\n## 优化\r\n\r\n- 优化推荐、排行榜、用户收藏页面大屏时滚动卡顿问题\r\n- 播放器缓冲速度不在使用设备实时网速，改用真是的视频缓冲速度(仅支持mpv内核)\r\n\r\n## 修复\r\n\r\n- 修复封面下载失败问题 #121\r\n- 修复mdk内核每次快退视频进度时都需要重新缓冲问题\r\n- 标准化ios包名(需要手动删除旧应用) #117\r\n\r\n---\r\n\r\n### 📦 下载\r\n- 每个设备的安装包后缀: ``苹果手机(.ipa)、 安卓手机(.apk)、windows电脑(.zip或.exe)、mac电脑(.dmg)、linux电脑(.tar.gz或.deb)``\r\n- android分多个包: ``v7a(32位架构旧手机或TV)、arm64(新手机,推荐用这个)、x86(模拟器) ``\r\n- windows分多个包: ``.zip(解压直接使用)、.exe(安装后使用，推荐用这个) ``",
-          "downloadURL": "https://github.com/openAnimeFlow/AnimeFlow/releases/download/v2.6.7/AnimeFlow-ios-2.6.7.ipa",
-          "size": 29378160,
+          "version": "2.6.8",
+          "date": "2026-11-13T20:37:13Z",
+          "localizedDescription": "### 🔄 更新内容\n\n## 2.6.8 更新\n\n## 新增\n\n- 壁纸页面支持关键词筛选、支持收藏壁纸集合(登录后)、我的页面右上角打开收藏集合\n- 重构视频资源下载模块，下载功能完全和播放页解耦不在需要等待内容解析完成后才能看到下载菜单，可以在番剧详情剧集弹窗和播放页剧集区域进入下载页面\n- 排行榜页面加载动画替换成骨架屏\n- 壁纸页面加载动画替换成骨架屏\n- 播放页的番剧详情信息展示方式从原来的内嵌路由替换成抽屉方式展示\n-  Linux 支持 Nix 安装(详情在仓库README下载项查看) #128 (@yebei199)\n\n## 优化\n\n- 优化更新信息页面布局\n- 优化大屏设置侧边栏效果(开启磨砂玻璃ui)\n- 优化推荐、排行榜页面开始磨砂玻璃时的页面顶部状态效果\n- 离开社区页面10秒后取消实时数据更新订阅减小服务器压力\n- 优化animeflow服务器网络请求延迟(可能有用)\n\n## 修复\n\n- 修复部分数据源线路名称文字ui溢出问题\n- 修复宽屏设备打开壁纸详情页时切换tabview时的异常问题\n- 修复在切换视频播放源时没有自动保持播放进度问题\n- 修复 Linux 客户端窗口问题 #129 (@lyndon0na)\n\n---\n\n### 📦 下载\n- 每个设备的安装包后缀: ``苹果手机(.ipa)、 安卓手机(.apk)、windows电脑(.zip或.exe)、mac电脑(.dmg)、linux电脑(.tar.gz或.deb)``\n- android分多个包: ``v7a(32位架构旧手机或TV)、arm64(新手机,推荐用这个)、x86(模拟器) ``\n- windows分多个包: ``.zip(解压直接使用)、.exe(安装后使用，推荐用这个) ``",
+          "downloadURL": "https://github.com/openAnimeFlow/AnimeFlow/releases/download/v2.6.8/AnimeFlow-ios-2.6.8.ipa",
+          "size": 29518672,
           "minOSVersion": "13.0"
         }
       ]
@@ -286,11 +286,11 @@
       "tintColor": "#EC4949",
       "versions": [
         {
-          "version": "0.3.34",
-          "date": "2026-11-12T20:52:06Z",
-          "localizedDescription": "### Added\n\n- **Comments**: read a song's comments from its context menu, or on iOS from the now-playing page's More menu — top comments first, then the latest, loading more as you scroll, with the reply each one answers and its likes. Signed in, you can like a comment or take the like back (#113).\n- **Search**: on iOS every playlist can be searched (the magnifying glass, or pull down), not only Liked Songs; tapping a result plays the whole playlist from that song (#185).\n- **Cloud Disk**: search by song, artist, album or uploaded file name, on macOS and iOS. The cloud disk now loads every song instead of the first 1,000, so search and Play All cover them all (#186).\n\n### Improved\n\n- **iOS**: Daily Recs drops the large cover banner at the top, so the songs start right below the date, title and Play All.\n\n---\n\n### 新增\n\n- **评论**：从歌曲的右键 / 长按菜单，或 iOS 播放页的「更多」菜单查看歌曲评论——先显示热门评论，再显示最新评论，滚动时自动加载更多，并显示所回复的评论和点赞数。登录后可以给评论点赞或取消点赞（#113）。\n- **搜索**：iOS 上所有歌单都可以在歌单内搜索（右上角放大镜，或在列表顶部下拉），不再只限「我喜欢的音乐」；点搜索结果会从这首开始播放整个歌单（#185）。\n- **音乐云盘**：macOS 和 iOS 都可以按歌名、歌手、专辑或上传的文件名搜索。云盘现在会加载全部歌曲，不再只加载前 1000 首，搜索和「播放全部」都覆盖所有歌曲（#186）。\n\n### 改进\n\n- **iOS**：每日推荐去掉了顶部的大封面横幅，日期、标题和「播放全部」下面直接就是歌曲列表。",
-          "downloadURL": "https://github.com/missuo/kumone/releases/download/v0.3.34/Kumone-iOS-0.3.34.ipa",
-          "size": 4270017,
+          "version": "0.3.35",
+          "date": "2026-11-13T19:25:08Z",
+          "localizedDescription": "### Added\n\n- **Comments**: on the iPhone now-playing page, swipe left from the lyrics to the song's comments, and right to return; two dots show which page is up. Comments load when you first turn to them and follow the song that is playing.\n\n### Fixed\n\n- **Playback**: a request for a song's playback address that drops, times out or meets a server error is retried once, instead of failing at once with \"Unable to play\" or switching to a third-party source (#210).\n- **iOS**: songs the service can play no longer keep playing from a third-party source copy in the cache; that copy is only used when the service refuses the song. Thanks @yuanruoyu515 (#205, closes #206).\n- **iOS 16/17**: the now-playing page no longer stops part way when it opens from the mini player, leaving it short of the top; it now opens as a full-screen page (#213).\n\n---\n\n### 新增\n\n- **评论**：iPhone 播放页的歌词向左滑即可查看这首歌的评论，向右滑回到歌词，底部两个小圆点提示当前页。评论在第一次翻到时才加载，并跟随正在播放的歌曲切换。\n\n### 修复\n\n- **播放**：获取播放地址的请求断线、超时或遇到服务器错误时会自动重试一次，不再直接提示「无法播放」或转到第三方音源（#210）。\n- **iOS**：网易云能播放的歌曲，不再一直播放缓存里的第三方音源副本；只有网易云拒绝时才会使用它。感谢 @yuanruoyu515（#205，关闭 #206）。\n- **iOS 16/17**：从迷你播放条打开播放页时，不会再停在半路、没有铺满屏幕，现在以全屏页面打开（#213）。",
+          "downloadURL": "https://github.com/missuo/kumone/releases/download/v0.3.35/Kumone-iOS-0.3.35.ipa",
+          "size": 4289752,
           "minOSVersion": "16.0"
         }
       ]
@@ -501,9 +501,9 @@
         {
           "version": "0.9.6",
           "date": "2026-11-13T12:49:20Z",
-          "localizedDescription": "> **Requires:** iOS 27, or iOS 26.0 – 26.7.2. Tested on iOS 27.0.1, 27.2.1, 26.7.1 and the 27.3 beta (confirmed by a user).\n> **Needs:** a sideloading tool that keeps the App Group entitlement; see [Signing](https://github.com/kolbicz/WQFiles#signing-the-app-group) in the README.\n\n# Worse Query Files 0.9.6\n\n## New\n\n- **Search Inside Folders…** (••• menu): finds names in all subfolders, with progress and **Stop**.\n- **Largest Files** (••• menu): the 100 biggest files below a folder, to see where storage goes.\n- **Get Info** (long-press): path, kind, size (folders counted), dates, owner, permissions, inode and a file's SHA-256. Tap a row to copy it.\n- **Duplicate** and **Copy to Folder…** (long-press): copy files and folders, also into other apps' data, like Move.\n- **Favorites:** add a folder from its ••• menu; they're listed under Tools.\n- **Reopen Last Folder** ([#41](https://github.com/kolbicz/WQFiles/issues/41)): WQ Files starts in the folder you were in. It's a switch on the start screen.\n- **Check for Updates** ([#41](https://github.com/kolbicz/WQFiles/issues/41)): a note on the start screen when a new version is out.\n  - **What's sent:** WQ Files reads the public release list on GitHub at most twice a day and sends nothing about your device. This is its only network access.\n  - **Turning it off:** use the switch on the start screen.\n- **Open ZIP files by tapping them** ([#41](https://github.com/kolbicz/WQFiles/issues/41)): **Extract and Open** unpacks it next to itself and opens the folder. **Open as File** shows the file as before.\n- **Thai** ([#52](https://github.com/kolbicz/WQFiles/issues/52)).\n\n## Changed\n\n- **SQLite save** writes through SQLite itself, which takes care of the database's journal and WAL files, so a save is safer if WQ Files is closed midway.\n- **App restore** copies and checks the backup in a private folder first, and installs exactly what was checked.\n- **Replace All** when importing only replaces the file versions shown in the question; a file that changed meanwhile is imported under a new name.\n- **Turkish and Thai:** clearer wording.\n\n## Fixed\n\n- **App backups could come out empty** when WQ Files didn't have access to the app's folder yet; it worked on the second or third try. Backup now fails with \"try again\" instead, and an empty backup is never restored (restoring one would empty the app's data).\n\n## Credit\n\nSandbox technique: [worse_query](https://github.com/forcequitOS/worse_query) by Taj C (forcequit). Container enumeration: [KAMUI](https://github.com/murk-sus/kamui-escape) by murk-sus. Translations: iosrxwy (Simplified Chinese), hfip (Arabic), hooray804 (Korean), Reinascape (Russian). Thanks to everyone who sent Logs and ideas. GPL-3.0-or-later.\n\nSHA-256 of WQFiles.ipa: `b3bb838c7aa6269027062bf4edf006cb37078abad1f1fa1ba9a052b781f18fc3`",
+          "localizedDescription": "> **Requires:** iOS 27, or iOS 26.0 – 26.7.2. Tested on iOS 27.0.1, 27.2.1, 26.7.1 and the 27.3 beta (confirmed by a user).\n> **Needs:** a sideloading tool that keeps the App Group entitlement; see [Signing](https://github.com/kolbicz/WQFiles#signing-the-app-group) in the README.\n\n# Worse Query Files 0.9.6\n\n## New\n\n- **Search Inside Folders…** (••• menu): finds names in all subfolders, with progress and **Stop**.\n- **Largest Files** (••• menu): the 100 biggest files below a folder, to see where storage goes.\n- **Get Info** (long-press): path, kind, size (folders counted), dates, owner, permissions, inode and a file's SHA-256. Tap a row to copy it.\n- **Duplicate** and **Copy to Folder…** (long-press): copy files and folders, also into other apps' data, like Move.\n- **Favorites:** add a folder from its ••• menu; they're listed under Tools.\n- **Reopen Last Folder** ([#41](https://github.com/kolbicz/WQFiles/issues/41)): WQ Files starts in the folder you were in. It's a switch on the start screen.\n- **Check for Updates** ([#41](https://github.com/kolbicz/WQFiles/issues/41)): a note on the start screen when a new version is out.\n  - **What's sent:** WQ Files reads the public release list on GitHub at most twice a day and sends nothing about your device. This is its only network access.\n  - **Turning it off:** use the switch on the start screen.\n- **Open ZIP files by tapping them** ([#41](https://github.com/kolbicz/WQFiles/issues/41)): **Extract and Open** unpacks it next to itself and opens the folder. **Open as File** shows the file as before.\n- **Thai** ([#52](https://github.com/kolbicz/WQFiles/issues/52)).\n\n## Changed\n\n- **SQLite save** writes through SQLite itself, which takes care of the database's journal and WAL files, so a save is safer if WQ Files is closed midway.\n- **App restore** copies and checks the backup in a private folder first, and installs exactly what was checked.\n- **Replace All** when importing only replaces the file versions shown in the question; a file that changed meanwhile is imported under a new name.\n- **Turkish and Thai:** clearer wording.\n\n## Fixed\n\n- **App names and some app folders missing** on some devices (e.g. iOS 26.1): when the app database uses a layout WQ Files doesn't know, it now works out where names and folders are from the database itself, and remembers it for that iOS version. App identities, which decide where backups go, still only come from the app's own folder tag or a known layout. WQ Files also uses the newest database file when iOS keeps an old one, and the Log lists them.\n- **App backups could come out empty** when WQ Files didn't have access to the app's folder yet; it worked on the second or third try. Backup now fails with \"try again\" instead, and an empty backup is never restored (restoring one would empty the app's data).\n\n## Credit\n\nSandbox technique: [worse_query](https://github.com/forcequitOS/worse_query) by Taj C (forcequit). Container enumeration: [KAMUI](https://github.com/murk-sus/kamui-escape) by murk-sus. Translations: iosrxwy (Simplified Chinese), hfip (Arabic), hooray804 (Korean), Reinascape (Russian). Thanks to everyone who sent Logs and ideas. GPL-3.0-or-later.\n\nSHA-256 of WQFiles.ipa: `d15feaf0fb82dd754b78de3a0e9d210db0cc1ebd83748dd1980e922d2183c2c6`",
           "downloadURL": "https://github.com/kolbicz/WQFiles/releases/download/v0.9.6/WQFiles.ipa",
-          "size": 773130,
+          "size": 780279,
           "minOSVersion": "26.0"
         }
       ]
@@ -592,6 +592,28 @@
   ],
   "news": [
     {
+      "appID": "com.ligg.anime_flow",
+      "title": "AnimeFlow 2.6.8 · 13 Nov 2026",
+      "identifier": "AnimeFlow-release-v2.6.8",
+      "caption": "AnimeFlow 2.6.8 is available.",
+      "date": "2026-11-13T20:37:13Z",
+      "tintColor": "#124EB3",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/AnimeFlow/images/news.png",
+      "notify": true,
+      "url": "https://github.com/openAnimeFlow/AnimeFlow/releases/tag/v2.6.8"
+    },
+    {
+      "appID": "sb.moe.kumone-ios",
+      "title": "Kumone 0.3.35 · 13 Nov 2026",
+      "identifier": "Kumone-release-v0.3.35",
+      "caption": "Kumone 0.3.35 is available.",
+      "date": "2026-11-13T19:25:08Z",
+      "tintColor": "#EC4949",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Kumone/images/news.png",
+      "notify": true,
+      "url": "https://github.com/missuo/kumone/releases/tag/v0.3.35"
+    },
+    {
       "appID": "com.qingtang.3106",
       "title": "3106 3.2.5 · 13 Nov 2026",
       "identifier": "3106-release-v3.2.5",
@@ -623,17 +645,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/images/news.png",
       "notify": true,
       "url": "https://github.com/kolbicz/WQFiles/releases/tag/v0.9.6"
-    },
-    {
-      "appID": "sb.moe.kumone-ios",
-      "title": "Kumone 0.3.34 · 12 Nov 2026",
-      "identifier": "Kumone-release-v0.3.34",
-      "caption": "Kumone 0.3.34 is available.",
-      "date": "2026-11-12T20:52:06Z",
-      "tintColor": "#EC4949",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Kumone/images/news.png",
-      "notify": true,
-      "url": "https://github.com/missuo/kumone/releases/tag/v0.3.34"
     },
     {
       "appID": "mumu.pduola.WQManager",
@@ -722,17 +733,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/PiliPlus/images/news.png",
       "notify": true,
       "url": "https://github.com/bggRGjQaUbCoE/PiliPlus/releases/tag/2.2.0.2"
-    },
-    {
-      "appID": "com.ligg.anime_flow",
-      "title": "AnimeFlow 2.6.7 · 02 Nov 2026",
-      "identifier": "AnimeFlow-release-v2.6.7",
-      "caption": "AnimeFlow 2.6.7 is available.",
-      "date": "2026-11-02T19:29:02Z",
-      "tintColor": "#124EB3",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/AnimeFlow/images/news.png",
-      "notify": true,
-      "url": "https://github.com/openAnimeFlow/AnimeFlow/releases/tag/v2.6.7"
     },
     {
       "appID": "com.kodjodevf.mangayomi",
