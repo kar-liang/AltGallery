@@ -1,0 +1,5 @@
+# render_news.py config: python3 tools/render_news.py --out apps/3106
+name = "3106"
+tagline = "基于最新 0day 漏洞和 3105进行修补的版本"
+
+[colors]

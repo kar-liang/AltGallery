@@ -1,0 +1,42 @@
+{
+  "name": "3106",
+  "subtitle": "3106 AltStore 源",
+  "description": "Auto-updated AltStore source for 3106",
+  "iconURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/3106/icon.png",
+  "website": "https://github.com/QuinnTang74/3106",
+  "tintColor": "#F07020",
+  "apps": [
+    {
+      "name": "3106",
+      "bundleIdentifier": "com.qingtang.3106",
+      "developerName": "QuinnTang74",
+      "subtitle": "基于最新 0day 漏洞和 3105进行修补的版本",
+      "localizedDescription": "基于最新 0day 漏洞和 3105进行修补的版本",
+      "iconURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/3106/icon.png",
+      "tintColor": "#F07020",
+      "versions": [
+        {
+          "version": "3.2.3",
+          "date": "2026-11-12",
+          "localizedDescription": "# 3.2.3 正式版 · Stable Release Notes\n\n发布日期：2026-11-12 ｜ build 21\n\n## 中文\n\n### 修复\n\n- **`.tendies` 导入在真机上全部失败 `noDescriptors`**（issue #2）：路径包含检查此前依赖软链解析（`resolvingSymlinksInPath()`），真机沙盒内该调用可能提前返回，`/var` 与 `/private/var` 两种拼写无法归一，导致 descriptors 目录被整棵跳过、导入被拒。现在检查接受两侧任意 raw/resolved 拼写组合，不再依赖软链解析；导入入口统一解压根的路径形态；诊断日志同时打印解析前后的两侧路径。\n\n其余功能与 3.2.2 完全一致，无其他改动。\n\n## English\n\n### Fixed\n\n- **Every `.tendies` import failed with `noDescriptors` on device** (issue #2): the path-containment check depended on symlink resolution (`resolvingSymlinksInPath()`), which can stop early inside the device sandbox — `/var` and `/private/var` then failed to canonicalize to the same tree, the `descriptors` directory was skipped wholesale, and the import was rejected. Containment now accepts any combination of raw and resolved spellings on either side and no longer depends on symlink resolution; the import entry point standardizes the extraction root once; the diagnostic log prints raw and resolved paths on both sides.\n\nEverything else is identical to 3.2.2; no other changes.\n\n## 安装 / Install\n\nunsigned IPA 需自签（LCSign / Sideloadly / Impactor / Xcode）。\niOS 26.7+ / 27.x 必须保留 App Group entitlement（Sideloadly 会丢，用 Impactor 或 Xcode）。\n\nThe IPA is unsigned; sign it yourself (LCSign / Sideloadly / Impactor / Xcode).\niOS 26.7+ / 27.x must keep the App Group entitlement (Sideloadly drops it; use Impactor or Xcode).",
+          "downloadURL": "https://gh-proxy.com/https://github.com/QuinnTang74/3106/releases/download/v3.2.3/3106-3.2.3-unsigned.ipa",
+          "size": 5111083,
+          "minOSVersion": "16.0"
+        }
+      ]
+    }
+  ],
+  "news": [
+    {
+      "appID": "com.qingtang.3106",
+      "title": "3106 3.2.3 · 12 Nov 2026",
+      "identifier": "3106-release-v3.2.3",
+      "caption": "3106 3.2.3 is available.",
+      "date": "2026-11-12T13:27:16Z",
+      "tintColor": "#F07020",
+      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/3106/images/news.png",
+      "notify": true,
+      "url": "https://github.com/QuinnTang74/3106/releases/tag/v3.2.3"
+    }
+  ]
+}
