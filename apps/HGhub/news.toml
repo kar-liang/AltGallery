@@ -1,0 +1,5 @@
+# render_news.py config: python3 tools/render_news.py --out apps/HGhub
+name = "HGhub"
+tagline = "YellowFruit third-party cl"
+
+[colors]
