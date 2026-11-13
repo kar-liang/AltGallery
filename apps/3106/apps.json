@@ -16,11 +16,11 @@
       "tintColor": "#F07020",
       "versions": [
         {
-          "version": "3.2.3",
-          "date": "2026-11-12",
-          "localizedDescription": "# 3.2.3 正式版 · Stable Release Notes\n\n发布日期：2026-11-12 ｜ build 21\n\n## 中文\n\n### 修复\n\n- **`.tendies` 导入在真机上全部失败 `noDescriptors`**（issue #2）：路径包含检查此前依赖软链解析（`resolvingSymlinksInPath()`），真机沙盒内该调用可能提前返回，`/var` 与 `/private/var` 两种拼写无法归一，导致 descriptors 目录被整棵跳过、导入被拒。现在检查接受两侧任意 raw/resolved 拼写组合，不再依赖软链解析；导入入口统一解压根的路径形态；诊断日志同时打印解析前后的两侧路径。\n\n其余功能与 3.2.2 完全一致，无其他改动。\n\n## English\n\n### Fixed\n\n- **Every `.tendies` import failed with `noDescriptors` on device** (issue #2): the path-containment check depended on symlink resolution (`resolvingSymlinksInPath()`), which can stop early inside the device sandbox — `/var` and `/private/var` then failed to canonicalize to the same tree, the `descriptors` directory was skipped wholesale, and the import was rejected. Containment now accepts any combination of raw and resolved spellings on either side and no longer depends on symlink resolution; the import entry point standardizes the extraction root once; the diagnostic log prints raw and resolved paths on both sides.\n\nEverything else is identical to 3.2.2; no other changes.\n\n## 安装 / Install\n\nunsigned IPA 需自签（LCSign / Sideloadly / Impactor / Xcode）。\niOS 26.7+ / 27.x 必须保留 App Group entitlement（Sideloadly 会丢，用 Impactor 或 Xcode）。\n\nThe IPA is unsigned; sign it yourself (LCSign / Sideloadly / Impactor / Xcode).\niOS 26.7+ / 27.x must keep the App Group entitlement (Sideloadly drops it; use Impactor or Xcode).",
-          "downloadURL": "https://github.com/QuinnTang74/3106/releases/download/v3.2.3/3106-3.2.3-unsigned.ipa",
-          "size": 5111083,
+          "version": "3.2.5",
+          "date": "2026-11-13T13:18:39Z",
+          "localizedDescription": "# 3.2.5 正式版 · Stable Release Notes\n\n发布日期：2026-11-13 ｜ build 24\n\n## 中文\n\n### 修复\n\n- **`.tendies` 导入在真机上全部失败 `noDescriptors`（issue #3，#2 的续篇）**：真正根因不是路径拼写，而是一个编译期重载决议缺陷——`validExtensionIdentifier` 把 `allowed.contains` 以裸函数引用传给 `allSatisfy`，整模块优化构建下它可解析到不同的 `contains` 重载，对**任何**扩展标识符（包括 `com.apple.WallpaperKit.CollectionsPoster`）静默返回 false，descriptors 目录因此全部被跳过。改为显式闭包调用后，全仓唯一一处该写法已修复；本地与 CI 的策略套件均已覆盖真实标识符断言（188 checks）。\n- **清理器全部应用清理失败 `symlinkEscapesContainer`**：安全策略的组件级软链检查从 `/` 开始逐组件 lstat，`/var` 本身就是指向 `/private/var` 的软链，解析结果与未归一化的容器根做前缀比较必然失败——56 个应用 × 每应用 2 目标全部被拒。现在按组件位置区分语义：容器根之上的系统组件只要求解析后仍通向容器根；容器根及以下仍要求解析后留在容器内（逃逸软链依旧拒绝）。\n- **诊断增强**：全部日志行携带构建戳（`[3106/3.2.5-24] ...`），设备日志可直接自证构建版本；descriptor 跳过日志追加 `validIdentifier=` / `contained=` 逐项判定与 `dirCanonical=` / `rootCanonical=` 归一形态，复测时单条日志即可定位失败点。\n\n### 其他\n\n- CI 产物哨兵校验：打包后断言二进制含仅当前源码才有的特征串（`validIdentifier=`，实测 16 字节及以上才可靠——Swift `-O` 会内联 ≤15 字节的插值片段），并修复 artifact 上传路径仍硬编码 3.1.4 时代文件名的问题。\n\n## English\n\n### Fixed\n\n- **Every `.tendies` import failed with `noDescriptors` on device** (issue #3, the sequel to #2): the real root cause was not path spelling but a compile-time overload-resolution defect. `validExtensionIdentifier` passed `allowed.contains` to `allSatisfy` as a bare function reference; in whole-module optimized builds that reference can resolve to a different `contains` overload and silently return false for **every** identifier — `com.apple.WallpaperKit.CollectionsPoster` included — so all descriptor directories were skipped. Rewritten as an explicit closure; this was the only occurrence of the pattern in the codebase. Policy suites (local + CI) now assert the real identifier (188 checks).\n- **Cleaner failed for every app with `symlinkEscapesContainer`**: the safety policy's component-level symlink walk lstat()s every ancestor from `/`. On iOS `/var` is itself a symlink to `/private/var`, so the resolved form failed the prefix comparison against the uncanonicalized container root — 56 apps × 2 targets all rejected. The walk now distinguishes component positions: system components above the root only need to still lead to the root in resolved space; components at or below the root must still resolve inside it (escape symlinks are still rejected).\n- **Diagnostics**: every log line now carries a build stamp (`[3106/3.2.5-24] ...`) so a device log identifies its own binary; the descriptor-skip log adds per-clause results (`validIdentifier=` / `contained=`) and canonical forms (`dirCanonical=` / `rootCanonical=`) so a single line pinpoints the failure.\n\n### Other\n\n- CI artifact sentinel: after packaging, the binary is asserted to contain a string unique to the current source (`validIdentifier=` — verified 16 bytes and above survive; Swift `-O` inlines interpolation fragments ≤ 15 bytes), and the artifact upload path no longer hardcodes the 3.1.4-era filename.\n\n## 安装 / Install\n\nunsigned IPA 需自签（LCSign / Sideloadly / Impactor / Xcode）。\niOS 26.7+ / 27.x 必须保留 App Group entitlement（Sideloadly 会丢，用 Impactor 或 Xcode）。\n\nThe IPA is unsigned; sign it yourself (LCSign / Sideloadly / Impactor / Xcode).\niOS 26.7+ / 27.x must keep the App Group entitlement (Sideloadly drops it; use Impactor or Xcode).",
+          "downloadURL": "https://github.com/QuinnTang74/3106/releases/download/v3.2.5/3106-3.2.5-unsigned.ipa",
+          "size": 5625556,
           "minOSVersion": "16.0"
         }
       ]
@@ -29,14 +29,14 @@
   "news": [
     {
       "appID": "com.qingtang.3106",
-      "title": "3106 3.2.3 · 12 Nov 2026",
-      "identifier": "3106-release-v3.2.3",
-      "caption": "3106 3.2.3 is available.",
-      "date": "2026-11-12T13:27:16Z",
+      "title": "3106 3.2.5 · 13 Nov 2026",
+      "identifier": "3106-release-v3.2.5",
+      "caption": "3106 3.2.5 is available.",
+      "date": "2026-11-13T13:18:39Z",
       "tintColor": "#F07020",
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/3106/images/news.png",
       "notify": true,
-      "url": "https://github.com/QuinnTang74/3106/releases/tag/v3.2.3"
+      "url": "https://github.com/QuinnTang74/3106/releases/tag/v3.2.5"
     }
   ]
 }

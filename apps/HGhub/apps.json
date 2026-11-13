@@ -17,7 +17,7 @@
       "versions": [
         {
           "version": "1.2.19",
-          "date": "2026-11-11",
+          "date": "2026-11-11T07:47:10Z",
           "localizedDescription": "## What's Changed\n* ci: 添加前端 PR 检查流水线 by @zxsos in https://github.com/zxsos/HGhub/pull/49\n* fix(clipboard): 分享与链接复制兜底改用原生剪贴板 by @zxsos in https://github.com/zxsos/HGhub/pull/42\n* fix(player): 切换短剧时先清空相关推荐 by @zxsos in https://github.com/zxsos/HGhub/pull/46\n* fix(search): 新关键词不再被进行中的请求吞掉 by @zxsos in https://github.com/zxsos/HGhub/pull/43\n* fix(home): 首页翻页失败后退避，避免反复弹错误提示 by @zxsos in https://github.com/zxsos/HGhub/pull/44\n* fix(line): 切换线路后重拉加载失败的首页与分类数据 by @zxsos in https://github.com/zxsos/HGhub/pull/45\n* fix(search): 就地搜索框对齐全局搜索，频道页搜索按钮归位 by @zxsos in https://github.com/zxsos/HGhub/pull/47\n* fix(category): 频道页翻页按页排序，避免加载更多时列表重排 by @zxsos in https://github.com/zxsos/HGhub/pull/48\n\n\n**Full Changelog**: https://github.com/zxsos/HGhub/compare/v1.2.18...v1.2.19",
           "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v1.2.19/HGhub_1.2.19_ios.ipa",
           "size": 3521136,
