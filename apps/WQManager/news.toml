@@ -1,0 +1,5 @@
+# render_news.py config: python3 tools/render_news.py --out apps/WQManager
+name = "WQManager"
+tagline = "iOS 26 app data manager, b"
+
+[colors]
