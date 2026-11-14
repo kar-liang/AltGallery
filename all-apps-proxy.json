@@ -18,9 +18,9 @@
         {
           "version": "3.2.5",
           "date": "2026-11-13T13:18:39Z",
-          "localizedDescription": "# 3.2.5 正式版 · Stable Release Notes\n\n发布日期：2026-11-13 ｜ build 24\n\n## 中文\n\n### 修复\n\n- **`.tendies` 导入在真机上全部失败 `noDescriptors`（issue #3，#2 的续篇）**：真正根因不是路径拼写，而是一个编译期重载决议缺陷——`validExtensionIdentifier` 把 `allowed.contains` 以裸函数引用传给 `allSatisfy`，整模块优化构建下它可解析到不同的 `contains` 重载，对**任何**扩展标识符（包括 `com.apple.WallpaperKit.CollectionsPoster`）静默返回 false，descriptors 目录因此全部被跳过。改为显式闭包调用后，全仓唯一一处该写法已修复；本地与 CI 的策略套件均已覆盖真实标识符断言（188 checks）。\n- **清理器全部应用清理失败 `symlinkEscapesContainer`**：安全策略的组件级软链检查从 `/` 开始逐组件 lstat，`/var` 本身就是指向 `/private/var` 的软链，解析结果与未归一化的容器根做前缀比较必然失败——56 个应用 × 每应用 2 目标全部被拒。现在按组件位置区分语义：容器根之上的系统组件只要求解析后仍通向容器根；容器根及以下仍要求解析后留在容器内（逃逸软链依旧拒绝）。\n- **诊断增强**：全部日志行携带构建戳（`[3106/3.2.5-24] ...`），设备日志可直接自证构建版本；descriptor 跳过日志追加 `validIdentifier=` / `contained=` 逐项判定与 `dirCanonical=` / `rootCanonical=` 归一形态，复测时单条日志即可定位失败点。\n\n### 其他\n\n- CI 产物哨兵校验：打包后断言二进制含仅当前源码才有的特征串（`validIdentifier=`，实测 16 字节及以上才可靠——Swift `-O` 会内联 ≤15 字节的插值片段），并修复 artifact 上传路径仍硬编码 3.1.4 时代文件名的问题。\n\n## English\n\n### Fixed\n\n- **Every `.tendies` import failed with `noDescriptors` on device** (issue #3, the sequel to #2): the real root cause was not path spelling but a compile-time overload-resolution defect. `validExtensionIdentifier` passed `allowed.contains` to `allSatisfy` as a bare function reference; in whole-module optimized builds that reference can resolve to a different `contains` overload and silently return false for **every** identifier — `com.apple.WallpaperKit.CollectionsPoster` included — so all descriptor directories were skipped. Rewritten as an explicit closure; this was the only occurrence of the pattern in the codebase. Policy suites (local + CI) now assert the real identifier (188 checks).\n- **Cleaner failed for every app with `symlinkEscapesContainer`**: the safety policy's component-level symlink walk lstat()s every ancestor from `/`. On iOS `/var` is itself a symlink to `/private/var`, so the resolved form failed the prefix comparison against the uncanonicalized container root — 56 apps × 2 targets all rejected. The walk now distinguishes component positions: system components above the root only need to still lead to the root in resolved space; components at or below the root must still resolve inside it (escape symlinks are still rejected).\n- **Diagnostics**: every log line now carries a build stamp (`[3106/3.2.5-24] ...`) so a device log identifies its own binary; the descriptor-skip log adds per-clause results (`validIdentifier=` / `contained=`) and canonical forms (`dirCanonical=` / `rootCanonical=`) so a single line pinpoints the failure.\n\n### Other\n\n- CI artifact sentinel: after packaging, the binary is asserted to contain a string unique to the current source (`validIdentifier=` — verified 16 bytes and above survive; Swift `-O` inlines interpolation fragments ≤ 15 bytes), and the artifact upload path no longer hardcodes the 3.1.4-era filename.\n\n## 安装 / Install\n\nunsigned IPA 需自签（LCSign / Sideloadly / Impactor / Xcode）。\niOS 26.7+ / 27.x 必须保留 App Group entitlement（Sideloadly 会丢，用 Impactor 或 Xcode）。\n\nThe IPA is unsigned; sign it yourself (LCSign / Sideloadly / Impactor / Xcode).\niOS 26.7+ / 27.x must keep the App Group entitlement (Sideloadly drops it; use Impactor or Xcode).",
+          "localizedDescription": "# 3.2.5 正式版（同版本重发 rebuild） · Stable Release Notes\n\n发布日期：2026-11-13 ｜ **重发：2026-11-14** ｜ build 24 不变\n\n> 同版本号重发。新包 SHA256：`aa76f4e5f904fc0eb90a54d35f33c2df8e9ecb54059f526ff880f8dd0ba0fca8`（assets 内 SHA256SUMS.txt 同步刷新）。本次参考 GestaltX v1.1.1 release notes 的问题清单语义独立实现，未移植其代码。\n\n## 中文\n\n### 新增\n\n- **应用通知音替换**（GestaltX App Audio Library 思路，独立实现）：功能页新增「通知音替换」卡片；按应用维护通知音路径表（手动输入容器相对路径，未列出的应用同样可用）；替换前三段风险说明 + 全屏红色长按确认；替换走任意文件替换管线——原文件自动备份、替换记录持久化、记录左滑一键恢复；文件选择器以 `.data` 兜底，侧载包也能选中 `.caf/.m4a` 等音频；格式白名单 aiff/aif/caf/m4a/wav，单文件 ≤20MB；替换后列表立即刷新。\n\n### 修复\n\n- **字段 plist 导入不再整根覆盖**（GestaltX #138）：导入被当作补丁——以设备当前 root 为基准，只合并导入根中显式出现的 `CacheExtra` 键；根级 `CacheData`/`CacheVersion` 等设备专属键全部原值保留，不删除任何键。`CacheUUID` 大小写不敏感比较，不匹配则拒绝导入（#131）。导入完成显示覆盖/跳过/保留计数。\n- **日期与 Data 字段严格解析**（GestaltX #132）：ISO8601 日期拒绝尾随文本（往返格式化校验）；base64 拒绝非法填充与空白干扰。\n- **备份元数据校验**（GestaltX #134）：`.3106save` sidecar 文件名、manifest bundleID、创建时间与归档路径全部先校验再展示/解压；legacy 无 sidecar 存档保留显式兼容分支。\n- **`.3106cfg` 导入失败不再静默**（GestaltX #133）：新增 App Group 共享收件箱回退（按运行时 entitlement 读取，侧载重签名后仍有效），失败时弹出本地化错误。\n- **字段搜索复用一份 preview 快照**（GestaltX #136）：键入不再对每个条目重算 preview。\n- **显式编辑的字段不再被预设覆盖**（GestaltX #137）：手动编辑过的 `CacheExtra` 键持久记录，预设应用时自动跳过。\n- **plist 精确比较按 CF 类型判定**（GestaltX #139 语义）：`<true/>` 不再等于 `<integer>1</integer>`，`<integer>1</integer>` 不再等于 `<real>1.0</real>`。\n- **关闭 MobileGestalt 开关不再删键**：按原值的 CF 类型写同类型假值（Boolean→false / Integer→0 / Real→0.0），与防 iOS 27 重启反弹规则对齐。\n- **issue #3 回归护栏**：策略门新增静态检查，拒绝 `.allSatisfy(…\\.contains)` 形态的裸函数引用；修复 `CleanerView` 残留的同型写法。\n- **更新检查**：删除已废弃的 `AppReleaseDisplayVersion` 读取分支；e2e 期望从 Info.plist 动态推导，不再硬编码 tag。\n\n### 其他\n\n- CI 增加 push/PR 触发（3106/main）；产物哨兵改为从源码动态提取 ≥16 字节特征串。\n- README 产物说明与 `dist/SHA256SUMS.txt` 修正（只列实际存在的产物）。\n\n## English\n\n### Added\n\n- **Notification sound replacement** (GestaltX App Audio Library idea, independent implementation): new Feature Hub card; per-app sound-path table (manual entry); three-stage risk confirmation with long-press gate; installs route through the file-replace pipeline with automatic backup and one-tap restore; `.data` picker fallback so side-loaded builds can still select audio; aiff/aif/caf/m4a/wav ≤20MB; the list refreshes immediately.\n\n### Fixed\n\n- **Field-plist import no longer replaces the whole root** (#138): imports merge as patches onto the device root; device-specific keys (`CacheData`, `CacheVersion`, …) are preserved; `CacheUUID` compares case-insensitively (#131); the result reports overwritten/skipped/preserved counts.\n- **Strict date/data parsing** (#132): ISO8601 rejects trailing text; base64 rejects malformed padding.\n- **Backup metadata validation** (#134): sidecar names, bundle IDs, timestamps and archive paths are verified before listing; legacy archives stay supported.\n- **`.3106cfg` import failures are surfaced** (#133): App Group shared-inbox fallback (read via the runtime entitlement) plus localized error alerts.\n- **One preview snapshot for field search** (#136); **explicit edits win over presets** (#137); **exact CF-typed comparisons** (#139 semantics).\n- **Disabled MobileGestalt toggles no longer delete keys**: same-type falsy values keep the anti-restart-bounce rule intact.\n- **Issue #3 regression guard**: the policy gate rejects bare `.contains` references passed to `allSatisfy`; fixed the last occurrence in CleanerView.\n- **Update check**: dropped the abandoned `AppReleaseDisplayVersion` branch; e2e expectations derive from Info.plist.\n\n### Other\n\n- CI runs on push/PR; the artifact sentinel is derived from source instead of a maintained constant.\n\n## 验证 / Verification\n\n- 策略门 250 checks（原 188）· 三语键 1445×3 对齐 · 迁移引擎 69 · filereplace 28 · 更新 e2e 7 · Debug 模拟器构建通过\n- Policy gate 250 checks (was 188) · 3-language key alignment 1445×3 · migration 69 · filereplace 28 · update e2e 7 · Debug simulator build green\n\n## 签名 / Signing\n\n发布资产为未签名 IPA，需自行签名后安装；iOS 26.7+ / 27.x 必须保留 App Group entitlement（通配符 profile 无法携带）。\nThe IPA is unsigned — sign it with your own tool. iOS 26.7+ / 27.x must keep the App Group entitlement (wildcard profiles cannot carry it).",
           "downloadURL": "https://gh-proxy.com/https://github.com/QuinnTang74/3106/releases/download/v3.2.5/3106-3.2.5-unsigned.ipa",
-          "size": 5625556,
+          "size": 5703636,
           "minOSVersion": "16.0"
         }
       ]
@@ -175,11 +175,11 @@
       "tintColor": "#F06090",
       "versions": [
         {
-          "version": "1.1.3",
-          "date": "2026-11-09T10:12:47Z",
-          "localizedDescription": "## 这版更新了啥\n\n- 首页推荐和动态都可以点底栏回到顶部，到顶后再点一次就刷新。动态下拉也会直接获取新内容。\n- 动态页顶部可以自选显示哪些频道，还能调整顺序。\n- 长动态和长评论可以点末行的「… 展开」，直接看全文。\n- 播放器新增 CC 字幕入口，可以选字幕轨，也能设置 AI 字幕偏好。横屏播放的设置移到右侧，屏幕顶部左右分别显示时间和电量。\n- 分 P、番剧选集和合集换成了带封面的紧凑列表。视频详情里的头像和操作按钮也重新排过，更容易区分。\n\n## 修了哪些问题\n\n- 优化评论滚动和翻页，修了切换「最热／最新」时出现的大块空白和加载占位盖住排序栏的问题。\n- 修正部分 HDR 视频的显示和弹幕设置，并补充了部分视频取流失败时的重试方式。\n- 调整搜索筛选栏和投币面板，投币时可以选择是否同时点赞。\n\n## 安装包\n\n- 附件里的 `bili-release-unsigned.ipa` 是 1.1.3（Build 150）的未签名安装包，需自行签名后安装。",
-          "downloadURL": "https://gh-proxy.com/https://github.com/Rone89/cilicili/releases/download/v1.1.3/bili-release-unsigned.ipa",
-          "size": 24576338,
+          "version": "1.1.4",
+          "date": "2026-11-14T09:45:45Z",
+          "localizedDescription": "## 更新内容（1.1.3 → 1.1.4）\n\n- **启动更快**：点开视频到出画面明显提速。\n- **修复 #66**：全屏后画面漂移到左下角（HEVC/AV1 编码场景）。\n- **弹幕重做**：更省电，暂停/拖动/倍速自动跟随；修好不显示、位置错、重叠、断流、空档、重复等问题。\n- **弹幕设置更干净**：去掉灰黑色块；横屏调字体粗细不再被弹回竖屏。\n- **横屏 100% 显示区域可铺满**（底部按钮区除外）。\n- **其他**：图片/封面清晰度合并为一个选项；长视频标题可展开看全。\n\n---\n\n**安装说明**：附件为**未签名** IPA，需自行签名后安装。",
+          "downloadURL": "https://gh-proxy.com/https://github.com/Rone89/cilicili/releases/download/v1.1.4/bili-release-unsigned.ipa",
+          "size": 24660955,
           "minOSVersion": "26.1"
         }
       ]
@@ -262,11 +262,11 @@
       "tintColor": "#111111",
       "versions": [
         {
-          "version": "2.1.0",
-          "date": "2026-11-13T12:52:49Z",
-          "localizedDescription": "## iPadn 2.1.0\n\n本次更新为历史版本加入对应版本的真实图标与 IPA 大小，完善下载交互、自动安装和本机应用详情，并修复侧滑裁剪、重复安装排队及搜索标签圆角问题。安装包未签名，请用自己的工具签名后安装。\n\n### 历史版本\n\n- 新增起止日期范围查询（包含结束日全天），逐步检查当前来源提供的版本，显示进度并支持取消、清除筛选；失败或日期未知会明确提示结果不完整，不按版本 ID 猜日期，也不会遇到一条范围外的日期就停止。包内时间戳标记为「包内日期」，不等同于商店发布日期。\n- 展开和筛选结果按每批 20 条追加；可见历史行延迟触发读取，滑离时取消排队，先显示版本资料再补图标。图标在后台解码，并以最多 80 张 / 8 MiB 的内存缓存减少反复滚动的开销。日期扫描不主动读取图标。\n\n- 每个历史版本行内显示从对应 IPA 提取的主图标，便于比较活动角标；按需局部读取、分版本缓存，未获取时显示占位，不使用最新版商店图标代替。仅存储在 Assets.car 中的图标暂不支持。\n- 显示每个版本对应的 IPA 安装包大小，而不是套用最新版的大小；读取已有元数据即可取得远端完整包大小，无需先下载整个安装包。\n- 版本号、日期、大小和版本 ID 分层显示，大字体下自动纵向排列。\n- 长按版本行，通过系统菜单复制版本号或版本 ID；点击菜单外即可收起。\n- 兼容旧元数据缓存；无法读取大小时显示「—」。大小是远端原始 IPA 的长度，可能与下载处理后的本地文件略有差异。\n\n### 下载与操作体验\n\n- 下载卡片侧滑可删除或分享，分享文件名包含应用名称与版本号。\n- 修复侧滑时卡片边缘被裁剪、快速滑动后分享按钮短暂变灰的问题；整张圆角卡片一起移动，收起后恢复原样。\n- 点侧滑操作以外的位置即可收起，不会顺带触发下面的按钮。修正掉帧时弹簧动画推进过慢、收起后操作恢复延迟的问题。\n- 删除后的 5 秒撤销提示显示剩余秒数和进度环。\n- 下载完成时进度环转为勾号，再显示「安装」；任务长按保留原生系统菜单。\n- 再点当前标签页可回到列表顶部，切换其他标签仍保留原来的滚动位置。\n\n### 自动安装与实时活动\n\n- 开启「下载完成后自动安装」并选择「原生安装」时，完成的下载依次直接安装，无需再次确认。需事先完成配对，并保持 LocalDevVPN 连接；其他安装方式仍需打开 iPadn 完成确认。\n- 下载到安装期间保留静音音频后台保活；标准版的锁屏和灵动岛实时活动可显示下载、处理和安装状态。后台运行仍受 iOS 管理，应用被系统终止时不能保证继续；重新打开后恢复待办。\n- 修复安装中切回前台可能将同一任务再次加入队列；隔离预览模式的安装待办记录，避免影响正式数据。\n\n### 搜索与稳定性\n\n- 最近搜索改为标签显示，可在设置中关闭搜索页的「发现」。\n- 修复最近搜索标签换行后左侧圆角被列表裁剪的问题，保留原生长按菜单。\n- 本机应用分组改用「App Store 未识别的应用」，表述更清晰。\n- 本机应用查不到商店资料时仍可点开查看已装版本、Bundle ID 等本机信息；区分当前地区未查到资料与查询失败，可独立重试商店查询，不将缺少资料直接判为下架。\n- 补充历史版本大小、旧缓存迁移、长按复制、大字体与侧滑表面的回归测试；改进模拟器启动等待及撤销测试的操作时序，不改变实际撤销期限。\n- 继续支持 iOS / iPadOS 16 及更新版本，各功能保留各自系统版本要求。\n\n### 两个安装包\n\n- `iPadn-2.1.0-unsigned.ipa`：标准版，含实时活动和小组件，签名需要 2 个 App ID。\n- `iPadn-2.1.0-lite-unsigned.ipa`：精简版，不含扩展，只需 1 个 App ID；不提供实时活动或小组件，其他功能相同。\n- SideStore、AltStore、Feather 等签名工具可添加源：`https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json`。\n\n### English\n\n**Date-range search** includes the whole end day and checks every version returned by the current source, with progress, cancellation and explicit incomplete/unknown-date states. It does not infer dates from IDs or stop at the first out-of-range date. Package timestamps are labeled as package dates, not guaranteed store release dates. Histories and filtered results load in batches of 20; visible rows publish metadata before reading icons, cancelled rows leave the queue promptly, and background-decoded images share a bounded 80-image / 8 MiB cache. The date scan itself does not fetch icons.\n\n**Version history** now shows each version’s own primary icon extracted from its IPA, alongside the remote IPA size of that individual version, using partial metadata reads rather than downloading the whole package or reusing the latest listing's size. Version, date, size and ID are separated, with a vertical layout for accessibility text sizes. Long-press a row to copy its version number or ID using the system menu. Old caches remain compatible; unavailable sizes show “—”. The remote raw IPA size can differ slightly from the processed local download. Icon PNGs are fetched with bounded range reads and cached per platform/app/version; no full package download is needed. Missing icons use placeholders, never current store artwork. Icons stored only in Assets.car are not yet supported.\n\n**Downloads** gain swipe-to-delete/share with app-and-version filenames, full-card movement without clipped edges, reliable Share appearance after fast swipes, and outside-tap dismissal without activating underlying controls. Spring timing follows real elapsed time so dropped frames do not prolong closing animations. Undo retains its five-second window with a countdown ring. Completion transitions to a checkmark and Install. Task long-press keeps the native menu; tapping the selected tab scrolls to the top without resetting other tabs.\n\n**Automatic native installation** installs completed downloads sequentially without another confirmation when enabled. Pair beforehand and keep LocalDevVPN connected; other methods still need foreground confirmation. Silent audio keeps the app running from download through installation, with download/processing/install states in standard-package Live Activities. Background execution remains subject to iOS; reopening resumes pending work. Fixes duplicate queuing of an active installation on foreground return and isolates preview installation records from real data.\n\n**Installed apps** stay inspectable even when store details are missing: open local version, Bundle ID and other device information, distinguish a missing regional listing from a failed lookup, and retry store details without reconnecting the native installation service.\n\nRecent searches use chips with corrected wrapped rounded edges, Discover can be hidden in Settings, and regression coverage and simulator readiness are improved. iOS / iPadOS 16 remains supported, subject to each feature's requirements. Both unsigned packages are available: standard includes Live Activities/widgets and needs two App IDs; lite has no extension and needs one. Sign with your own tool before installing.\n\n更早版本的更新内容见 [Releases](https://github.com/mengangs/ipadn/releases)。\n\n两个安装包：`iPadn-2.1.0-unsigned.ipa` 是标准版（含实时活动和桌面小组件，需要 2 个 App ID）；`iPadn-2.1.0-lite-unsigned.ipa` 是精简版（不含扩展，只需 1 个 App ID），适合 App ID 数量受限的签名方式。\n\n验证：设备 Release 编译与 IPA 检查通过；162 项测试通过，0 项失败，0 项跳过。",
-          "downloadURL": "https://gh-proxy.com/https://github.com/mengangs/ipadn/releases/download/v2.1.0/iPadn-2.1.0-lite-unsigned.ipa",
-          "size": 48684606,
+          "version": "2.1.1",
+          "date": "2026-11-14T05:53:21Z",
+          "localizedDescription": "## iPadn 2.1.1\n\n本次为修复与布局优化更新，包含 iOS 16 安装设置崩溃修复和历史版本日期范围筛选排版改进。安装包未签名，请用自己的工具签名后安装。\n\n### 修复与优化\n\n- **修复 iOS 16 打开安装设置时崩溃**：对安装帮助链接的中文片段进行显式编码，并避免无效 URL 的强制解包。感谢 #86 的贡献。\n- **完善商店链接容错**：应用详情无法构造有效 App Store 链接时，不再强制解包或显示不可用的查看/分享入口。\n- **优化历史版本日期筛选面板**：将起止日期、查询/取消/清除按钮与状态提示集中展示，统一日期控件对齐和布局间距，并适配无障碍大字体。保留原有日期查询、取消与清除行为。详见 #87。\n- 继续支持 iOS / iPadOS 16 及更新版本，各功能保留各自系统版本要求。\n\n### 两个安装包\n\n- `iPadn-2.1.1-unsigned.ipa`：标准版，含实时活动和小组件，签名需要 2 个 App ID。\n- `iPadn-2.1.1-lite-unsigned.ipa`：精简版，不含扩展，只需 1 个 App ID；不提供实时活动或小组件，其他功能相同。\n- SideStore、AltStore、Feather 等签名工具可添加源：`https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json`。\n\n### English\n\nThis maintenance update fixes a crash when opening Installation settings on iOS 16 and improves the version-history date-range filter layout.\n\n- Encode the installation-help URL fragment explicitly for iOS 16 and remove unsafe URL force-unwrapping (#86).\n- Safely omit App Store viewing/sharing controls when a valid store link cannot be constructed.\n- Group date-range fields, query/cancel/clear actions and status in one panel, with aligned controls, consistent spacing and an adaptive accessibility layout (#87). Existing query behavior is unchanged.\n- iOS / iPadOS 16 and later remain supported, subject to each feature's requirements.\n\nBoth packages are unsigned: the standard package includes Live Activities/widgets and needs two App IDs; lite has no extension and needs one. Sign with your own tool before installing.\n\n更早版本的更新内容见 [Releases](https://github.com/mengangs/ipadn/releases)。\n\n两个安装包：`iPadn-2.1.1-unsigned.ipa` 是标准版（含实时活动和桌面小组件，需要 2 个 App ID）；`iPadn-2.1.1-lite-unsigned.ipa` 是精简版（不含扩展，只需 1 个 App ID），适合 App ID 数量受限的签名方式。\n\n验证：设备 Release 编译与 IPA 检查通过；163 项测试通过，0 项失败，0 项跳过。",
+          "downloadURL": "https://gh-proxy.com/https://github.com/mengangs/ipadn/releases/download/v2.1.1/iPadn-2.1.1-lite-unsigned.ipa",
+          "size": 48708836,
           "minOSVersion": "17.0"
         }
       ]
@@ -286,11 +286,11 @@
       "tintColor": "#EC4949",
       "versions": [
         {
-          "version": "0.3.35",
-          "date": "2026-11-13T19:25:08Z",
-          "localizedDescription": "### Added\n\n- **Comments**: on the iPhone now-playing page, swipe left from the lyrics to the song's comments, and right to return; two dots show which page is up. Comments load when you first turn to them and follow the song that is playing.\n\n### Fixed\n\n- **Playback**: a request for a song's playback address that drops, times out or meets a server error is retried once, instead of failing at once with \"Unable to play\" or switching to a third-party source (#210).\n- **iOS**: songs the service can play no longer keep playing from a third-party source copy in the cache; that copy is only used when the service refuses the song. Thanks @yuanruoyu515 (#205, closes #206).\n- **iOS 16/17**: the now-playing page no longer stops part way when it opens from the mini player, leaving it short of the top; it now opens as a full-screen page (#213).\n\n---\n\n### 新增\n\n- **评论**：iPhone 播放页的歌词向左滑即可查看这首歌的评论，向右滑回到歌词，底部两个小圆点提示当前页。评论在第一次翻到时才加载，并跟随正在播放的歌曲切换。\n\n### 修复\n\n- **播放**：获取播放地址的请求断线、超时或遇到服务器错误时会自动重试一次，不再直接提示「无法播放」或转到第三方音源（#210）。\n- **iOS**：网易云能播放的歌曲，不再一直播放缓存里的第三方音源副本；只有网易云拒绝时才会使用它。感谢 @yuanruoyu515（#205，关闭 #206）。\n- **iOS 16/17**：从迷你播放条打开播放页时，不会再停在半路、没有铺满屏幕，现在以全屏页面打开（#213）。",
-          "downloadURL": "https://gh-proxy.com/https://github.com/missuo/kumone/releases/download/v0.3.35/Kumone-iOS-0.3.35.ipa",
-          "size": 4289752,
+          "version": "0.3.37",
+          "date": "2026-11-14T11:23:41Z",
+          "localizedDescription": "![分享评论 · Share a comment](https://raw.githubusercontent.com/missuo/kumone/v0.3.37/docs/releases/0.3.37-comment-share.png)\n\n![macOS 播放页评论 · Comments on the macOS now-playing page](https://raw.githubusercontent.com/missuo/kumone/v0.3.37/docs/releases/0.3.37-macos-comments.png)\n\n### Added\n\n- **Comments**: long-press a comment (right-click on macOS) to share it as a picture — the comment and who wrote it, with the song's title, artist and cover, over the cover's colours — then share it or save it to Photos (copy it on macOS). Copy Comment copies its text.\n- **Comments**: on macOS (and iPad), a Lyrics | Comments switch above the now-playing lyrics shows the playing song's comments in their place; songs without lyrics but with comments now get the column too.\n\n### Fixed\n\n- **iOS 17**: tapping the mini player no longer freezes the app with the now-playing page never appearing; the cause has been found and fixed. Swiping from the lyrics to the comments is back on iOS 16/17 (#213).\n- **Now playing**: on iPhone, the volume panel now closes when you tap anywhere else on the page, not only the speaker button again.\n\n---\n\n### 新增\n\n- **评论**：长按一条评论（macOS 上右键）即可把它分享成一张图片：评论内容和评论者，配上歌名、歌手和专辑封面，底色取自封面；可以直接分享或保存到相册（macOS 上为拷贝图片）。「复制评论」可复制评论文字。\n- **评论**：macOS（以及 iPad）播放页的歌词上方新增「歌词 | 评论」切换，可在歌词的位置查看正在播放歌曲的评论；没有歌词但有评论的歌曲也会显示这一栏。\n\n### 修复\n\n- **iOS 17**：点击迷你播放条后应用卡死、播放页一直出不来的问题已找到原因并修复；iOS 16/17 上也恢复了歌词左滑查看评论（#213）。\n- **播放页**：iPhone 上打开音量面板后，点页面其他任意位置即可关闭，不必再点一次喇叭按钮。",
+          "downloadURL": "https://gh-proxy.com/https://github.com/missuo/kumone/releases/download/v0.3.37/Kumone-iOS-0.3.37.ipa",
+          "size": 4407346,
           "minOSVersion": "16.0"
         }
       ]
@@ -407,12 +407,12 @@
       "tintColor": "#73b480",
       "versions": [
         {
-          "version": "2.2.0",
-          "buildVersion": "5598",
-          "date": "2026-11-03T07:43:02Z",
-          "localizedDescription": "更新投屏依赖 https://github.com/bggRGjQaUbCoE/PiliPlus/issues/2680#issuecomment-6597938908\r\n修复部分视频评论显示不全 #3458\r\n修复播放课堂视频 #3454 by @ucxn\r\n修复 macOS 关闭系统标题栏后无法拖动 #3453 by @NalCol\r\n修复点赞弹幕跳转未留提前量，导致跳转到弹幕时无法加载 #3459 by @Rim-World\r\nChromeOS(ARC) 上不再主动请求屏幕方向，由系统决定窗口方向 #3406 co-by @selcarpa",
-          "downloadURL": "https://gh-proxy.com/https://github.com/bggRGjQaUbCoE/PiliPlus/releases/download/2.2.0.2/PiliPlus_ios_2.2.0%2B5598.ipa",
-          "size": 24933082,
+          "version": "2.2.1",
+          "buildVersion": "5655",
+          "date": "2026-11-14T08:11:53Z",
+          "localizedDescription": "支持管理粉丝勋章\r\n支持进入直播间自动佩戴对应粉丝牌，默认关\r\n动态支持查看全文 https://github.com/bggRGjQaUbCoE/PiliPlus/issues/3420#issuecomment-6716986635\r\n支持更新已缓存视频的合集信息\r\n支持缓存/更新视频字幕、分段信息、音量均衡信息\r\n支持桌面端推荐 #3463 by @liaolon\r\n直播画中画、媒体通知添加刷新、弹幕显示按钮\r\n直播支持上报心跳、观看直播增加亲密度 #2073\r\n楼中楼评论支持线程式显示、保存评论链 #3351 by @My-Responsitories\r\n\r\n修复 bug\r\n修复音视频音频焦点问题 #2702\r\n修复部分视频评论显示不全 #3504\r\n修复私信失效卡片显示 #3481 by @HChaZZY\r\n修复动态详情页刷新指示器 #3477 by @PYH0809\r\n修复 iOS 登录验证码验证 #3484 by @ngbyspy\r\n修复 iOS 直播全屏底部边距 #3499 by @freejool\r\n修复 #3553 by @Tobiichi-Origuchi\r\n修复乐播旧控制地址导致的投屏失败 #3507 by @TG-Twilight\r\n修复 niri 退出画中画导致鼠标操作异常 #3471 by @Tobiichi-Origuchi\r\n修复播放器音量超过 100% 后的削波失真 #3448 by @No-World co-by @My-Responsitories",
+          "downloadURL": "https://gh-proxy.com/https://github.com/bggRGjQaUbCoE/PiliPlus/releases/download/2.2.1/PiliPlus_ios_2.2.1%2B5655.ipa",
+          "size": 25053075,
           "minOSVersion": "14.0"
         }
       ]
@@ -592,6 +592,50 @@
   ],
   "news": [
     {
+      "appID": "sb.moe.kumone-ios",
+      "title": "Kumone 0.3.37 · 14 Nov 2026",
+      "identifier": "Kumone-release-v0.3.37",
+      "caption": "Kumone 0.3.37 is available.",
+      "date": "2026-11-14T11:23:41Z",
+      "tintColor": "#EC4949",
+      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Kumone/images/news.png",
+      "notify": true,
+      "url": "https://github.com/missuo/kumone/releases/tag/v0.3.37"
+    },
+    {
+      "appID": "nsk-1695.v-team.cn",
+      "title": "cilicili 1.1.4 · 14 Nov 2026",
+      "identifier": "cilicili-release-v1.1.4",
+      "caption": "cilicili 1.1.4 is available.",
+      "date": "2026-11-14T09:45:45Z",
+      "tintColor": "#F06090",
+      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/cilicili/images/news.png",
+      "notify": true,
+      "url": "https://github.com/Rone89/cilicili/releases/tag/v1.1.4"
+    },
+    {
+      "appID": "com.example.piliplus",
+      "title": "PiliPlus 2.2.1 · 14 Nov 2026",
+      "identifier": "PiliPlus-release-2.2.1",
+      "caption": "PiliPlus 2.2.1 is available.",
+      "date": "2026-11-14T08:11:53Z",
+      "tintColor": "#73b480",
+      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/PiliPlus/images/news.png",
+      "notify": true,
+      "url": "https://github.com/bggRGjQaUbCoE/PiliPlus/releases/tag/2.2.1"
+    },
+    {
+      "appID": "app.local.iPadn",
+      "title": "iPadn 2.1.1 · 14 Nov 2026",
+      "identifier": "iPadn-release-v2.1.1",
+      "caption": "iPadn 2.1.1 is available.",
+      "date": "2026-11-14T05:53:21Z",
+      "tintColor": "#111111",
+      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/iPadn/images/news.png",
+      "notify": true,
+      "url": "https://github.com/mengangs/ipadn/releases/tag/v2.1.1"
+    },
+    {
       "appID": "com.ligg.anime_flow",
       "title": "AnimeFlow 2.6.8 · 13 Nov 2026",
       "identifier": "AnimeFlow-release-v2.6.8",
@@ -603,17 +647,6 @@
       "url": "https://github.com/openAnimeFlow/AnimeFlow/releases/tag/v2.6.8"
     },
     {
-      "appID": "sb.moe.kumone-ios",
-      "title": "Kumone 0.3.35 · 13 Nov 2026",
-      "identifier": "Kumone-release-v0.3.35",
-      "caption": "Kumone 0.3.35 is available.",
-      "date": "2026-11-13T19:25:08Z",
-      "tintColor": "#EC4949",
-      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Kumone/images/news.png",
-      "notify": true,
-      "url": "https://github.com/missuo/kumone/releases/tag/v0.3.35"
-    },
-    {
       "appID": "com.qingtang.3106",
       "title": "3106 3.2.5 · 13 Nov 2026",
       "identifier": "3106-release-v3.2.5",
@@ -623,17 +656,6 @@
       "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/3106/images/news.png",
       "notify": true,
       "url": "https://github.com/QuinnTang74/3106/releases/tag/v3.2.5"
-    },
-    {
-      "appID": "app.local.iPadn",
-      "title": "iPadn 2.1.0 · 13 Nov 2026",
-      "identifier": "iPadn-release-v2.1.0",
-      "caption": "iPadn 2.1.0 is available.",
-      "date": "2026-11-13T12:52:49Z",
-      "tintColor": "#111111",
-      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/iPadn/images/news.png",
-      "notify": true,
-      "url": "https://github.com/mengangs/ipadn/releases/tag/v2.1.0"
     },
     {
       "appID": "cz.kolbi.wqfiles",
@@ -667,17 +689,6 @@
       "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HGhub/images/news.png",
       "notify": true,
       "url": "https://github.com/zxsos/HGhubX/releases/tag/v1.2.19"
-    },
-    {
-      "appID": "nsk-1695.v-team.cn",
-      "title": "cilicili 1.1.3 · 09 Nov 2026",
-      "identifier": "cilicili-release-v1.1.3",
-      "caption": "cilicili 1.1.3 is available.",
-      "date": "2026-11-09T10:12:47Z",
-      "tintColor": "#F06090",
-      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/cilicili/images/news.png",
-      "notify": true,
-      "url": "https://github.com/Rone89/cilicili/releases/tag/v1.1.3"
     },
     {
       "appID": "org.zhaohe.MiniWatts",
@@ -722,17 +733,6 @@
       "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Husk/images/news.png",
       "notify": true,
       "url": "https://github.com/Leviidev/Husk/releases/tag/3.4"
-    },
-    {
-      "appID": "com.example.piliplus",
-      "title": "PiliPlus 2.2.0 · 03 Nov 2026",
-      "identifier": "PiliPlus-release-2.2.0.2",
-      "caption": "PiliPlus 2.2.0 is available.",
-      "date": "2026-11-03T07:43:02Z",
-      "tintColor": "#73b480",
-      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/PiliPlus/images/news.png",
-      "notify": true,
-      "url": "https://github.com/bggRGjQaUbCoE/PiliPlus/releases/tag/2.2.0.2"
     },
     {
       "appID": "com.kodjodevf.mangayomi",
