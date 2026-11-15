@@ -16,11 +16,11 @@
       "tintColor": "#F0E0D0",
       "versions": [
         {
-          "version": "2.8",
-          "date": "2026-11-15T12:09:31Z",
-          "localizedDescription": "## 2.8 (build 134)\n\n**翻译改走大模型**：接自己的 OpenAI 兼容接口，只把识别出来的台词文字发过去，图片不出手机。\n\n- 设置 → 翻译 → 大模型接口：填接口地址、API Key、模型名，有个「测试连接」当场验证\n- 地址填到 `/v1` 就行，`/chat/completions` 自动拼；填完整路径也认\n- 整页台词一次请求发过去，带上下文翻，人称和语气比逐条翻连贯得多\n- 引擎三选一：自动（有 Key 用大模型，没配退回端上）/ 强制大模型 / 强制系统端上\n- API Key 存 Keychain，不写 UserDefaults、不进日志\n- 接口报错分类型给话：401/403 说 Key 被拒、429 说限流、解析不了显示原文片段\n- 模型不听话套了 markdown 围栏也能抠出 JSON，三层兜底\n- OCR 没动，还是端上 Vision 两遍识别 —— 换的只是「翻译」这一层\n\n走大模型时**台词的文字**会发到你填的那个接口，图片永远不出手机。不想外发就把引擎切到「系统端上翻译」，完全离线。\n\n\n---\n\n**安装**：下载 `MangaDock.ipa`，用 SideStore / AltStore / LiveContainer 侧载。要求 iOS 18+。\n\n```\n版本 2.8 · 构建号见包内 Info.plist\n```",
-          "downloadURL": "https://github.com/kar-liang/MangaDock/releases/download/v2.8/MangaDock.ipa",
-          "size": 19191212,
+          "version": "3.2",
+          "date": "2026-11-15T13:17:52Z",
+          "localizedDescription": "## 3.2 (build 138)\n\n**在线漫画也能翻译了**：阅读器顶栏加了「译」按钮，译文卡片叠在图片上，原图不动。\n\n- 用的是同一套引擎（Vision 识别 + 大模型 / 系统端上翻译），缓存跟本地漫画共用一套键\n- 图片和 OCR 共用一次下载：新加原始字节缓存，不会为了识别把同一张图再下一遍\n- 翻页自动翻下一页，预载逻辑跟本地漫画一致（串行推进、失败页不重试）\n- 关掉按钮译文层立刻消失，原图一个像素不受影响\n- 书架上的封面缩略图不会挂译文层（只有阅读器里的整页才翻）\n\n\n---\n\n**安装**：下载 `MangaDock.ipa`，用 SideStore / AltStore / LiveContainer 侧载。要求 iOS 18+。\n\n```\n版本 3.2 · 构建号见包内 Info.plist\n```",
+          "downloadURL": "https://github.com/kar-liang/MangaDock/releases/download/v3.2/MangaDock.ipa",
+          "size": 19217920,
           "minOSVersion": "18.0"
         }
       ]
@@ -29,14 +29,14 @@
   "news": [
     {
       "appID": "com.karliang.mangadock",
-      "title": "漫画坞 2.8 · 15 Nov 2026",
-      "identifier": "漫画坞-release-v2.8",
-      "caption": "漫画坞 2.8 is available.",
-      "date": "2026-11-15T12:09:31Z",
+      "title": "漫画坞 3.2 · 15 Nov 2026",
+      "identifier": "漫画坞-release-v3.2",
+      "caption": "漫画坞 3.2 is available.",
+      "date": "2026-11-15T13:17:52Z",
       "tintColor": "#F0E0D0",
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/MangaDock/images/news.png",
       "notify": true,
-      "url": "https://github.com/kar-liang/MangaDock/releases/tag/v2.8"
+      "url": "https://github.com/kar-liang/MangaDock/releases/tag/v3.2"
     }
   ]
 }

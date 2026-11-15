@@ -518,11 +518,11 @@
       "tintColor": "#F0E0E0",
       "versions": [
         {
-          "version": "0.3.1",
-          "date": "2026-11-12T12:58:23Z",
-          "localizedDescription": "- 新增存储占用面板与清理\n- 修复分享导入残留占用空间\n- 恢复后只保留最新一份安全备份",
-          "downloadURL": "https://github.com/hseons/WQManager/releases/download/v0.3.1/WQManager-0.3.1-unsigned.ipa",
-          "size": 705110,
+          "version": "0.4.0",
+          "date": "2026-11-15T13:19:16Z",
+          "localizedDescription": "本轮围绕空间定位和备份管理补全 P1/P2，P3 加密导出已取消。\n\n- 空间变化：最近 60 次扫描、App 增长排行与历史趋势。\n- 文件查找：大文件排序、文件名/路径搜索、类型与大小筛选、预览及定位目录。\n- 批量备份：串行执行快速/完整备份，支持重试失败项、完成当前任务后停止剩余项。\n- 备份备注与重要备份保护；保护状态随导入导出保留，并接入删除和自动保留策略。\n- 备份内容浏览与同范围备份对比，可按需进行 SHA-256 内容校验。\n- 目录级自定义备份：只恢复所选目录，安全备份、回滚和恢复日志使用相同范围。\n- 下一步 WQ 计划：访问能力诊断 → App Groups/扩展容器只读总览 → 结构化数据检查。\n\n验证：19 组可移植测试、模拟器构建/静态分析、arm64 Release 构建及 IPA 完整性检查通过；中英文 616 个键与格式占位符一致。真机 WQ 权限、大容器与系统中断场景仍需回归。\n\n安装包未签名，需自行签名并保留 App Group。快速/完整备份继续使用格式 2；自定义备份格式 3 需 0.4.0 或更新版本。备份保护由 0.4.0+ 执行。批量任务需保持前台，不提供退出后自动续跑。\n\nSHA-256: 9514534441d813480c4413c72cf69d95e062400244350db06563999db02aec3e",
+          "downloadURL": "https://github.com/hseons/WQManager/releases/download/v0.4.0/WQManager-0.4.0-unsigned.ipa",
+          "size": 849184,
           "minOSVersion": "26.0"
         }
       ]
@@ -580,11 +580,11 @@
       "tintColor": "#F0E0D0",
       "versions": [
         {
-          "version": "2.8",
-          "date": "2026-11-15T12:09:31Z",
-          "localizedDescription": "## 2.8 (build 134)\n\n**翻译改走大模型**：接自己的 OpenAI 兼容接口，只把识别出来的台词文字发过去，图片不出手机。\n\n- 设置 → 翻译 → 大模型接口：填接口地址、API Key、模型名，有个「测试连接」当场验证\n- 地址填到 `/v1` 就行，`/chat/completions` 自动拼；填完整路径也认\n- 整页台词一次请求发过去，带上下文翻，人称和语气比逐条翻连贯得多\n- 引擎三选一：自动（有 Key 用大模型，没配退回端上）/ 强制大模型 / 强制系统端上\n- API Key 存 Keychain，不写 UserDefaults、不进日志\n- 接口报错分类型给话：401/403 说 Key 被拒、429 说限流、解析不了显示原文片段\n- 模型不听话套了 markdown 围栏也能抠出 JSON，三层兜底\n- OCR 没动，还是端上 Vision 两遍识别 —— 换的只是「翻译」这一层\n\n走大模型时**台词的文字**会发到你填的那个接口，图片永远不出手机。不想外发就把引擎切到「系统端上翻译」，完全离线。\n\n\n---\n\n**安装**：下载 `MangaDock.ipa`，用 SideStore / AltStore / LiveContainer 侧载。要求 iOS 18+。\n\n```\n版本 2.8 · 构建号见包内 Info.plist\n```",
-          "downloadURL": "https://github.com/kar-liang/MangaDock/releases/download/v2.8/MangaDock.ipa",
-          "size": 19191212,
+          "version": "3.2",
+          "date": "2026-11-15T13:17:52Z",
+          "localizedDescription": "## 3.2 (build 138)\n\n**在线漫画也能翻译了**：阅读器顶栏加了「译」按钮，译文卡片叠在图片上，原图不动。\n\n- 用的是同一套引擎（Vision 识别 + 大模型 / 系统端上翻译），缓存跟本地漫画共用一套键\n- 图片和 OCR 共用一次下载：新加原始字节缓存，不会为了识别把同一张图再下一遍\n- 翻页自动翻下一页，预载逻辑跟本地漫画一致（串行推进、失败页不重试）\n- 关掉按钮译文层立刻消失，原图一个像素不受影响\n- 书架上的封面缩略图不会挂译文层（只有阅读器里的整页才翻）\n\n\n---\n\n**安装**：下载 `MangaDock.ipa`，用 SideStore / AltStore / LiveContainer 侧载。要求 iOS 18+。\n\n```\n版本 3.2 · 构建号见包内 Info.plist\n```",
+          "downloadURL": "https://github.com/kar-liang/MangaDock/releases/download/v3.2/MangaDock.ipa",
+          "size": 19217920,
           "minOSVersion": "18.0"
         }
       ]
@@ -611,6 +611,28 @@
   ],
   "news": [
     {
+      "appID": "mumu.pduola.WQManager",
+      "title": "WQManager 0.4.0 · 15 Nov 2026",
+      "identifier": "WQManager-release-v0.4.0",
+      "caption": "WQManager 0.4.0 is available.",
+      "date": "2026-11-15T13:19:16Z",
+      "tintColor": "#F0E0E0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQManager/images/news.png",
+      "notify": true,
+      "url": "https://github.com/hseons/WQManager/releases/tag/v0.4.0"
+    },
+    {
+      "appID": "com.karliang.mangadock",
+      "title": "漫画坞 3.2 · 15 Nov 2026",
+      "identifier": "漫画坞-release-v3.2",
+      "caption": "漫画坞 3.2 is available.",
+      "date": "2026-11-15T13:17:52Z",
+      "tintColor": "#F0E0D0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/MangaDock/images/news.png",
+      "notify": true,
+      "url": "https://github.com/kar-liang/MangaDock/releases/tag/v3.2"
+    },
+    {
       "appID": "app.local.iPadn",
       "title": "iPadn 2.1.2 · 15 Nov 2026",
       "identifier": "iPadn-release-v2.1.2",
@@ -620,17 +642,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/iPadn/images/news.png",
       "notify": true,
       "url": "https://github.com/mengangs/ipadn/releases/tag/v2.1.2"
-    },
-    {
-      "appID": "com.karliang.mangadock",
-      "title": "漫画坞 2.8 · 15 Nov 2026",
-      "identifier": "漫画坞-release-v2.8",
-      "caption": "漫画坞 2.8 is available.",
-      "date": "2026-11-15T12:09:31Z",
-      "tintColor": "#F0E0D0",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/MangaDock/images/news.png",
-      "notify": true,
-      "url": "https://github.com/kar-liang/MangaDock/releases/tag/v2.8"
     },
     {
       "appID": "com.zephyr.breeze",
@@ -719,17 +730,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/3106/images/news.png",
       "notify": true,
       "url": "https://github.com/QuinnTang74/3106/releases/tag/v3.2.5"
-    },
-    {
-      "appID": "mumu.pduola.WQManager",
-      "title": "WQManager 0.3.1 · 12 Nov 2026",
-      "identifier": "WQManager-release-v0.3.1",
-      "caption": "WQManager 0.3.1 is available.",
-      "date": "2026-11-12T12:58:23Z",
-      "tintColor": "#F0E0E0",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQManager/images/news.png",
-      "notify": true,
-      "url": "https://github.com/hseons/WQManager/releases/tag/v0.3.1"
     },
     {
       "appID": "com.hghub.huangguo",
