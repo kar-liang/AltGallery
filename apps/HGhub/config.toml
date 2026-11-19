@@ -14,7 +14,7 @@ tint_color = "#60C0F0"
 
 [app]
 name = "HGhub"
-bundle_identifier = "com.hghub.huangguo"
+bundle_identifier = "com.hghubx.app"
 developer_name = "zxsos"
 subtitle = "YellowFruit third-party client"
 description = """YellowFruit third-party client"""
@@ -26,7 +26,7 @@ min_os_version = "15.0"
 [versions]
 strip_v_prefix = true
 include_prereleases = false
-asset_pattern = "HGhub_.*_ios\\.ipa$"
+asset_pattern = "HGhubX_.*_ios\\.ipa$"
 
 [news]
 title_template = "{name} {version} · {date}"
