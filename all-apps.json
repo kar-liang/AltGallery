@@ -16,11 +16,11 @@
       "tintColor": "#F07020",
       "versions": [
         {
-          "version": "3.2.5",
-          "date": "2026-11-13T13:18:39Z",
-          "localizedDescription": "# 3.2.5 正式版（同版本重发 rebuild） · Stable Release Notes\n\n发布日期：2026-11-13 ｜ **重发：2026-11-14** ｜ build 24 不变\n\n> 同版本号重发。新包 SHA256：`aa76f4e5f904fc0eb90a54d35f33c2df8e9ecb54059f526ff880f8dd0ba0fca8`（assets 内 SHA256SUMS.txt 同步刷新）。本次参考 GestaltX v1.1.1 release notes 的问题清单语义独立实现，未移植其代码。\n\n## 中文\n\n### 新增\n\n- **应用通知音替换**（GestaltX App Audio Library 思路，独立实现）：功能页新增「通知音替换」卡片；按应用维护通知音路径表（手动输入容器相对路径，未列出的应用同样可用）；替换前三段风险说明 + 全屏红色长按确认；替换走任意文件替换管线——原文件自动备份、替换记录持久化、记录左滑一键恢复；文件选择器以 `.data` 兜底，侧载包也能选中 `.caf/.m4a` 等音频；格式白名单 aiff/aif/caf/m4a/wav，单文件 ≤20MB；替换后列表立即刷新。\n\n### 修复\n\n- **字段 plist 导入不再整根覆盖**（GestaltX #138）：导入被当作补丁——以设备当前 root 为基准，只合并导入根中显式出现的 `CacheExtra` 键；根级 `CacheData`/`CacheVersion` 等设备专属键全部原值保留，不删除任何键。`CacheUUID` 大小写不敏感比较，不匹配则拒绝导入（#131）。导入完成显示覆盖/跳过/保留计数。\n- **日期与 Data 字段严格解析**（GestaltX #132）：ISO8601 日期拒绝尾随文本（往返格式化校验）；base64 拒绝非法填充与空白干扰。\n- **备份元数据校验**（GestaltX #134）：`.3106save` sidecar 文件名、manifest bundleID、创建时间与归档路径全部先校验再展示/解压；legacy 无 sidecar 存档保留显式兼容分支。\n- **`.3106cfg` 导入失败不再静默**（GestaltX #133）：新增 App Group 共享收件箱回退（按运行时 entitlement 读取，侧载重签名后仍有效），失败时弹出本地化错误。\n- **字段搜索复用一份 preview 快照**（GestaltX #136）：键入不再对每个条目重算 preview。\n- **显式编辑的字段不再被预设覆盖**（GestaltX #137）：手动编辑过的 `CacheExtra` 键持久记录，预设应用时自动跳过。\n- **plist 精确比较按 CF 类型判定**（GestaltX #139 语义）：`<true/>` 不再等于 `<integer>1</integer>`，`<integer>1</integer>` 不再等于 `<real>1.0</real>`。\n- **关闭 MobileGestalt 开关不再删键**：按原值的 CF 类型写同类型假值（Boolean→false / Integer→0 / Real→0.0），与防 iOS 27 重启反弹规则对齐。\n- **issue #3 回归护栏**：策略门新增静态检查，拒绝 `.allSatisfy(…\\.contains)` 形态的裸函数引用；修复 `CleanerView` 残留的同型写法。\n- **更新检查**：删除已废弃的 `AppReleaseDisplayVersion` 读取分支；e2e 期望从 Info.plist 动态推导，不再硬编码 tag。\n\n### 其他\n\n- CI 增加 push/PR 触发（3106/main）；产物哨兵改为从源码动态提取 ≥16 字节特征串。\n- README 产物说明与 `dist/SHA256SUMS.txt` 修正（只列实际存在的产物）。\n\n## English\n\n### Added\n\n- **Notification sound replacement** (GestaltX App Audio Library idea, independent implementation): new Feature Hub card; per-app sound-path table (manual entry); three-stage risk confirmation with long-press gate; installs route through the file-replace pipeline with automatic backup and one-tap restore; `.data` picker fallback so side-loaded builds can still select audio; aiff/aif/caf/m4a/wav ≤20MB; the list refreshes immediately.\n\n### Fixed\n\n- **Field-plist import no longer replaces the whole root** (#138): imports merge as patches onto the device root; device-specific keys (`CacheData`, `CacheVersion`, …) are preserved; `CacheUUID` compares case-insensitively (#131); the result reports overwritten/skipped/preserved counts.\n- **Strict date/data parsing** (#132): ISO8601 rejects trailing text; base64 rejects malformed padding.\n- **Backup metadata validation** (#134): sidecar names, bundle IDs, timestamps and archive paths are verified before listing; legacy archives stay supported.\n- **`.3106cfg` import failures are surfaced** (#133): App Group shared-inbox fallback (read via the runtime entitlement) plus localized error alerts.\n- **One preview snapshot for field search** (#136); **explicit edits win over presets** (#137); **exact CF-typed comparisons** (#139 semantics).\n- **Disabled MobileGestalt toggles no longer delete keys**: same-type falsy values keep the anti-restart-bounce rule intact.\n- **Issue #3 regression guard**: the policy gate rejects bare `.contains` references passed to `allSatisfy`; fixed the last occurrence in CleanerView.\n- **Update check**: dropped the abandoned `AppReleaseDisplayVersion` branch; e2e expectations derive from Info.plist.\n\n### Other\n\n- CI runs on push/PR; the artifact sentinel is derived from source instead of a maintained constant.\n\n## 验证 / Verification\n\n- 策略门 250 checks（原 188）· 三语键 1445×3 对齐 · 迁移引擎 69 · filereplace 28 · 更新 e2e 7 · Debug 模拟器构建通过\n- Policy gate 250 checks (was 188) · 3-language key alignment 1445×3 · migration 69 · filereplace 28 · update e2e 7 · Debug simulator build green\n\n## 签名 / Signing\n\n发布资产为未签名 IPA，需自行签名后安装；iOS 26.7+ / 27.x 必须保留 App Group entitlement（通配符 profile 无法携带）。\nThe IPA is unsigned — sign it with your own tool. iOS 26.7+ / 27.x must keep the App Group entitlement (wildcard profiles cannot carry it).",
-          "downloadURL": "https://github.com/QuinnTang74/3106/releases/download/v3.2.5/3106-3.2.5-unsigned.ipa",
-          "size": 5703636,
+          "version": "3.2.6",
+          "date": "2026-11-17T02:55:19Z",
+          "localizedDescription": "# 3.2.6 正式版 · Stable Release Notes\n\n发布日期：2026-11-17 ｜ build 25\n\n> 本版专项修复 iOS 27 上文件管理的修改 / 复制粘贴 / 替换全部失败、且失败原因被吞掉无法归因的问题。新包 SHA256：`8141949c8e57417be0d3e7a32c50d0cdaa5458b68634dd53726f114fba31178d`（assets 内 SHA256SUMS.txt 同步刷新）。\n\n## 中文\n\n### 修复\n\n- **iOS 27 写入失败专项**：修改文件、复制粘贴、替换文件收敛到同一个授权原语（`worse_query_grant`），任何一处被系统收紧都会全部失败，而且失败码此前被约 20 处调用点静默吞掉，用户只能看到笼统的\"导入失败\"。本版对授权链做了四处单点加固：\n  - **授权前强制 lstat 不再是硬门槛**：收紧的 iOS 27 构建会拒绝 stat 未授权路径，曾让所有授权在查询发出前就死在 `-254`（鸡蛋悖论）。现在记录日志后继续走 swap + 查询，真正不可达的目标由末端验证兜底返回 `-8`。\n  - **container_query flags 扩展为 5 个候选 + 按系统大版本隔离的学习值**：此前只有 2 个硬编码候选，且 26.x 上学到的偏好在 27 上会被优先采用。现在候选轮询自愈，偏好 key 按 OS 大版本隔离（`wq.preferredQueryFlags.v<major>`），旧版本学习值自动失效。\n  - **令牌可写性验证（写探针）**：此前令牌只验证\"可读\"——系统若签发只读令牌，授权会假成功而所有写入挂掉。现在写类操作通过 `grant_ex` 要求可写验证，只读令牌不再假成功；浏览 / 导出等只读流程行为完全不变。\n  - **激活状态改用真实探测**：UI 的\"已激活\"此前只检查 entitlement 是否存在（重签丢了 App Group 也会假显正常）。现在走真实授权链探测（30 秒缓存），链路坏了直接显示异常。\n- **失败码诊断透传**：\n  - 文件页顶部新增授权异常横幅：进入容器授权失败或复制粘贴失败时，显示具体失败码的人话解释（如\"系统在授权前拒绝访问目标路径\"），文本可选中，可一键复制诊断；点掉后下次失败会再次出现。\n  - 设置 → 设备 → **沙盒诊断**：实时探测按钮、最近 50 条授权记录表、\"复制完整诊断\"一键导出（系统版本 / backend / App Group / 探测结果 / LS 布局命中 / 授权记录）。\n  - 复制粘贴 / 替换 / 删除 / Gestalt 写回遇权限拒绝（EPERM/EACCES）会**自动清令牌缓存 → 重新授权 → 重试一次**；仍失败时报结构化错误（含 errno 与授权码），不再是笼统报错。\n- **LS 布局表新增 iOS 27.3 候选**（三个偏移变体）：27.3 的容器解析不再必然落空；诊断导出携带布局命中标签与映射容器数，便于远程校准。\n\n### iOS 27 用户升级建议\n\n1. 签名时**保留 App Group entitlement**（iOS 26.7+/27.x 必须，Sideloadly 会丢，用 Impactor 或 Xcode）。\n2. 装上后先进文件页浏览、再试复制粘贴 / 替换——授权抖动会自动重试。\n3. 若仍有失败：**设置 → 设备 → 沙盒诊断 → 复制完整诊断**，把文本贴到 issue 里。诊断串中的失败码（`-254` 是否消失、flags 命中第几个候选、写探针 errno）能直接定位残余根因。\n\n## English\n\n### Fixed\n\n- **iOS 27 write-failure fix**: file edits, copy-paste and replace all funnel through one grant primitive (`worse_query_grant`); any tightening broke everything, and the ~20 call sites silently swallowed the failure codes. Four single-point hardenings:\n  - **lstat is no longer a hard gate**: tightened 27.x builds deny stat() on not-yet-granted paths, which killed every grant with `-254` before the query even ran. Logged and skipped now; genuinely unreachable targets still fail with `-8` at final verification.\n  - **container_query flags: 5 candidates + per-OS-major learned preference**: previously two hardcoded values, with a 26.x-learned preference taking precedence on 27. Full-candidate walk self-heals; the preference key is versioned (`wq.preferredQueryFlags.v<major>`).\n  - **Token write verification**: tokens were only verified readable — a read-only token faked a successful grant while every write died. Write operations now require the write probe via `grant_ex`; read flows behave exactly as before.\n  - **Real activation probe**: the \"activated\" state used to check entitlement existence only. Now it exercises the real grant chain (30 s cache).\n- **Failure-code diagnostics**: a browser-page banner names the failing grant code in plain language with one-tap copy; **Settings → Device → Sandbox diagnostics** offers a live probe, the last 50 grants, and a full report export; permission-denied writes automatically retry once (drop token cache → re-grant) before surfacing a structured error.\n- **LS store 27.3 layout candidates** (three offset variants) so container resolution on 27.3 no longer misses.\n\n### Notes for iOS 27 users\n\nKeep the App Group entitlement when signing (required on 26.7+/27.x; Sideloadly drops it — use Impactor or Xcode). If a write still fails, copy the diagnostics from **Settings → Device → Sandbox diagnostics** and paste it into an issue — the failure code pinpoints the remaining root cause.\n\n---\n\nSHA256: `8141949c8e57417be0d3e7a32c50d0cdaa5458b68634dd53726f114fba31178d`（`3106-3.2.6-unsigned.ipa`）",
+          "downloadURL": "https://github.com/QuinnTang74/3106/releases/download/v3.2.6/3106-3.2.6-unsigned.ipa",
+          "size": 5753848,
           "minOSVersion": "16.0"
         }
       ]
@@ -88,12 +88,12 @@
       "tintColor": "#0077B6",
       "versions": [
         {
-          "version": "5.2.4",
-          "buildVersion": "1101",
-          "date": "2026-11-05T04:35:12Z",
-          "localizedDescription": "### 新增\r\n\r\n- Windows 新增 AnimeJaNai 实时超分：播放器底栏一键开关，可与 Anime4K、DLSS 叠加；支持 TensorRT / DirectML 后端自动选择，提供质量、均衡、性能三档与原版、Sharp1 两种模型，附细节锐化、亮度、对比度、饱和度、伽马调节及原画/超分同帧对比。\r\n- AnimeJaNai 可选 RIFE 补帧：支持 2×、3×、4× 倍率，提供完整（原分辨率处理）与快速（最高 540p 处理）两种方案。\r\n- 新增“画质设置”面板，整合 AnimeJaNai 与 DLSS 全部选项；播放器内长按增强按钮或进入“实验室”页面均可打开，运行状态、安装进度与诊断信息集中展示。\r\n- Windows 播放器底栏常显 Anime4K / AnimeJaNai / DLSS 开关，点按切换、长按进入画质设置，无需先在实验室开启。\r\n- 评论区改版：正文按 Markdown / BBCode 渲染，评论中的时间点自动识别为跳转链接，点击可seek到对应进度或指定集数；表情贴图正常显示，加载时改用骨架占位。\r\n\r\n### 优化\r\n\r\n- 更新优化内置源规则\r\n- DLSS 与 AnimeJaNai 运行库改由组织维护的 media-kit fork 统一打包，应用内不再捆绑原生桥接代码，减小安装体积。\r\n- 充分优化日志系统\r\n- 优化了一些小细节\r\n\r\n### 使用说明\r\n\r\n- AnimeJaNai 仅支持 Windows；首次启用需联网下载运行库与模型（补帧组件约 441 MiB），下载过程可取消，TensorRT 后端首次使用需编译引擎。\r\n- 后端设为“自动”时，支持的 NVIDIA 显卡优先使用 TensorRT，其余显卡使用 DirectML。\r\n- AnimeJaNai 模型按 CC BY-NC-SA 4.0 分发，仅限非商业用途。\r\n\r\n**Full Changelog**: https://github.com/AniBakaBaka/AniBaka/compare/5.2.3+1020...5.2.4+1101",
-          "downloadURL": "https://github.com/AniBakaBaka/AniBaka/releases/download/5.2.4%2B1101/baka-5.2.4%2B1101-ios-unsigned.ipa",
-          "size": 23708307,
+          "version": "5.2.5",
+          "buildVersion": "261113",
+          "date": "2026-11-18T12:04:44Z",
+          "localizedDescription": "本次更新重点优化手机端打开番剧详情和返回的体验，新增本地字体导入，并更新四个内置播放源。\r\n\r\n### 界面与交互\r\n\r\n- **优化番剧详情转场。** 点击卡片后，圆角小窗口从封面位置逐渐铺满全屏，返回时收回卡片。适配 Android 预测性返回和 iOS 侧滑返回手势。\r\n- **支持导入自定义字体。** 在「设置 → 外观 → 导入字体」选择本地 `.ttf` 或 `.otf` 文件，重启应用后会恢复已导入的字体。\r\n- **调整移动端底部导航。** 优化拖动切换和随滚动收起、显示的交互。社区发帖按钮随底栏一同收起。\r\n\r\n### 性能优化/修复\r\n\r\n- 优化 Android 首页触摸采样和海报网格绘制，减轻慢速滚动时的细节抖动。\r\n- 减少封面加载、详情刷新和播放选源时的重复处理。内存紧张时释放部分后台标签页。\r\n- 修复ios和macos异常播放器黑屏的问题。\r\n\r\n### 播放\r\n\r\n- 修复部分 HLS 视频因上游返回重复响应头而无法正常读取分片的问题。\r\n\r\n### 平台兼容\r\n\r\n- 统一 Android 各架构安装包的版本号，避免同一版本因架构不同而被识别为不同构建。\r\n- 同步 iOS 和 macOS 的媒体库与播放器渲染插件版本，并更新 Windows 打包流程以兼容六位构建号。\r\n**Full Changelog**: https://github.com/AniBakaBaka/AniBaka/compare/5.2.4+1101...5.2.5+261113",
+          "downloadURL": "https://github.com/AniBakaBaka/AniBaka/releases/download/5.2.5%2B261113/baka-5.2.5%2B261113-ios-unsigned.ipa",
+          "size": 23563780,
           "minOSVersion": "13.0"
         }
       ]
@@ -137,11 +137,11 @@
       "tintColor": "#0050A0",
       "versions": [
         {
-          "version": "6.4.0",
-          "date": "2026-10-24T04:52:28Z",
-          "localizedDescription": "- 加快桌面端网页视频解析速度\r\n- 优化季度拆分资源的弹幕匹配准确性\r\n- 新增通知中心与公告，可查看互动消息、举报处理结果和账号安全提醒，并按类型设置通知\r\n- 新增弹幕文字转换设置，支持按弹幕来源单独配置并预览转换效果 (#3536 by @GeneralK1ng)\r\n- iOS 支持 Anime4K 视频增强，提升视频画面清晰度 (#3606 by @black4der)\r\n- Windows 和 macOS 自动更新支持增量下载，减少下载流量并加快更新\r\n- 新增 JSON API 数据源\r\n- 修复一系列播放相关问题\r\n\r\n----\r\n\r\n- TV 端支持配置全局网络代理 (#3550 by @LoliWolf)\r\n- Android 支持通过包含 Bangumi 章节 ID 或剧集 ID 的 ani 链接打开指定剧集\r\n- 优化续播与换源体验，直接从记忆进度开始播放，减少重复缓冲并避免换源后进度回退\r\n- 优化剧集页播放器快捷键，切换标签页或关闭侧边栏后可直接操作视频，输入文字时避免误触快捷键 (#3542 by @Tsukumi233)\r\n- 修复桌面端在部分多显卡或渲染模式切换场景下视频黑屏、窗口空白的问题\r\n- 修复 Windows 退出播放页时可能卡死的问题\r\n- 修复 Windows 和 Linux 播放纯音频媒体时可能卡在加载中的问题\r\n- 修复 Android 播放部分 MKV 视频时无法显示压缩字幕的问题，支持 ASS 和 SRT 字幕\r\n- 修复 Android 暂停或播放结束后切换全屏时画面缩在左侧或被裁切的问题\r\n- 修复 Android 应用语言切换不生效的问题\r\n- 修复 Jellyfin 数据源切集后找不到下一集资源的问题\r\n- 修复部分网络环境下数据源因页面链接使用 HTTP 而无法加载的问题 (#3633 by @wdw89)\r\n- 修复进入或切换页面时自动聚焦输入框、滑块等控件，导致页面意外滚动的问题 (#3650 by @NihilDigit)\r\n\r\n**Full Changelog**: https://github.com/open-ani/animeko/compare/v6.3.0...v6.4.0\r\n\r\n\r\n[//]: # (ANI-SERVER-MAGIC-SEPARATOR)\r\n\r\n[//]: # (注意: api server 依赖这个特殊分隔符)\r\n\r\n[//]: # (对于所有可用的变量列表, 参考 CI release.yml 的 step release-notes)\r\n\r\n[github-win-x64]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-6.4.0-windows-x86_64.zip\r\n\r\n[github-win-aarch64]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-6.4.0-windows-aarch64.zip\r\n\r\n[github-mac-x64]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-6.4.0-macos-x86_64.dmg\r\n\r\n[github-mac-aarch64]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-6.4.0-macos-aarch64.dmg\r\n\r\n[github-android]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-6.4.0-universal.apk\r\n\r\n[github-android-arm64-v8a]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-6.4.0-arm64-v8a.apk\r\n\r\n[github-android-armeabi-v7a]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-6.4.0-armeabi-v7a.apk\r\n\r\n[github-android-x86_64]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-6.4.0-x86_64.apk\r\n\r\n[cf-win-x64]: https://d.myani.org/v6.4.0/ani-6.4.0-windows-x86_64.zip\r\n\r\n[cf-win-aarch64]: https://d.myani.org/v6.4.0/ani-6.4.0-windows-aarch64.zip\r\n\r\n[cf-linux-x64]: https://d.myani.org/v6.4.0/ani-6.4.0-linux-x86_64.appimage\r\n\r\n[cf-mac-x64]: https://d.myani.org/v6.4.0/ani-6.4.0-macos-x86_64.zip\r\n\r\n[cf-mac-aarch64]: https://d.myani.org/v6.4.0/ani-6.4.0-macos-aarch64.dmg\r\n\r\n[cf-ios]: https://d.myani.org/v6.4.0/ani-6.4.0.ipa\r\n\r\n[cf-android]: https://d.myani.org/v6.4.0/ani-6.4.0-universal.apk\r\n\r\n[cf-android-arm64-v8a]: https://d.myani.org/v6.4.0/ani-6.4.0-arm64-v8a.apk\r\n\r\n[cf-android-armeabi-v7a]: https://d.myani.org/v6.4.0/ani-6.4.0-armeabi-v7a.apk\r\n\r\n[cf-android-x86_64]: https://d.myani.org/v6.4.0/ani-6.4.0-x86_64.apk\r\n\r\n[ghproxy-win-x64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-6.4.0-windows-x86_64.zip\r\n\r\n[ghproxy-win-aarch64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-6.4.0-windows-aarch64.zip\r\n\r\n[ghproxy-mac-x64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-6.4.0-macos-x86_64.zip\r\n\r\n[ghproxy-linux-x64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-6.4.0-linux-x86_64.appimage\r\n\r\n[ghproxy-mac-aarch64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-6.4.0-macos-aarch64.dmg\r\n\r\n[ghproxy-ios]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-6.4.0.ios\r\n\r\n[ghproxy-android]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-6.4.0-universal.apk\r\n\r\n[ghproxy-android-arm64-v8a]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-6.4.0-arm64-v8a.apk\r\n\r\n[ghproxy-android-armeabi-v7a]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-6.4.0-armeabi-v7a.apk\r\n\r\n[ghproxy-android-x86_64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-6.4.0-x86_64.apk\r\n\r\n[github-android-tv]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-tv-6.4.0-universal.apk\r\n\r\n[github-android-tv-arm64-v8a]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-tv-6.4.0-arm64-v8a.apk\r\n\r\n[github-android-tv-armeabi-v7a]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-tv-6.4.0-armeabi-v7a.apk\r\n\r\n[github-android-tv-x86_64]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-tv-6.4.0-x86_64.apk\r\n\r\n[cf-android-tv]: https://d.myani.org/v6.4.0/ani-tv-6.4.0-universal.apk\r\n\r\n[cf-android-tv-arm64-v8a]: https://d.myani.org/v6.4.0/ani-tv-6.4.0-arm64-v8a.apk\r\n\r\n[cf-android-tv-armeabi-v7a]: https://d.myani.org/v6.4.0/ani-tv-6.4.0-armeabi-v7a.apk\r\n\r\n[cf-android-tv-x86_64]: https://d.myani.org/v6.4.0/ani-tv-6.4.0-x86_64.apk\r\n\r\n[ghproxy-android-tv]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-tv-6.4.0-universal.apk\r\n\r\n[ghproxy-android-tv-arm64-v8a]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-tv-6.4.0-arm64-v8a.apk\r\n\r\n[ghproxy-android-tv-armeabi-v7a]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-tv-6.4.0-armeabi-v7a.apk\r\n\r\n[ghproxy-android-tv-x86_64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.0%2Fani-tv-6.4.0-x86_64.apk\r\n\r\n[macOS 无法打开解决方案]: https://myani.org/wiki/macos-unable-to-open\r\n\r\n[Windows下字体与背景颜色异常解决方案]: https://myani.org/wiki/windows-font-bg-color-issue\r\n\r\n[Linux 安装说明]: https://myani.org/wiki/linux-install\r\n\r\n[macOS Intel芯片版本安装教程]: https://myani.org/wiki/macos-intel-install\r\n\r\n[macos-intel-issue]: https://github.com/open-ani/animeko/issues/1345\r\n\r\n[linux-issue]: https://github.com/open-ani/animeko/issues/944\r\n\r\n[iOS 自签]: https://myani.org/wiki/ios-install\r\n\r\n|                  | 下载                                               | 常见问题                                        |\r\n|------------------|--------------------------------------------------|---------------------------------------------|\r\n| 安卓 手机/平板         | [主线][cf-android] / [备线][ghproxy-android]         |                                             |\r\n| 安卓 电视            | [主线][cf-android-tv] / [备线][ghproxy-android-tv]   |                                             |\r\n| iOS              | [主线][cf-ios] / [备线][ghproxy-ios]                 | 需要[自签][iOS 自签]                                  |\r\n| Windows          | [主线][cf-win-x64] / [备线][ghproxy-win-x64]         | 1. 目录不要有中文或者空格 <br/> 2. [显示异常][Windows下字体与背景颜色异常解决方案] |\r\n| Windows (ARM64)  | [主线][cf-win-aarch64] / [备线][ghproxy-win-aarch64] | 同 Windows                                                             |\r\n| macOS (M 系列芯片)   | [主线][cf-mac-aarch64] / [备线][ghproxy-mac-aarch64] | ⚠️ [安装后打不开][macOS 无法打开解决方案]                      |\r\n| macOS (Intel 芯片) | [主线][cf-mac-x64] / [备线][ghproxy-mac-x64]         | ⚠️ [安装教程][macOS Intel芯片版本安装教程]                    |\r\n| Linux AppImage   | [主线][cf-linux-x64] / [备线][ghproxy-linux-x64]     | ⚠️ [安装教程][Linux 安装说明]                        |\r\n\r\n[github-android-qr]: https://github.com/open-ani/ani/releases/download/v6.4.0/ani-6.4.0-universal.apk.github.qrcode.png\r\n\r\n[cf-android-qr]: https://d.myani.org/v6.4.0/ani-6.4.0-universal.apk.cloudflare.qrcode.png\r\n\r\n[cf-ios-qr]: https://d.myani.org/v6.4.0/ani-6.4.0.ipa.cloudflare.qrcode.png\r\n\r\n| 安卓 手机/平板                     | iOS IPA (需要[自签][iOS 自签])     | \r\n|------------------------------|--------------------------|\r\n| ![Cloudflare][cf-android-qr] | ![Cloudflare][cf-ios-qr] |\r\n\r\n\r\n<details>\r\n<summary> Android 细分架构下载 </summary>\r\n\r\n[//]: # (@formatter:off  因为\"版本\"前面不能换行)\r\n\r\n如果不知道自己是什么架构，建议下载 `universal` 版本。\r\n\r\n[//]: # (@formatter:on)\r\n\r\n| 处理器架构              | 适用于             | 下载                                                                                                      |\r\n|--------------------|-----------------|---------------------------------------------------------------------------------------------------------|\r\n| universal (推荐)     | 所有设备            | [主线][cf-android] / [备线][ghproxy-android] / [GitHub][github-android]                                     |\r\n| arm64-v8a (64 位)   | 几乎所有手机和平板       | [主线][cf-android-arm64-v8a] / [备线][ghproxy-android-arm64-v8a] / [GitHub][github-android-arm64-v8a]       |\r\n| armeabi-v7a (32 位) | 旧手机             | [主线][cf-android-armeabi-v7a] / [备线][ghproxy-android-armeabi-v7a] / [GitHub][github-android-armeabi-v7a] |\r\n| x86_64             | Chromebook 及模拟器 | [主线][cf-android-x86_64] / [备线][ghproxy-android-x86_64] / [GitHub][github-android-x86_64]                |\r\n\r\n电视版:\r\n\r\n| 处理器架构              | 适用于             | 下载                                                                                                                  |\r\n|--------------------|-----------------|---------------------------------------------------------------------------------------------------------------------|\r\n| universal (推荐)     | 所有电视和电视盒子       | [主线][cf-android-tv] / [备线][ghproxy-android-tv] / [GitHub][github-android-tv]                                        |\r\n| arm64-v8a (64 位)   | 大多数电视和电视盒子      | [主线][cf-android-tv-arm64-v8a] / [备线][ghproxy-android-tv-arm64-v8a] / [GitHub][github-android-tv-arm64-v8a]          |\r\n| armeabi-v7a (32 位) | 旧电视盒子           | [主线][cf-android-tv-armeabi-v7a] / [备线][ghproxy-android-tv-armeabi-v7a] / [GitHub][github-android-tv-armeabi-v7a]    |\r\n| x86_64             | 模拟器             | [主线][cf-android-tv-x86_64] / [备线][ghproxy-android-tv-x86_64] / [GitHub][github-android-tv-x86_64]                   |\r\n\r\n</details>",
-          "downloadURL": "https://github.com/open-ani/animeko/releases/download/v6.4.0/ani-6.4.0.ipa",
-          "size": 48615547,
+          "version": "6.4.1",
+          "date": "2026-11-18T14:44:06Z",
+          "localizedDescription": "- 安全性修复，请桌面端用户立刻更新\r\n\r\n----\r\n\r\n**Full Changelog**: https://github.com/open-ani/animeko/compare/v6.4.0...v6.4.1\r\n\r\n[//]: # (ANI-SERVER-MAGIC-SEPARATOR)\r\n\r\n[//]: # (注意: api server 依赖这个特殊分隔符)\r\n\r\n[//]: # (对于所有可用的变量列表, 参考 CI release.yml 的 step release-notes)\r\n\r\n[github-win-x64]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-6.4.1-windows-x86_64.zip\r\n\r\n[github-win-aarch64]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-6.4.1-windows-aarch64.zip\r\n\r\n[github-mac-x64]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-6.4.1-macos-x86_64.dmg\r\n\r\n[github-mac-aarch64]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-6.4.1-macos-aarch64.dmg\r\n\r\n[github-android]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-6.4.1-universal.apk\r\n\r\n[github-android-arm64-v8a]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-6.4.1-arm64-v8a.apk\r\n\r\n[github-android-armeabi-v7a]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-6.4.1-armeabi-v7a.apk\r\n\r\n[github-android-x86_64]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-6.4.1-x86_64.apk\r\n\r\n[cf-win-x64]: https://d.myani.org/v6.4.1/ani-6.4.1-windows-x86_64.zip\r\n\r\n[cf-win-aarch64]: https://d.myani.org/v6.4.1/ani-6.4.1-windows-aarch64.zip\r\n\r\n[cf-linux-x64]: https://d.myani.org/v6.4.1/ani-6.4.1-linux-x86_64.appimage\r\n\r\n[cf-mac-x64]: https://d.myani.org/v6.4.1/ani-6.4.1-macos-x86_64.zip\r\n\r\n[cf-mac-aarch64]: https://d.myani.org/v6.4.1/ani-6.4.1-macos-aarch64.dmg\r\n\r\n[cf-ios]: https://d.myani.org/v6.4.1/ani-6.4.1.ipa\r\n\r\n[cf-android]: https://d.myani.org/v6.4.1/ani-6.4.1-universal.apk\r\n\r\n[cf-android-arm64-v8a]: https://d.myani.org/v6.4.1/ani-6.4.1-arm64-v8a.apk\r\n\r\n[cf-android-armeabi-v7a]: https://d.myani.org/v6.4.1/ani-6.4.1-armeabi-v7a.apk\r\n\r\n[cf-android-x86_64]: https://d.myani.org/v6.4.1/ani-6.4.1-x86_64.apk\r\n\r\n[ghproxy-win-x64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-6.4.1-windows-x86_64.zip\r\n\r\n[ghproxy-win-aarch64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-6.4.1-windows-aarch64.zip\r\n\r\n[ghproxy-mac-x64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-6.4.1-macos-x86_64.zip\r\n\r\n[ghproxy-linux-x64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-6.4.1-linux-x86_64.appimage\r\n\r\n[ghproxy-mac-aarch64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-6.4.1-macos-aarch64.dmg\r\n\r\n[ghproxy-ios]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-6.4.1.ios\r\n\r\n[ghproxy-android]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-6.4.1-universal.apk\r\n\r\n[ghproxy-android-arm64-v8a]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-6.4.1-arm64-v8a.apk\r\n\r\n[ghproxy-android-armeabi-v7a]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-6.4.1-armeabi-v7a.apk\r\n\r\n[ghproxy-android-x86_64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-6.4.1-x86_64.apk\r\n\r\n[github-android-tv]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-tv-6.4.1-universal.apk\r\n\r\n[github-android-tv-arm64-v8a]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-tv-6.4.1-arm64-v8a.apk\r\n\r\n[github-android-tv-armeabi-v7a]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-tv-6.4.1-armeabi-v7a.apk\r\n\r\n[github-android-tv-x86_64]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-tv-6.4.1-x86_64.apk\r\n\r\n[cf-android-tv]: https://d.myani.org/v6.4.1/ani-tv-6.4.1-universal.apk\r\n\r\n[cf-android-tv-arm64-v8a]: https://d.myani.org/v6.4.1/ani-tv-6.4.1-arm64-v8a.apk\r\n\r\n[cf-android-tv-armeabi-v7a]: https://d.myani.org/v6.4.1/ani-tv-6.4.1-armeabi-v7a.apk\r\n\r\n[cf-android-tv-x86_64]: https://d.myani.org/v6.4.1/ani-tv-6.4.1-x86_64.apk\r\n\r\n[ghproxy-android-tv]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-tv-6.4.1-universal.apk\r\n\r\n[ghproxy-android-tv-arm64-v8a]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-tv-6.4.1-arm64-v8a.apk\r\n\r\n[ghproxy-android-tv-armeabi-v7a]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-tv-6.4.1-armeabi-v7a.apk\r\n\r\n[ghproxy-android-tv-x86_64]: https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2Fopen-ani%2Fani%2Freleases%2Fdownload%2Fv6.4.1%2Fani-tv-6.4.1-x86_64.apk\r\n\r\n[macOS 无法打开解决方案]: https://myani.org/wiki/macos-unable-to-open\r\n\r\n[Windows下字体与背景颜色异常解决方案]: https://myani.org/wiki/windows-font-bg-color-issue\r\n\r\n[Linux 安装说明]: https://myani.org/wiki/linux-install\r\n\r\n[macOS Intel芯片版本安装教程]: https://myani.org/wiki/macos-intel-install\r\n\r\n[macos-intel-issue]: https://github.com/open-ani/animeko/issues/1345\r\n\r\n[linux-issue]: https://github.com/open-ani/animeko/issues/944\r\n\r\n[iOS 自签]: https://myani.org/wiki/ios-install\r\n\r\n|                  | 下载                                               | 常见问题                                        |\r\n|------------------|--------------------------------------------------|---------------------------------------------|\r\n| 安卓 手机/平板         | [主线][cf-android] / [备线][ghproxy-android]         |                                             |\r\n| 安卓 电视            | [主线][cf-android-tv] / [备线][ghproxy-android-tv]   |                                             |\r\n| iOS              | [主线][cf-ios] / [备线][ghproxy-ios]                 | 需要[自签][iOS 自签]                                  |\r\n| Windows          | [主线][cf-win-x64] / [备线][ghproxy-win-x64]         | 1. 目录不要有中文或者空格 <br/> 2. [显示异常][Windows下字体与背景颜色异常解决方案] |\r\n| Windows (ARM64)  | [主线][cf-win-aarch64] / [备线][ghproxy-win-aarch64] | 同 Windows                                                             |\r\n| macOS (M 系列芯片)   | [主线][cf-mac-aarch64] / [备线][ghproxy-mac-aarch64] | ⚠️ [安装后打不开][macOS 无法打开解决方案]                      |\r\n| macOS (Intel 芯片) | [主线][cf-mac-x64] / [备线][ghproxy-mac-x64]         | ⚠️ [安装教程][macOS Intel芯片版本安装教程]                    |\r\n| Linux AppImage   | [主线][cf-linux-x64] / [备线][ghproxy-linux-x64]     | ⚠️ [安装教程][Linux 安装说明]                        |\r\n\r\n[github-android-qr]: https://github.com/open-ani/ani/releases/download/v6.4.1/ani-6.4.1-universal.apk.github.qrcode.png\r\n\r\n[cf-android-qr]: https://d.myani.org/v6.4.1/ani-6.4.1-universal.apk.cloudflare.qrcode.png\r\n\r\n[cf-ios-qr]: https://d.myani.org/v6.4.1/ani-6.4.1.ipa.cloudflare.qrcode.png\r\n\r\n| 安卓 手机/平板                     | iOS IPA (需要[自签][iOS 自签])     | \r\n|------------------------------|--------------------------|\r\n| ![Cloudflare][cf-android-qr] | ![Cloudflare][cf-ios-qr] |\r\n\r\n\r\n<details>\r\n<summary> Android 细分架构下载 </summary>\r\n\r\n[//]: # (@formatter:off  因为\"版本\"前面不能换行)\r\n\r\n如果不知道自己是什么架构，建议下载 `universal` 版本。\r\n\r\n[//]: # (@formatter:on)\r\n\r\n| 处理器架构              | 适用于             | 下载                                                                                                      |\r\n|--------------------|-----------------|---------------------------------------------------------------------------------------------------------|\r\n| universal (推荐)     | 所有设备            | [主线][cf-android] / [备线][ghproxy-android] / [GitHub][github-android]                                     |\r\n| arm64-v8a (64 位)   | 几乎所有手机和平板       | [主线][cf-android-arm64-v8a] / [备线][ghproxy-android-arm64-v8a] / [GitHub][github-android-arm64-v8a]       |\r\n| armeabi-v7a (32 位) | 旧手机             | [主线][cf-android-armeabi-v7a] / [备线][ghproxy-android-armeabi-v7a] / [GitHub][github-android-armeabi-v7a] |\r\n| x86_64             | Chromebook 及模拟器 | [主线][cf-android-x86_64] / [备线][ghproxy-android-x86_64] / [GitHub][github-android-x86_64]                |\r\n\r\n电视版:\r\n\r\n| 处理器架构              | 适用于             | 下载                                                                                                                  |\r\n|--------------------|-----------------|---------------------------------------------------------------------------------------------------------------------|\r\n| universal (推荐)     | 所有电视和电视盒子       | [主线][cf-android-tv] / [备线][ghproxy-android-tv] / [GitHub][github-android-tv]                                        |\r\n| arm64-v8a (64 位)   | 大多数电视和电视盒子      | [主线][cf-android-tv-arm64-v8a] / [备线][ghproxy-android-tv-arm64-v8a] / [GitHub][github-android-tv-arm64-v8a]          |\r\n| armeabi-v7a (32 位) | 旧电视盒子           | [主线][cf-android-tv-armeabi-v7a] / [备线][ghproxy-android-tv-armeabi-v7a] / [GitHub][github-android-tv-armeabi-v7a]    |\r\n| x86_64             | 模拟器             | [主线][cf-android-tv-x86_64] / [备线][ghproxy-android-tv-x86_64] / [GitHub][github-android-tv-x86_64]                   |\r\n\r\n</details>",
+          "downloadURL": "https://github.com/open-ani/animeko/releases/download/v6.4.1/ani-6.4.1.ipa",
+          "size": 48615556,
           "minOSVersion": "14.0"
         }
       ]
@@ -175,11 +175,11 @@
       "tintColor": "#F06090",
       "versions": [
         {
-          "version": "1.1.4",
-          "date": "2026-11-14T09:45:45Z",
-          "localizedDescription": "## 更新内容（1.1.3 → 1.1.4）\n\n- **启动更快**：点开视频到出画面明显提速。\n- **修复 #66**：全屏后画面漂移到左下角（HEVC/AV1 编码场景）。\n- **弹幕重做**：更省电，暂停/拖动/倍速自动跟随；修好不显示、位置错、重叠、断流、空档、重复等问题。\n- **弹幕设置更干净**：去掉灰黑色块；横屏调字体粗细不再被弹回竖屏。\n- **横屏 100% 显示区域可铺满**（底部按钮区除外）。\n- **其他**：图片/封面清晰度合并为一个选项；长视频标题可展开看全。\n\n---\n\n**安装说明**：附件为**未签名** IPA，需自行签名后安装。",
-          "downloadURL": "https://github.com/Rone89/cilicili/releases/download/v1.1.4/bili-release-unsigned.ipa",
-          "size": 24660955,
+          "version": "1.1.5",
+          "date": "2026-11-17T11:42:35Z",
+          "localizedDescription": "## 更新内容（1.1.4 → 1.1.5）\n\n- **顶栏交互统一**：搜索页与「我的」页面采用系统原生顶栏搜索与按钮布局；动态页右上角切换箭头尺寸调整得更协调。\n- **视频页状态栏清晰**：浅色模式下进入视频或直播详情页时，顶部状态栏图标恢复清晰可见。\n- **底栏防误触回顶**：底栏最小化成胶囊后，首次点击只展开底栏方便切换页面；在展开状态下再轻点当前 Tab 才返回顶部。\n- **顶部渐变收窄**：保留系统柔和渐进模糊效果，移除多余顶部留白占位，整体视野更干净。\n\n---\n\n**安装说明**：附件为**未签名** IPA，需自行签名后安装。",
+          "downloadURL": "https://github.com/Rone89/cilicili/releases/download/v1.1.5/bili-release-unsigned.ipa",
+          "size": 24814110,
           "minOSVersion": "26.1"
         }
       ]
@@ -210,7 +210,7 @@
     },
     {
       "name": "HGhub",
-      "bundleIdentifier": "com.hghub.huangguo",
+      "bundleIdentifier": "com.hghubx.app",
       "developerName": "zxsos",
       "subtitle": "YellowFruit third-party client",
       "localizedDescription": "YellowFruit third-party client",
@@ -218,11 +218,11 @@
       "tintColor": "#60C0F0",
       "versions": [
         {
-          "version": "1.2.19",
-          "date": "2026-11-11T07:47:10Z",
-          "localizedDescription": "## What's Changed\n* ci: 添加前端 PR 检查流水线 by @zxsos in https://github.com/zxsos/HGhub/pull/49\n* fix(clipboard): 分享与链接复制兜底改用原生剪贴板 by @zxsos in https://github.com/zxsos/HGhub/pull/42\n* fix(player): 切换短剧时先清空相关推荐 by @zxsos in https://github.com/zxsos/HGhub/pull/46\n* fix(search): 新关键词不再被进行中的请求吞掉 by @zxsos in https://github.com/zxsos/HGhub/pull/43\n* fix(home): 首页翻页失败后退避，避免反复弹错误提示 by @zxsos in https://github.com/zxsos/HGhub/pull/44\n* fix(line): 切换线路后重拉加载失败的首页与分类数据 by @zxsos in https://github.com/zxsos/HGhub/pull/45\n* fix(search): 就地搜索框对齐全局搜索，频道页搜索按钮归位 by @zxsos in https://github.com/zxsos/HGhub/pull/47\n* fix(category): 频道页翻页按页排序，避免加载更多时列表重排 by @zxsos in https://github.com/zxsos/HGhub/pull/48\n\n\n**Full Changelog**: https://github.com/zxsos/HGhub/compare/v1.2.18...v1.2.19",
-          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v1.2.19/HGhub_1.2.19_ios.ipa",
-          "size": 3521136,
+          "version": "2.2.0",
+          "date": "2026-11-18T06:02:05Z",
+          "localizedDescription": "## HGhubX 2.2.0\n\n架构重构 + Android TV / 车机老内核兼容 + 开屏与播放体验全面升级的正式版本。包含 pre.1 / pre.2 及后续全仓审计与性能打磨的全部内容。\n\n### 新增\n\n- **Android TV 独立版**（`com.hghubx.tv`）：Leanback 桌面入口与横屏 Banner、遥控器方向键 / 确认 / 返回 / 媒体键导航、本地 IndexedDB 片库与拼音/标题搜索索引、overscan 安全边距设置。\n- **老 WebView 与车机大屏兼容**（#138）：前端构建降级至 `chrome66 / safari14.1`（含 CSS `dvh / color-mix / cascade-layers` 回退、经典 `iife` Worker、ES5 启动看门狗与运行时 API 垫片）；Android 标准版原生层桥接系统状态栏与车机常驻底栏安全区（`--native-sat/sab/sal/sar`），`quick` 与正式构建均覆盖 32 位 `arm` 与 64 位 `arm64`。\n- **长按加速可换挡**（#146）：右上长按 2x 起，按住左右滑每 80px 换一档（2x → 3x → 4x → 6x，来回滑可升可降，每档震动反馈）；上滑后松手锁定当前档位。\n- 设置 → 播放新增「全屏无操作自动隐藏控件」：关 / 3秒 / 5秒 / 10秒（默认 3 秒，暂停时不隐藏）（#146）。\n- 长按操作提示加入「双击暂停播放」说明。\n\n### 改进\n\n- **开屏零闪烁与冷启动大幅提速**：\n  - 原生窗口、`index.html` `data-hg-launching` 背景锁与开屏层统一锚定 `#071218`，彻底消除亮色/暗色主题切换时的首尾白屏或灰屏闪烁，以及 `<Suspense>` 未就绪时的空帧跳变；\n  - 开屏动画改为全外层独立 GPU 合成层（仅驱动 `transform3d` + `opacity`），消除逐帧 SVG 路径重绘与多段缓动顿挫，首帧独占上屏后下一帧并发挂载业务壳；\n  - 消除入口二次动态分包瀑布流，并将 `Feed` + `hls.js`（`524 kB`）从首屏壳剥离并行预热，`AcceptedApp` 关键路径体积缩减 **84.6%**（降至 `113.8 kB`），首屏选线与推荐流请求显著提前。\n- **前端渲染与状态隔离**：Toast 通知与账号同步状态改为独立订阅，避免全局重渲染；内联播放器全屏与分页请求逻辑收口复用；亮色模式表面层次与对比度优化。\n- 加速提示弱化并入顶部倍速胶囊（「上滑后松手锁定 / 松手锁定」），移除画面中部拖放提示；全屏右上「退出 / 锁定」两键 44×44、间距 12px（#146）；大屏横屏操作栏自动切换双列紧凑布局避免顶边裁切（#138）。\n- **全站界面视觉对齐与内容屏蔽补全**：修复分类页「排行榜 / 专题 / 标签」窄屏高度偏大与上偏错位并补齐专属语义图标，统一全站二级页顶栏尺寸与边距、标签分组卡片与单行屏蔽工具条、搜索页三段式卡片间距、海报双徽章等高防撞、桌面侧栏图标中轴及设置展开面板双重内边距问题；搜索页「热搜榜」与「热门题材」同步接入屏蔽标签过滤；移除视频与帖子详情的分享入口并重排操作栏对齐；清理冗余副标题，「HGhubX 热榜」统一为「排行榜」。\n- 仓库结构整理：前端按 `app / features / shared` 归组并拆分 `Feed` 子面板与手势模块；Rust 按 `api / net / media / lines` 拆分并独立 `updater / net_diag / publish_parser`。\n\n### 修复\n\n- **切换线路不再掉登录，且在播流不中断转圈**（#145）：\n  - 固定线路与发布页确认镜像之间手动/自动切线及冷启动重启均保留登录会话（即使当前回退到固定线路也会校验已存镜像信任）；自定义线路仍严格清空凭据，移除 `.ai` 导航站；\n  - 区分代理变更与线路变更事件：后台自动选线后健康在播视频保持连贯播放，仅对未就绪/报错/预取项按新线路重拉。\n- **播放与多实例交互修复**：\n  - 修复移动端底部信息浮层遮挡右侧「全屏」按钮命中区域，并补齐旧版 WebKit 前缀 Fullscreen API、桌面窗口全屏回退及 Linux WebKitGTK 窗口全屏状态同步；\n  - 暂停状态下进入/退出全屏或拖动进度条均保留用户暂停意图，不再意外恢复播放（#138）；\n  - 修复压栈多级 `Feed` 页面同时响应全屏快捷键或画中画状态串扰、音量滑块松手跳变、锁屏态残留手势、搜索返回焦点与我的/关注列表状态同步细节；\n  - 竖屏视频按原始比例完整显示，横屏保留「铺满 / 适应」切换（#142）。\n- **后端安全与缓存隔离加固**：媒体分片与图片缓存纳入代理/安全模式代次隔离，严格校验本机 loopback Host/Origin 边界，更新检查精确匹配当前平台安装包后缀，安卓剪贴板诊断日志裁剪至 256KiB 上限（#142）。\n- 启动动画期间按返回键仅跳过开屏，不再误触发底层页面弹栈或直接退出应用。\n- TV：「继续观看」封面与货架等宽；选集每格固定高度、长标题两行截断；跨包迁移后端未移植时正常启动。\n\n### 验证\n\n- 全部 CI/CD 合并为单一工作流，并复用预装工具链与包缓存加速：Rust 112 通过 / 0 失败，浏览器 smoke 全通过，前端双版本（标准版 + TV 版）构建、文档链接、尺寸预算与播放回归矩阵全绿通过。\n\n### 已知限制\n\n- TV↔手机标准包之间的账号/片库跨包迁移后端尚未移植，TV 端迁移入口保持隐藏。\n- iOS 包为无证书构建（需自行签名侧载）；macOS 为 ad-hoc 签名。",
+          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.0/HGhubX_2.2.0_ios.ipa",
+          "size": 3886166,
           "minOSVersion": "15.0"
         }
       ]
@@ -262,11 +262,11 @@
       "tintColor": "#111111",
       "versions": [
         {
-          "version": "2.1.2",
-          "date": "2026-11-15T12:17:53Z",
-          "localizedDescription": "## iPadn 2.1.2\n\n本次更新优化了下载与按钮交互动画、侧滑反馈、历史版本校准及原生配对灵动岛提醒，新增直接替换翻译与已下架应用关键词优先搜索，并提升原生安装稳定性。安装包未签名，请用自己的工具签名后安装。\n\n### 新增与优化\n\n- **搜索优先显示已下架应用**：关键词搜索结合内置应用别名目录及本机已购、收藏、下载记录做相关度分级匹配，并核验候选应用的下架状态，将已确认下架且匹配关键词的应用优先排在结果前排；可在「账号 › 设置 › 下载 › 搜索时优先显示已下架应用」随时关闭恢复原排序（默认开启）。\n- **下载操作与按钮形变动效**：下载、已购、搜索与详情页的操作按钮、云朵按钮与黑白进度环统一居中对齐，点按后以按钮中心平滑形变为加载/下载环；进度环底轨与前景进度弧统一为相同线宽，状态过渡更连贯。\n- **侧滑动画与 5 秒撤销**：下载卡片侧滑垃圾桶与分享图标显露后由原生 Core Animation 播放完整动画（开启「减少动态效果」时显示静态完整图标）；下载卡片侧滑删除不再弹确认窗，改为 5 秒倒计时与撤销（连续删除可合并撤销），长按「删除任务及文件」与批量删除仍保留确认，搜索记录删除不再显示倒计时或撤销。\n- **底部标签栏与同步骨架屏微光**：底部标签栏改为自适应动态矢量图标并统一描边粗细，优化搜索图标视觉重量与账号页切换动画；加载骨架屏改为全屏同相位的单色扫光（shimmer），并统一列表轻按触感与轻量化确认弹窗。\n- **直接替换翻译（iOS 18+）**：简介和更新说明默认保留系统翻译面板；iOS 18 及以上可在「账号 › 设置 › 外观与图标 › 翻译」开启「直接替换翻译」，选择原文语言并准备语言包后直接替换为界面语言译文，支持「显示原文」。\n- **下载列表、内联更新说明与图标开关**：精简下载任务展示与状态文案，任务信息区分商店版本、包内版本、构建号与商店版本 ID，支持在应用详情内联展开更新说明；可在「设置 › 下载 › 显示历史版本图标」按需关闭历史图标读取以节省流量和加载时间（已缓存图标仍保留）。\n\n### 修复与稳定性\n\n- **修复本机配对灵动岛提醒**：本机配对期间按序更新灵动岛状态，后台优先通过灵动岛实时展示配对进度与验证码，仅在灵动岛未激活时回退系统通知，并优化深色模式下配对步骤徽章对比度。\n- **历史版本校准与缓存清理**：明确区分数字版本 ID（`external_identifier`）与真实营销版本号，结合商店更新记录与时间戳校准旧缓存或无点版本号，对齐各版本实际 IPA 检测，并同步清理相关版本缓存。\n- **原生安装与取消稳定性**：为原生安装/查询隧道 FFI 分配 4 MiB 独立栈线程以避免栈溢出，支持取消进行中的原生安装与探测，并减少下载与自动安装期间的灵动岛状态延迟与重复入队。\n- **界面布局调整**：统一对齐发现页与搜索页的最近搜索标题和芯片外边距，避免圆角被容器裁切。\n- 继续支持 iOS / iPadOS 16 及更新版本，各功能保留各自系统版本要求（直接替换翻译需 iOS 18+）。\n\n### 两个安装包\n\n- `iPadn-2.1.2-unsigned.ipa`：标准版，含实时活动和小组件，签名需要 2 个 App ID。\n- `iPadn-2.1.2-lite-unsigned.ipa`：精简版，不含扩展，只需 1 个 App ID；不提供实时活动或小组件，其他功能相同。\n- SideStore、AltStore、Feather 等签名工具可添加源：`https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json`。\n\n### English\n\nThis release improves delisted-app keyword search priority, action-button morph animations, swipe feedback, historical version matching and pairing Live Activity alerts, adds opt-in in-place translation on iOS 18+, and strengthens native install stability.\n\n- **Prioritize delisted apps in search**: Keyword search combines the app alias directory with local purchased, favorite and download records for tiered relevance matching, verifies candidate delisted status, and places confirmed matching delisted apps first. Enabled by default and toggleable under Account › Settings › Downloads › Prioritize Delisted Apps in Search.\n- **Centered action morph & equalized progress rings**: Align action pills, cloud buttons and progress rings on one centered column, morph pill buttons around their center into the loading/download spinner, and match the progress track and progress arc stroke width.\n- **Swipe animations & five-second Undo**: Revealed swipe icons play native Core Animation sequences (with static icons when Reduce Motion is on). Swipe-deleting downloads replaces confirmation with a five-second Undo countdown (including consecutive deletions); permanent and batch deletions retain confirmation, while search-history deletion removes the countdown.\n- **Vector tab bar & synchronized shimmer**: Switch tabs to adaptive vector animations with balanced strokes on Search and refined Account icon transitions, synchronize monochrome skeleton shimmer waves across rows, and unify tactile row presses and lightweight confirmations.\n- **Translate in place (iOS 18+)**: Keep the system translation sheet by default, with opt-in in-place translation under Account › Settings › Appearance & icon › Translation and a Show original toggle.\n- **Concise downloads, inline notes & icon toggle**: Separate store version, package version, build number and version ID in task details, expand release notes inline on app pages, and opt out of loading historical version icons under Settings › Downloads › Show Version History Icons while keeping cached icons.\n- **Live Activity & native install fixes**: Serialize pairing Live Activity state updates and deliver background pairing progress/codes via Live Activity (falling back to notifications only when inactive), improve dark-mode pairing badge contrast, isolate native install/lookup FFI onto a 4 MiB stack thread with cancellation support, and keep auto-install Live Activity updates responsive.\n- **Version history reconciliation & cache cleanup**: Reject raw `external_identifier` strings mistaken for marketing versions, reconcile stale or dotless versions against release notes and timestamps, and clear related version caches together.\n- iOS / iPadOS 16 and later remain supported, subject to each feature's requirements.\n\nBoth packages are unsigned: the standard package includes Live Activities/widgets and needs two App IDs; lite has no extension and needs one. Sign with your own tool before installing.\n\n更早版本的更新内容见 [Releases](https://github.com/mengangs/ipadn/releases)。\n\n两个安装包：`iPadn-2.1.2-unsigned.ipa` 是标准版（含实时活动和桌面小组件，需要 2 个 App ID）；`iPadn-2.1.2-lite-unsigned.ipa` 是精简版（不含扩展，只需 1 个 App ID），适合 App ID 数量受限的签名方式。\n\n验证：设备 Release 编译与 IPA 检查通过；257 项测试通过，0 项失败，1 项跳过。",
-          "downloadURL": "https://github.com/mengangs/ipadn/releases/download/v2.1.2/iPadn-2.1.2-lite-unsigned.ipa",
-          "size": 49328014,
+          "version": "2.2.1",
+          "date": "2026-11-18T10:04:29Z",
+          "localizedDescription": "## iPadn 2.2.1\n\n本次版本重点修复开启「专业模式」时白屏与无法重进设置页、搜索结果偶现重复条目、「Wi‑Fi 传输」大包 30 秒断流等体验问题，并同步完成全仓导航栈、外部链接确认、磁盘空间清理与 `FairPlayCore` 流式解密边界安全加固。安装包未签名，请用自己的工具签名后安装。\n\n### 修复与稳定性提升\n\n- **修复专业模式白屏与子页面导航**：将底部标签切换统一绑定到语义化 `TabID`，修复开启或关闭「专业模式」时标签数组变化引发的白屏、设置页失联及退出专业模式时的导航监听循环；将「账号」与「应用包」导航栈升级为异构 `NavigationPath`，确保「本机应用 › 应用详情」、「历史版本来源」编辑页、「安装包信息」与「浏览安装包内容」深层进退稳定可靠。\n- **修复搜索偶现重复应用与下架状态串染**：对单区/多区商店搜索、本地索引与「更多结果」执行 `trackId` 及 `bundleID` 双重保序去重，合并最完整图标与体积元数据；防止本地旧缓存的已下架标记覆盖实时重新上架结果，并兼容 Apple Arcade 与 tvOS 实体核验。\n- **修复「Wi‑Fi 传输」满 30 秒断连**：将 30 秒连接超时严格限制在 HTTP 请求头读取阶段，进入安装包流式传输后立即解除计时，避免大体积 IPA 局域网下载中途断流。\n- **修复弹窗吞没、空间残留与边界崩溃**：修复「下载 › + › 通过链接下载」及备份/证书选择器收起动画期间吞没后续弹窗的问题；删除下载任务与启动时自动清理 `tmp/Share` 硬链接及残留临时导出文件，释放磁盘空间；修复灵动岛倒计时跨零崩溃、「应用包」页文件变动强制解包、备份导入覆盖商店地区竞态、无锁屏密码设备导入备份锁死、冷启动误触发自动解密、Mac `.pkg` 过期签名链接重试及根页面顶栏标题过渡。\n\n### 安全与本机解密加固\n\n- **`FairPlayCore` 流式解密与 64 位边界校验**：将加密段解密升级为 4 MB 页对齐流式窗口，超大二进制解密堆内存峰值降至固定 8 MB；补齐 Mach-O 加载命令 64 位无溢出边界、4 字节对齐、`O_NOFOLLOW`、`FAT_64`/`ZIP64` 偏移及截断压缩流防护，并将文件日志写入改为可捕获 Swift `FileHandle` 接口以防空间不足时异常闪退。\n- **归档路径包含与外部链接确认**：严格拦截畸形归档多斜杠（`///..`）路径穿越、越界相对符号链接及 `Manifest.plist` `SinfPaths` 越界复制；外部 `ipadn://` 下载链接新增来源域名与完整地址确认弹窗、应用锁状态暂存及本机回环地址拦截，且外部直链安装包下载完成后不静默触发自动安装；开启应用锁时执行「恢复默认设置」需先验证身份。\n- **诊断文案免误杀与 11 语言同步**：优化解密失败映射与脱敏规则，识别 `EACCES`/`EPERM` 授权错误并完整保留中文排障指引，同步更新全部 11 种界面语言。\n- 继续支持 iOS / iPadOS 16 及更新版本（各功能保留各自系统版本要求）。\n\n### 两个安装包\n\n- `iPadn-2.2.1-unsigned.ipa`：标准版，含实时活动（灵动岛、锁屏进度）与桌面小组件扩展，签名需要 2 个 App ID。\n- `iPadn-2.2.1-lite-unsigned.ipa`：精简版，移除扩展，只需 1 个 App ID；不提供实时活动或小组件，其他功能完全一致。\n- SideStore、AltStore、Feather 等签名工具可添加源：`https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json`。\n\n### English\n\nThis release fixes a Pro mode white-screen / Settings navigation regression, intermittent duplicate search results, and a 30-second Wi‑Fi transfer cutoff on large IPAs, alongside comprehensive navigation, storage, external URL, and `FairPlayCore` streaming security hardening.\n\n- **Pro mode & deep navigation fixes**: Binds root tab selection to semantic `TabID` values and upgrades the Account and Packages stacks to heterogeneous `NavigationPath`, resolving white screens when toggling Pro mode, preserving Settings re-entry without `onChange` loops, and keeping Installed Apps › App Detail, Version Source Editor, Package Info, and Package Contents sub-routes working reliably.\n- **Search deduplication & delisted accuracy**: Deduplicates single-region, multi-region, local-index, and More Results entries by both `trackId` and normalized `bundleID` while merging richer artwork/version metadata and preventing stale cached delisted flags from overriding live storefront listings.\n- **Wi‑Fi transfer & lifecycle reliability**: Cancels the 30-second header timeout as soon as HTTP headers arrive so large IPA browser downloads never drop mid-stream; defers stacked alerts/sheets until dismissal completes; sweeps `tmp/Share` APFS hard links on job deletion and launch; fixes Live Activity zero-crossing ranges, backup storefront/passcode-less edge cases, cold-launch auto-decrypt seeding, Mac `.pkg` retry URL refresh, and Liquid Glass root header transitions.\n- **Security & FairPlay streaming hardening**: Switches `FairPlayCore` slice decryption to 4 MB page-aligned streaming windows (`8 MB` peak heap), hardens 64-bit Mach-O / `FAT_64` / `ZIP64` / truncated-deflate bounds and throwing `FileHandle` writes, blocks `///..` multi-slash Zip-Slip and out-of-bundle `SinfPaths` / symlinks, gates external `ipadn://` download links behind user confirmation (deferring while App Lock is active and never auto-installing untrusted URLs), and preserves localized `EACCES`/`EPERM` guidance across all 11 languages.\n\nBoth packages are unsigned: the standard build includes Live Activities/widgets and needs two App IDs; lite removes the extension and needs one. Sign with your own tool before installing.\n\n更早版本的更新内容见 [Releases](https://github.com/mengangs/ipadn/releases)。\n\n两个安装包：`iPadn-2.2.1-unsigned.ipa` 是标准版（含实时活动和桌面小组件，需要 2 个 App ID）；`iPadn-2.2.1-lite-unsigned.ipa` 是精简版（不含扩展，只需 1 个 App ID），适合 App ID 数量受限的签名方式。\n\n验证：设备 Release 编译与 IPA 检查通过；283 项测试通过，0 项失败，1 项跳过。",
+          "downloadURL": "https://github.com/mengangs/ipadn/releases/download/v2.2.1/iPadn-2.2.1-lite-unsigned.ipa",
+          "size": 50602330,
           "minOSVersion": "17.0"
         }
       ]
@@ -312,7 +312,7 @@
         {
           "version": "0.9.96",
           "date": "2026-11-14T17:16:59Z",
-          "localizedDescription": "## What's Changed\n* fix(appearance): bring back the app-wide Google Fonts picker by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1127\n* fix: make the genre chip's searches work, in the source and the library by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1129\n* fix(library) select between option by @Lukas-DS in https://github.com/kodjodevf/mangayomi/pull/1131\n* fix(js): send PUT, DELETE and PATCH from the extension client by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1132\n* fix(migrate): search a few sources at a time and open the dialog at once by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1141\n* fix(sync): persist since and lastSync in one awaited write by @sergwei in https://github.com/kodjodevf/mangayomi/pull/1146\n* fix(filters): skip malformed filter options instead of dropping the list by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1150\n* feat(library): reopen on the last category, and keep the last row clear of the floating bar by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1122\n* chore: move to Flutter 3.50 and material_ui by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1154\n* fix(mass-migration): give long titles and the migrate choice room on phones by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1153\n* fix(library): hide continue-reading button when caught up by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1155\n* feat(detail): long press the In library heart to edit categories by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1160\n* fix(chapters): show a swiped chapter as read at once by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1159\n* fix(downloads): queue order, pause/resume, and move to top/bottom by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1156\n* fix(reader): delete a read download once the reader closes by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1157\n* Sync between devices, and a standalone sync server by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1158\n* feat(library): option to hide the active filter chips by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1162\n\n## New Contributors\n* @sergwei made their first contribution in https://github.com/kodjodevf/mangayomi/pull/1146\n\n**Full Changelog**: https://github.com/kodjodevf/mangayomi/compare/v0.9.95...v0.9.96",
+          "localizedDescription": "## What's Changed\r\n* fix(appearance): bring back the app-wide Google Fonts picker by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1127\r\n* fix: make the genre chip's searches work, in the source and the library by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1129\r\n* fix(library) select between option by @Lukas-DS in https://github.com/kodjodevf/mangayomi/pull/1131\r\n* fix(js): send PUT, DELETE and PATCH from the extension client by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1132\r\n* fix(migrate): search a few sources at a time and open the dialog at once by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1141\r\n* fix(sync): persist since and lastSync in one awaited write by @sergwei in https://github.com/kodjodevf/mangayomi/pull/1146\r\n* fix(filters): skip malformed filter options instead of dropping the list by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1150\r\n* feat(library): reopen on the last category, and keep the last row clear of the floating bar by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1122\r\n* chore: move to Flutter 3.50 and material_ui by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1154\r\n* fix(mass-migration): give long titles and the migrate choice room on phones by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1153\r\n* fix(library): hide continue-reading button when caught up by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1155\r\n* feat(detail): long press the In library heart to edit categories by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1160\r\n* fix(chapters): show a swiped chapter as read at once by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1159\r\n* fix(downloads): queue order, pause/resume, and move to top/bottom by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1156\r\n* fix(reader): delete a read download once the reader closes by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1157\r\n* Sync between devices, and a standalone sync server by @kodjodevf in https://github.com/kodjodevf/mangayomi/pull/1158\r\n* feat(library): option to hide the active filter chips by @itsyaba in https://github.com/kodjodevf/mangayomi/pull/1162\r\n\r\n## New Contributors\r\n* @sergwei made their first contribution in https://github.com/kodjodevf/mangayomi/pull/1146\r\n\r\n**Full Changelog**: https://github.com/kodjodevf/mangayomi/compare/v0.9.95...v0.9.96",
           "downloadURL": "https://github.com/kodjodevf/mangayomi/releases/download/v0.9.96/Mangayomi-v0.9.96-ios.ipa",
           "size": 117340839
         }
@@ -499,11 +499,11 @@
       "tintColor": "#1E5A96",
       "versions": [
         {
-          "version": "0.9.8",
-          "date": "2026-11-14T18:14:23Z",
-          "localizedDescription": "> **Requires:** iOS 27, or iOS 26.0 – 26.7.2. Tested on iOS 27.0.1, 27.2.1, 26.7.1 and the 27.3 beta (confirmed by a user).\n> **Needs:** a sideloading tool that keeps the App Group entitlement; see [Signing](https://github.com/kolbicz/WQFiles#signing-the-app-group) in the README.\n\n# Worse Query Files 0.9.8\n\n## New\n\n- **Reset Access Cache in Settings:** under **Settings → Troubleshooting**, in both designs. Until now it only appeared on the startup check screen when sandbox access failed, so it couldn't be reached after **Continue Anyway** or when access broke later. It puts WQ Files' own cache folder in the App Group back; nothing is deleted.\n\n## Changed\n\n- **Clearer Log when access is blocked:** when the access cache can't be repaired automatically, the Log now says why and what it found (swap marker, preserved Caches folder, what Caches is now) and points to **Reset Access Cache**. The same failure is logged once instead of for every folder.\n- **Translations** for the new texts in all languages.\n\n## Credit\n\nNew design: GpGp700. Sandbox technique: [worse_query](https://github.com/forcequitOS/worse_query) by Taj C (forcequit). Container enumeration: [KAMUI](https://github.com/murk-sus/kamui-escape) by murk-sus. Translations: iosrxwy (Simplified Chinese), hfip (Arabic), hooray804 (Korean), Reinascape (Russian), buraakkcayir (Turkish review). Thanks to everyone who sent Logs and ideas. GPL-3.0-or-later.\n\nSHA-256 of WQFiles.ipa: `7459ded30f5aa740a49060e1497ddf7eafa7b0152290b8104d336338de9a050c`",
-          "downloadURL": "https://github.com/kolbicz/WQFiles/releases/download/v0.9.8/WQFiles.ipa",
-          "size": 817121,
+          "version": "0.9.18",
+          "date": "2026-11-17T15:21:21Z",
+          "localizedDescription": "> **Requires:** iOS 26.0 – 26.7.2, or iOS 27.0 up to 27.3 beta 1. **Not supported:** iOS 27.3 beta 2 and later, where Apple patched worse_query. Tested on iOS 27.0.1, 27.2.1, 27.3 beta 1 (confirmed by a user) and 26.7.1; see [Tested devices](https://github.com/kolbicz/WQFiles#tested-devices).\n> **Needs:** a sideloading tool that keeps the App Group entitlement; see [Signing](https://github.com/kolbicz/WQFiles#signing-the-app-group) in the README.\n\n# Worse Query Files 0.9.18\n\nYour own inspectors, your own cleaning targets, and Japanese.\n\n## New\n\n- **Custom inspectors** ([#45](https://github.com/kolbicz/WQFiles/issues/45)): small JavaScript programs that show a file's contents your way. Long-press a file → **Open As → Custom Inspector…**. WQ Files ships only the runtime; the inspectors are yours.\n  - **Install:** open a `.zip` holding an inspector with WQ Files (share sheet, AirDrop, Files app), or copy its folder into **Settings → Inspectors**. Installing one with the same name again updates it.\n  - **Write one:** a folder with `manifest.json` and `inspect.js`. The script gets the file as bytes, as text and, for property lists, already parsed, and returns sections with rows or text. A `data.json` can hold your own lookup tables. Two examples and the full format are in the [README](https://github.com/kolbicz/WQFiles#custom-inspectors).\n  - **Results:** tap a value to copy it; Share sends everything as text. Script errors show with their line number.\n  - **Safe by design:** inspectors only read. A script has no access to other files, the network or the app, and is stopped after 2 seconds.\n- **Your own folders and files in the Cache Cleaner:** long-press a folder or file inside an app's data → **Add to Cache Cleaner**. Instagram, for example, keeps uploaded videos in `Library/Application Support/Instagram/VideoUpload` long after they're posted.\n  - Choose **Always Select** (selected after every scan and by Select All, like caches) or **Select by Hand** (you pick it each time). Long-press it in the Cache Cleaner to switch **Select Automatically** later, or to take it off the list.\n  - A folder is emptied (the folder itself stays), a file is deleted.\n  - Only add what the app can do without: anything it keeps there (drafts, downloads, logins) is gone once cleaned. The app's settings folders can't be added.\n  - Saved per app, so it keeps working when the app moves to a new container.\n- **Japanese** ([#69](https://github.com/kolbicz/WQFiles/pull/69)), the 14th language. Thanks to kinboy56.\n\n## Credit\n\nNew design: GpGp700. Sandbox technique: [worse_query](https://github.com/forcequitOS/worse_query) by Taj C (forcequit). Container enumeration: [KAMUI](https://github.com/murk-sus/kamui-escape) by murk-sus. Resumable scans: hhh2210. Custom inspectors idea: deltaII. Translations: iosrxwy and FrogTool (Simplified Chinese), kinboy56 (Japanese), hfip (Arabic), hooray804 (Korean), Reinascape (Russian), romlayvn-93 (Vietnamese), buraakkcayir (Turkish review). Thanks to everyone who sent screenshots and Logs. GPL-3.0-or-later.\n\nSHA-256 of WQFiles.ipa: `177b383c541f6deb04db331a8c7b5ed3ba8f574d85e24a72cb867f3699550a18`",
+          "downloadURL": "https://github.com/kolbicz/WQFiles/releases/download/v0.9.18/WQFiles.ipa",
+          "size": 2171189,
           "minOSVersion": "26.0"
         }
       ]
@@ -518,11 +518,11 @@
       "tintColor": "#F0E0E0",
       "versions": [
         {
-          "version": "0.4.0",
-          "date": "2026-11-15T13:19:16Z",
-          "localizedDescription": "本轮围绕空间定位和备份管理补全 P1/P2，P3 加密导出已取消。\n\n- 空间变化：最近 60 次扫描、App 增长排行与历史趋势。\n- 文件查找：大文件排序、文件名/路径搜索、类型与大小筛选、预览及定位目录。\n- 批量备份：串行执行快速/完整备份，支持重试失败项、完成当前任务后停止剩余项。\n- 备份备注与重要备份保护；保护状态随导入导出保留，并接入删除和自动保留策略。\n- 备份内容浏览与同范围备份对比，可按需进行 SHA-256 内容校验。\n- 目录级自定义备份：只恢复所选目录，安全备份、回滚和恢复日志使用相同范围。\n- 下一步 WQ 计划：访问能力诊断 → App Groups/扩展容器只读总览 → 结构化数据检查。\n\n验证：19 组可移植测试、模拟器构建/静态分析、arm64 Release 构建及 IPA 完整性检查通过；中英文 616 个键与格式占位符一致。真机 WQ 权限、大容器与系统中断场景仍需回归。\n\n安装包未签名，需自行签名并保留 App Group。快速/完整备份继续使用格式 2；自定义备份格式 3 需 0.4.0 或更新版本。备份保护由 0.4.0+ 执行。批量任务需保持前台，不提供退出后自动续跑。\n\nSHA-256: 9514534441d813480c4413c72cf69d95e062400244350db06563999db02aec3e",
-          "downloadURL": "https://github.com/hseons/WQManager/releases/download/v0.4.0/WQManager-0.4.0-unsigned.ipa",
-          "size": 849184,
+          "version": "0.5.0",
+          "date": "2026-11-18T11:48:53Z",
+          "localizedDescription": "显示版本 **0.5**，构建 **1**；内部发布修订 **0.5.0**。\n\n这个版本的主题是「找得到、看得懂、拿得走」：\n\n- **全局文件搜索**：跨 App 搜索用户文件，结果边扫边出；支持文件名 / 相对路径 / App 名、类型与最小大小筛选、路径 / 大小 / 最新排序。结果可原地预览或打开所在目录，扫描中可取消。\n- **空间变化**：按「较上次 / 近 7 天 / 近 30 天」比较，按增长排序并显示合计占用与净变化；新增全部 App 合计趋势图，单 App 详情保留当前大小、较上次、近 7 天与扫描历史。\n- **文件审计与导出**：大文件 / 重复文件按 App 分组，重复项经 SHA-256 确认；清理时每个 App 至少保留一份，删除进入空间透镜回收站。导出中心可分享或存储到「文件」，目标写入完成才记成功，取消 / 失败会清理临时目录。\n- **安全与一致性**：跨 App 的相同文件不再被当成可互相替代；重复清理不能选中某个 App 的最后一份；上次中断的导出在重开后显示「已中断」；清理 14 个无用本地化 key，中英文 813 个 key 对齐。\n- **界面**：修复空间变化页底部被悬浮 Tab Bar 遮挡；补充全局搜索、空间趋势、导出选择面板的中英文文案。\n\n验证：23 个本地测试程序、9 条模拟器 UI 流程、Debug 模拟器与 Release arm64 构建、`xcodebuild analyze` 全部通过，编译警告 0 条。\n\n已知边界：本轮 IPA 未签名，未在真机安装；超大 App 的冷扫描耗时、App Group 签名、分享 / 存储到「文件」以及强制中断场景仍需真机验收。空间趋势样本不足时显示「—」，这是预期行为。\n\n**遇到问题或有建议，欢迎到 [GitHub Issues](https://github.com/hseons/WQManager/issues) 提出**。请尽量附上系统版本、App 名称、复现步骤和截图；崩溃日志可配合附件中的 dSYM 定位。\n\n附件为**未签名 IPA**、SHA-256 和 dSYM，请按项目说明保留 App Group 权限重新签名后安装。",
+          "downloadURL": "https://github.com/hseons/WQManager/releases/download/v0.5.0/WQManager-0.5-build1-unsigned.ipa",
+          "size": 952702,
           "minOSVersion": "26.0"
         }
       ]
@@ -580,11 +580,11 @@
       "tintColor": "#F0E0D0",
       "versions": [
         {
-          "version": "3.2",
-          "date": "2026-11-15T13:17:52Z",
-          "localizedDescription": "## 3.2 (build 138)\n\n**在线漫画也能翻译了**：阅读器顶栏加了「译」按钮，译文卡片叠在图片上，原图不动。\n\n- 用的是同一套引擎（Vision 识别 + 大模型 / 系统端上翻译），缓存跟本地漫画共用一套键\n- 图片和 OCR 共用一次下载：新加原始字节缓存，不会为了识别把同一张图再下一遍\n- 翻页自动翻下一页，预载逻辑跟本地漫画一致（串行推进、失败页不重试）\n- 关掉按钮译文层立刻消失，原图一个像素不受影响\n- 书架上的封面缩略图不会挂译文层（只有阅读器里的整页才翻）\n\n\n---\n\n**安装**：下载 `MangaDock.ipa`，用 SideStore / AltStore / LiveContainer 侧载。要求 iOS 18+。\n\n```\n版本 3.2 · 构建号见包内 Info.plist\n```",
-          "downloadURL": "https://github.com/kar-liang/MangaDock/releases/download/v3.2/MangaDock.ipa",
-          "size": 19217920,
+          "version": "3.4",
+          "date": "2026-11-15T16:13:03Z",
+          "localizedDescription": "## 3.4 (build 140)\n\n修「翻译经常只翻上半页，下半页不翻，然后就跳到下一页去了」。\n\n根子上有三处，每处都正好咬住症状的一段：\n\n- **长图 OCR 只认上半页**：条漫/在线长图一页动辄 800×10000 以上，原来整张图只跑一次 Vision 识别，整图被大幅缩小后下半部分的字先糊掉，下半页经常一个气泡都认不到。改成**分片识别**：高超过 2000px 且明显是长条图的页，切成带 320px 重叠的横片逐片认，坐标换算回整页，重叠区同文同位的行去重。普通页不切，速度不变；分片后识别超时也跟着放宽（每多一片 +20 秒，上限 120 秒）\n- **模型漏条 = 整页判死**：台词按从上到下排，模型漏的偏偏是尾部几条，也就是下半页。以前漏一条就把整页标成「有一部分没翻出来」不再管。现在把没翻出来的块**单独补翻**（最多 2 次），量小、模型不容易再漏；端上翻译后一批失败时，前面已翻好的也不再一起扔掉\n- **失败页永不重试**：三个阅读器的自动翻译以前都只翻「没开始过」的页，一页一旦半翻就永久停在半翻。现在**当前页**（用户正停着看的那页）失败过也允许再翻：条漫当前页最多补 2 次、在线漫画每次到达补 1 次、分页模式翻到落点页会主动翻当前页（以前只靠预载顺带，快速翻页时落点页没人管）。预载页仍然不重试，省 token\n\n另外：旧 OCR 缓存里可能已经存了「只有上半页」的残缺结果，缓存文件换了前缀（`ocr2-`），旧结果自动作废、重新识别，不用手动清缓存。\n\n\n---\n\n**安装**：下载 `MangaDock.ipa`，用 SideStore / AltStore / LiveContainer 侧载。要求 iOS 18+。\n\n```\n版本 3.4 · 构建号见包内 Info.plist\n```",
+          "downloadURL": "https://github.com/kar-liang/MangaDock/releases/download/v3.4/MangaDock.ipa",
+          "size": 19224289,
           "minOSVersion": "18.0"
         }
       ]
@@ -611,37 +611,103 @@
   ],
   "news": [
     {
+      "appID": "org.animeko.animeko",
+      "title": "Animeko 6.4.1 · 18 Nov 2026",
+      "identifier": "Animeko-release-v6.4.1",
+      "caption": "Animeko 6.4.1 is available.",
+      "date": "2026-11-18T14:44:06Z",
+      "tintColor": "#0050A0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Animeko/images/news.png",
+      "notify": true,
+      "url": "https://github.com/open-ani/animeko/releases/tag/v6.4.1"
+    },
+    {
+      "appID": "ani.baka",
+      "title": "AniBaka 5.2.5 · 18 Nov 2026",
+      "identifier": "AniBaka-release-5.2.5+261113",
+      "caption": "AniBaka 5.2.5 is available.",
+      "date": "2026-11-18T12:04:44Z",
+      "tintColor": "#0077B6",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/AniBaka/images/news.png",
+      "notify": true,
+      "url": "https://github.com/AniBakaBaka/AniBaka/releases/tag/5.2.5+261113"
+    },
+    {
       "appID": "mumu.pduola.WQManager",
-      "title": "WQManager 0.4.0 · 15 Nov 2026",
-      "identifier": "WQManager-release-v0.4.0",
-      "caption": "WQManager 0.4.0 is available.",
-      "date": "2026-11-15T13:19:16Z",
+      "title": "WQManager 0.5.0 · 18 Nov 2026",
+      "identifier": "WQManager-release-v0.5.0",
+      "caption": "WQManager 0.5.0 is available.",
+      "date": "2026-11-18T11:48:53Z",
       "tintColor": "#F0E0E0",
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQManager/images/news.png",
       "notify": true,
-      "url": "https://github.com/hseons/WQManager/releases/tag/v0.4.0"
-    },
-    {
-      "appID": "com.karliang.mangadock",
-      "title": "漫画坞 3.2 · 15 Nov 2026",
-      "identifier": "漫画坞-release-v3.2",
-      "caption": "漫画坞 3.2 is available.",
-      "date": "2026-11-15T13:17:52Z",
-      "tintColor": "#F0E0D0",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/MangaDock/images/news.png",
-      "notify": true,
-      "url": "https://github.com/kar-liang/MangaDock/releases/tag/v3.2"
+      "url": "https://github.com/hseons/WQManager/releases/tag/v0.5.0"
     },
     {
       "appID": "app.local.iPadn",
-      "title": "iPadn 2.1.2 · 15 Nov 2026",
-      "identifier": "iPadn-release-v2.1.2",
-      "caption": "iPadn 2.1.2 is available.",
-      "date": "2026-11-15T12:17:53Z",
+      "title": "iPadn 2.2.1 · 18 Nov 2026",
+      "identifier": "iPadn-release-v2.2.1",
+      "caption": "iPadn 2.2.1 is available.",
+      "date": "2026-11-18T10:04:29Z",
       "tintColor": "#111111",
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/iPadn/images/news.png",
       "notify": true,
-      "url": "https://github.com/mengangs/ipadn/releases/tag/v2.1.2"
+      "url": "https://github.com/mengangs/ipadn/releases/tag/v2.2.1"
+    },
+    {
+      "appID": "com.hghubx.app",
+      "title": "HGhub 2.2.0 · 18 Nov 2026",
+      "identifier": "HGhub-release-v2.2.0",
+      "caption": "HGhub 2.2.0 is available.",
+      "date": "2026-11-18T06:02:05Z",
+      "tintColor": "#60C0F0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HGhub/images/news.png",
+      "notify": true,
+      "url": "https://github.com/zxsos/HGhubX/releases/tag/v2.2.0"
+    },
+    {
+      "appID": "cz.kolbi.wqfiles",
+      "title": "WQ Files 0.9.18 · 17 Nov 2026",
+      "identifier": "WQ Files-release-v0.9.18",
+      "caption": "WQ Files 0.9.18 is available.",
+      "date": "2026-11-17T15:21:21Z",
+      "tintColor": "#1E5A96",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/images/news.png",
+      "notify": true,
+      "url": "https://github.com/kolbicz/WQFiles/releases/tag/v0.9.18"
+    },
+    {
+      "appID": "nsk-1695.v-team.cn",
+      "title": "cilicili 1.1.5 · 17 Nov 2026",
+      "identifier": "cilicili-release-v1.1.5",
+      "caption": "cilicili 1.1.5 is available.",
+      "date": "2026-11-17T11:42:35Z",
+      "tintColor": "#F06090",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/cilicili/images/news.png",
+      "notify": true,
+      "url": "https://github.com/Rone89/cilicili/releases/tag/v1.1.5"
+    },
+    {
+      "appID": "com.qingtang.3106",
+      "title": "3106 3.2.6 · 17 Nov 2026",
+      "identifier": "3106-release-v3.2.6",
+      "caption": "3106 3.2.6 is available.",
+      "date": "2026-11-17T02:55:19Z",
+      "tintColor": "#F07020",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/3106/images/news.png",
+      "notify": true,
+      "url": "https://github.com/QuinnTang74/3106/releases/tag/v3.2.6"
+    },
+    {
+      "appID": "com.karliang.mangadock",
+      "title": "漫画坞 3.4 · 15 Nov 2026",
+      "identifier": "漫画坞-release-v3.4",
+      "caption": "漫画坞 3.4 is available.",
+      "date": "2026-11-15T16:13:03Z",
+      "tintColor": "#F0E0D0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/MangaDock/images/news.png",
+      "notify": true,
+      "url": "https://github.com/kar-liang/MangaDock/releases/tag/v3.4"
     },
     {
       "appID": "com.zephyr.breeze",
@@ -653,17 +719,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Breeze/images/news.png",
       "notify": true,
       "url": "https://github.com/breeze-project-org/Breeze/releases/tag/v3.0.38"
-    },
-    {
-      "appID": "cz.kolbi.wqfiles",
-      "title": "WQ Files 0.9.8 · 14 Nov 2026",
-      "identifier": "WQ Files-release-v0.9.8",
-      "caption": "WQ Files 0.9.8 is available.",
-      "date": "2026-11-14T18:14:23Z",
-      "tintColor": "#1E5A96",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/images/news.png",
-      "notify": true,
-      "url": "https://github.com/kolbicz/WQFiles/releases/tag/v0.9.8"
     },
     {
       "appID": "com.kodjodevf.mangayomi",
@@ -688,17 +743,6 @@
       "url": "https://github.com/missuo/kumone/releases/tag/v0.3.37"
     },
     {
-      "appID": "nsk-1695.v-team.cn",
-      "title": "cilicili 1.1.4 · 14 Nov 2026",
-      "identifier": "cilicili-release-v1.1.4",
-      "caption": "cilicili 1.1.4 is available.",
-      "date": "2026-11-14T09:45:45Z",
-      "tintColor": "#F06090",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/cilicili/images/news.png",
-      "notify": true,
-      "url": "https://github.com/Rone89/cilicili/releases/tag/v1.1.4"
-    },
-    {
       "appID": "com.example.piliplus",
       "title": "PiliPlus 2.2.1 · 14 Nov 2026",
       "identifier": "PiliPlus-release-2.2.1",
@@ -719,28 +763,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/AnimeFlow/images/news.png",
       "notify": true,
       "url": "https://github.com/openAnimeFlow/AnimeFlow/releases/tag/v2.6.8"
-    },
-    {
-      "appID": "com.qingtang.3106",
-      "title": "3106 3.2.5 · 13 Nov 2026",
-      "identifier": "3106-release-v3.2.5",
-      "caption": "3106 3.2.5 is available.",
-      "date": "2026-11-13T13:18:39Z",
-      "tintColor": "#F07020",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/3106/images/news.png",
-      "notify": true,
-      "url": "https://github.com/QuinnTang74/3106/releases/tag/v3.2.5"
-    },
-    {
-      "appID": "com.hghub.huangguo",
-      "title": "HGhub 1.2.19 · 11 Nov 2026",
-      "identifier": "HGhub-release-v1.2.19",
-      "caption": "HGhub 1.2.19 is available.",
-      "date": "2026-11-11T07:47:10Z",
-      "tintColor": "#60C0F0",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HGhub/images/news.png",
-      "notify": true,
-      "url": "https://github.com/zxsos/HGhubX/releases/tag/v1.2.19"
     },
     {
       "appID": "org.zhaohe.MiniWatts",
@@ -765,17 +787,6 @@
       "url": "https://github.com/huamurui/zhihu-minus-minus/releases/tag/v0.9.10"
     },
     {
-      "appID": "ani.baka",
-      "title": "AniBaka 5.2.4 · 05 Nov 2026",
-      "identifier": "AniBaka-release-5.2.4+1101",
-      "caption": "AniBaka 5.2.4 is available.",
-      "date": "2026-11-05T04:35:12Z",
-      "tintColor": "#0077B6",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/AniBaka/images/news.png",
-      "notify": true,
-      "url": "https://github.com/AniBakaBaka/AniBaka/releases/tag/5.2.4+1101"
-    },
-    {
       "appID": "com.husk.app",
       "title": "Husk 3.4 · 05 Nov 2026",
       "identifier": "Husk-release-3.4",
@@ -796,17 +807,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/MeloX/images/news.png",
       "notify": true,
       "url": "https://github.com/youshen2/MeloX/releases/tag/v1.4.1"
-    },
-    {
-      "appID": "org.animeko.animeko",
-      "title": "Animeko 6.4.0 · 24 Oct 2026",
-      "identifier": "Animeko-release-v6.4.0",
-      "caption": "Animeko 6.4.0 is available.",
-      "date": "2026-10-24T04:52:28Z",
-      "tintColor": "#0050A0",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Animeko/images/news.png",
-      "notify": true,
-      "url": "https://github.com/open-ani/animeko/releases/tag/v6.4.0"
     },
     {
       "appID": "org.eu.eslzzyl.Pixiv-SwiftUI",
