@@ -1,0 +1,42 @@
+{
+  "name": "Placard",
+  "subtitle": "Placard AltStore 源",
+  "description": "Auto-updated AltStore source for Placard",
+  "iconURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Placard/icon.png",
+  "website": "https://github.com/frs0n/placard",
+  "tintColor": "#B0C0F0",
+  "apps": [
+    {
+      "name": "Placard",
+      "bundleIdentifier": "me.ssus.placard",
+      "developerName": "frs0n",
+      "subtitle": "PosterBoard Wallpapers for iOS 26 - 27",
+      "localizedDescription": "PosterBoard Wallpapers for iOS 26 - 27",
+      "iconURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Placard/icon.png",
+      "tintColor": "#B0C0F0",
+      "versions": [
+        {
+          "version": "2.0.3",
+          "date": "2026-11-14T07:47:09Z",
+          "localizedDescription": "- 修复发布 IPA 未嵌入 App Group 权限声明的问题，便于重签工具识别所需权限。\n- 打包时验证实际签名和最终 IPA 中的 App Group 配置。\n\n本地编译，附带 ad-hoc 临时签名，仍需自行重签安装。",
+          "downloadURL": "https://github.com/frs0n/placard/releases/download/v2.0.3/placard-v2.0.3-unsigned.ipa",
+          "size": 6699817,
+          "minOSVersion": "26.0"
+        }
+      ]
+    }
+  ],
+  "news": [
+    {
+      "appID": "me.ssus.placard",
+      "title": "Placard 2.0.3 · 14 Nov 2026",
+      "identifier": "Placard-release-v2.0.3",
+      "caption": "Placard 2.0.3 is available.",
+      "date": "2026-11-14T07:47:09Z",
+      "tintColor": "#B0C0F0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Placard/images/news.png",
+      "notify": true,
+      "url": "https://github.com/frs0n/placard/releases/tag/v2.0.3"
+    }
+  ]
+}
