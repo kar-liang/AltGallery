@@ -1,0 +1,5 @@
+# render_news.py config: python3 tools/render_news.py --out apps/LiLite
+name = "轻哩"
+tagline = "轻哩 LiLite · 轻盈顺滑的原生 iOS 第三"
+
+[colors]

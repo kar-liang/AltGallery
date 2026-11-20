@@ -175,11 +175,11 @@
       "tintColor": "#F06090",
       "versions": [
         {
-          "version": "1.1.5",
-          "date": "2026-11-17T11:42:35Z",
-          "localizedDescription": "## 更新内容（1.1.4 → 1.1.5）\n\n- **顶栏交互统一**：搜索页与「我的」页面采用系统原生顶栏搜索与按钮布局；动态页右上角切换箭头尺寸调整得更协调。\n- **视频页状态栏清晰**：浅色模式下进入视频或直播详情页时，顶部状态栏图标恢复清晰可见。\n- **底栏防误触回顶**：底栏最小化成胶囊后，首次点击只展开底栏方便切换页面；在展开状态下再轻点当前 Tab 才返回顶部。\n- **顶部渐变收窄**：保留系统柔和渐进模糊效果，移除多余顶部留白占位，整体视野更干净。\n\n---\n\n**安装说明**：附件为**未签名** IPA，需自行签名后安装。",
-          "downloadURL": "https://github.com/Rone89/cilicili/releases/download/v1.1.5/bili-release-unsigned.ipa",
-          "size": 24814110,
+          "version": "1.1.6",
+          "date": "2026-11-19T21:24:27Z",
+          "localizedDescription": "## 更新内容（1.1.5 → 1.1.6）\n\n• **原生播放底层转正与手感优化**：正式采用系统原生 `AVPlayerViewController` 底座配合通透液态玻璃自绘控件，优化横向滑动调进度响应与松手出帧速度，统一手动全屏、重力横屏与系统画中画衔接体验。\n• **弹幕架构收敛与旋转稳定性修复**：点播由原生 `AVSynchronizedLayer` 同步驱动、直播由 `Metal` 渲染并彻底移除第三方 `DanmakuKit` 依赖；解决横竖屏旋转时弹幕闪烁、位置偏移与清晰度切换闪退问题，新增大会员渐变彩色弹幕及「同屏弹幕上限」设置。\n• **杜比视界与 HDR 播放精简**：移除旧版「杜比视界渲染」开关与双层叠加播放器，统一交由系统原生高动态范围输出配合内置防过曝兼容处理，避免额外功耗与画中画/全屏割裂。\n• **底栏动效与评论弹窗细节**：彻底修复二级页面返回一级页面时底部 TabBar 闪现及滚动最小化失效问题；新增「评论弹窗不展开到最大高度」开关，保持更舒适的阅读视野。\n\n--------\n\n安装说明：附件为未签名 IPA（`1.1.6` Build `218`），需自行签名后安装。",
+          "downloadURL": "https://github.com/Rone89/cilicili/releases/download/v1.1.6/bili-release-unsigned.ipa",
+          "size": 24747937,
           "minOSVersion": "26.1"
         }
       ]
@@ -609,6 +609,25 @@
       ]
     },
     {
+      "name": "轻哩",
+      "bundleIdentifier": "com.liuliuya.PiliNative",
+      "developerName": "liuliuya2333",
+      "subtitle": "轻哩 LiLite · 轻盈顺滑的原生 iOS 第三方哔哩哔哩客户端，SwiftUI 编写，为 iOS 26 Liquid Glass 设计，mpv / AVPlayer 双内核。",
+      "localizedDescription": "轻哩 LiLite · 轻盈顺滑的原生 iOS 第三方哔哩哔哩客户端，SwiftUI 编写，为 iOS 26 Liquid Glass 设计，mpv / AVPlayer 双内核。",
+      "iconURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/icon.png",
+      "tintColor": "#D0E0F0",
+      "versions": [
+        {
+          "version": "1.0.19",
+          "date": "2026-11-19T18:09:56Z",
+          "localizedDescription": "- 全屏播放器重做：状态栏、对齐的工具图标、清晰度与选集面板、倍速菜单、手势提示和锁定；内嵌播放器改用同一套进度条与拖动预览\n- 番剧简介按官方客户端重排：分类标签、标题与追番、数据与详情、单集互动数据、选集卡片、花絮分组、相关 UP 主和相关推荐；上滑时播放器折叠\n- 选集与花絮面板分段显示，支持左右滑动翻页\n- 首页顶栏与状态栏改为毛玻璃，内容从下方滑过，头像套玻璃圆\n- 视频或番剧页在后台被系统回收后，重新打开会回到原页面和进度\n- “我的”页面观看记录移到历史、稍后再看、收藏、离线下方，分组标题字号调小\n- 发评论按钮和图标加大；视频详情页内容延伸到屏幕底部，去掉底部白条\n- 大幅减少首页、视频详情页、评论区、动态和切换标签时的卡顿掉帧\n- 预加载：首页封面提前解码，按下视频卡片即开始加载详情，列表提前加载下一页，启动后在后台预热图形与字体\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.19/LiLite-1.0.19-unsigned.ipa",
+          "size": 115589636,
+          "minOSVersion": "17.0"
+        }
+      ]
+    },
+    {
       "name": "酷安",
       "bundleIdentifier": "com.coolapk.desktop",
       "developerName": "daimiaopeng",
@@ -629,6 +648,28 @@
     }
   ],
   "news": [
+    {
+      "appID": "nsk-1695.v-team.cn",
+      "title": "cilicili 1.1.6 · 19 Nov 2026",
+      "identifier": "cilicili-release-v1.1.6",
+      "caption": "cilicili 1.1.6 is available.",
+      "date": "2026-11-19T21:24:27Z",
+      "tintColor": "#F06090",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/cilicili/images/news.png",
+      "notify": true,
+      "url": "https://github.com/Rone89/cilicili/releases/tag/v1.1.6"
+    },
+    {
+      "appID": "com.liuliuya.PiliNative",
+      "title": "轻哩 1.0.19 · 19 Nov 2026",
+      "identifier": "轻哩-release-v1.0.19",
+      "caption": "轻哩 1.0.19 is available.",
+      "date": "2026-11-19T18:09:56Z",
+      "tintColor": "#D0E0F0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
+      "notify": true,
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.19"
+    },
     {
       "appID": "com.qingtang.3106",
       "title": "3106 3.2.8 · 19 Nov 2026",
@@ -705,17 +746,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/images/news.png",
       "notify": true,
       "url": "https://github.com/kolbicz/WQFiles/releases/tag/v0.9.18"
-    },
-    {
-      "appID": "nsk-1695.v-team.cn",
-      "title": "cilicili 1.1.5 · 17 Nov 2026",
-      "identifier": "cilicili-release-v1.1.5",
-      "caption": "cilicili 1.1.5 is available.",
-      "date": "2026-11-17T11:42:35Z",
-      "tintColor": "#F06090",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/cilicili/images/news.png",
-      "notify": true,
-      "url": "https://github.com/Rone89/cilicili/releases/tag/v1.1.5"
     },
     {
       "appID": "com.karliang.mangadock",
