@@ -16,11 +16,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.22",
-          "date": "2026-11-20T10:07:20Z",
-          "localizedDescription": "- 直播间按官方客户端重做：模糊封面暗色背景、主播栏（看过人数、开播时长、关注、高能榜）、深色弹幕列表（粉丝牌、主播标签、新消息提示）和底部输入栏；画质、线路、定时停止等设置收进 ⋯ 菜单；竖屏直播和横屏有各自的布局\n- 修复直播实时弹幕连不上（提示“Brotli 直播帧无效”）\n- 修复视频全屏时点几次就卡死、锁定后解不开\n- 修复番剧和剧集弹幕密集时闪烁\n- 修复界面缩放调小后首页加载不出来、顶栏跑到右边；运行中切换缩放后频道页不再错位\n- 首页推荐像官方客户端一样无限下滑自动加载，不再显示“加载更多”按钮\n- 性能优化：首页封面预取更快，打开视频、简介与评论滑动、UP 主空间更流畅\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.22/LiLite-1.0.22-unsigned.ipa",
-          "size": 116795428,
+          "version": "1.0.23",
+          "date": "2026-11-20T17:32:37Z",
+          "localizedDescription": "- 视频详情页的点赞、不喜欢、投币、收藏、分享换成官方客户端图标，加上玻璃底和点按动画\n- 修复进入视频不自动播放\n- 一镜到底：从首页、空间等卡片打开视频时页面从卡片展开，返回时缩回卡片；同时修复打开页面没有转场动画\n- 修复从视频返回首页时底栏透明、闪一下\n- 楼中楼里侧滑只关闭楼中楼，不再直接退出视频\n- 评论图片改为全屏查看器，打开时先显示缩略图，单击关闭\n- 评论区装扮卡片按官方客户端布局重做，编号不再和卡图叠在一起，支持渐变色编号\n- 番剧页显示评论数，新增“点我发弹幕”\n- 追番追剧页按官方布局重做（追番 / 追剧、想看 / 在看 / 看过、管理），返回后列表不再残留选中态\n- UP 主空间：投稿里显示图文，主页背景改为白色，进入时顶部不再闪白条\n- 首页点头像切到“我的”加入过渡动画，简介展开、列表加载、关注等切换补上动画\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.23/LiLite-1.0.23-unsigned.ipa",
+          "size": 117684148,
           "minOSVersion": "17.0"
         }
       ]
@@ -29,14 +29,14 @@
   "news": [
     {
       "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.22 · 20 Nov 2026",
-      "identifier": "轻哩-release-v1.0.22",
-      "caption": "轻哩 1.0.22 is available.",
-      "date": "2026-11-20T10:07:20Z",
+      "title": "轻哩 1.0.23 · 20 Nov 2026",
+      "identifier": "轻哩-release-v1.0.23",
+      "caption": "轻哩 1.0.23 is available.",
+      "date": "2026-11-20T17:32:37Z",
       "tintColor": "#D0E0F0",
       "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
       "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.22"
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.23"
     }
   ]
 }
