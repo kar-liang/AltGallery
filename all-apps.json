@@ -218,11 +218,11 @@
       "tintColor": "#60C0F0",
       "versions": [
         {
-          "version": "2.2.2",
-          "date": "2026-11-19T04:39:12Z",
-          "localizedDescription": "## HGhubX 2.2.2\n\n2.2.0 之后的体验修复版本：收藏续播与新集提醒、底部进度预览、TV 启动密码，以及冷启动登录保持与移动端布局 / 键盘修复。\n\n### 新增\n\n- **收藏进度、续播与新集提醒**（#154）：收藏卡片显示上次观看进度；看完一集且有后续时从下一集开头继续；返回收藏页后台刷新集数并保留现有卡片，未看新集显示「新更 N 集」角标。\n- **TV 启动密码**（#152）：设置 → 启动密码可开启 / 修改 / 关闭四位 PIN 或立即锁定；支持遥控器数字键与屏幕键盘，连续输入不再被步骤切换清空，连续输错 5 次进入 15 秒冷却。\n\n### 改进\n\n- **底部进度预览**（#152）：横拖画面或拖动进度条统一在底部预览时间，松手才提交跳转，不再把进度条叠在画面中央。\n- **连续切集**（#156、#157）：下一集加载期间仍可继续划；同类集数提示只更新同一张卡片，不堆叠。\n- TV 解锁页移除重复副标题与底部操作说明，仅保留标题、输入提示与错误反馈。\n\n### 修复\n\n- **冷启动与账号恢复**（#156）：启动动画期间按返回只跳过动画；镜像验证暂时失败不再显示登出；账号同步 401 时同账号静默重登，身份或会话代次不符时保留原会话并提示手动处理。\n- **移动端布局与登录键盘**（#157、#163）：窄屏全宽、平板 / 桌面限宽居中；横竖屏底栏与弹层避开系统安全区；Android 标准版软键盘弹出后，密码框与「登录」按钮仍可滚到可见位置。\n\n### 验证\n\n- 集成校验全绿：前端标准版 + TV 版构建、Rust、浏览器 smoke、Playback core / extended（run 44454852498）。\n- 全平台打包成功：Windows、macOS、Linux、iOS 未签名 IPA、Android 标准版与 TV 版（run 44454856257），Android `versionCode=2002002`。\n- Android 登录键盘修复在 Android 16 手机模拟器按 320×568、360×840 dp 实测通过（#163）；TV PIN 流程由 Chromium TV 用例 14/14 覆盖，未做 TV 实机验收。\n\n### 已知限制\n\n- iOS 包为无证书构建（需自行签名侧载）；macOS 为 ad-hoc 签名。\n- Android `versionCode` 为 `2002002`；已安装更高版本号测试包（如 2.3.0 / `2003000`）的设备需先卸载再安装。\n- 收藏「新更 N 集」基线按设备本地记录，不随账号跨设备同步；新设备首次登录可能显示与旧设备不同的新集数。",
-          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.2/HGhubX_2.2.2_ios.ipa",
-          "size": 3891126,
+          "version": "2.2.3",
+          "date": "2026-11-20T05:33:55Z",
+          "localizedDescription": "# HGhubX v2.2.3\r\n\r\n本版重新安排手机播放控件，改善桌面子页的宽屏布局，并优化「我的」内容管理与吃瓜详情的稳定性。\r\n\r\n## **TV 端无任何改动**\r\n\r\n## 新增与优化\r\n\r\n1. **手机播放控件与全屏手势（#170）**：选集、静音、切集开关和全屏集中到屏幕底部；首页四个按钮使用更透明的底色，减少对画面的遮挡。横屏设置抽屉完整显示倍速选项；全屏支持上下滑切集并提示首尾边界，清屏时保留锁屏入口。\r\n2. **播放详情、标签与搜索（#170）**：「详情」和「选集」支持左右滑动切换，下拉关闭；点按标签查看同类，长按或右键可屏蔽。在栏目内打开的播放页可按当前内容类型搜索，首页底部的全局搜索不受影响。\r\n3. **收藏与观看历史管理（#168、#169）**：在「我的」中长按或右键卡片进入多选，可批量取消收藏或删除观看记录；列表接近底部时自动加载更多，网格列数保持不变。\r\n\r\n## 修复\r\n\r\n1. **吃瓜详情闪烁（#165）**：切换线路或代理时保留已展示的正文和滚动位置；阅读位置更新时复用未变的图片，短暂缓冲不再立即弹出加载动画。\r\n2. **桌面子页顶栏两侧断开（#171）**：「排行榜」「关注」等子页和页内搜索层的顶栏底色、分隔线铺满面板；标题、筛选项和正文仍按原宽度居中。\r\n3. **本人主页与批量操作**：本人主页隐藏「关注」入口；批量取消收藏期间切换账号、线路或代理时，旧批次停止发送后续项目，不显示旧批次的结果。\r\n\r\n## 安装与兼容提示\r\n\r\n- Windows 提供安装程序和便携包；macOS 提供通用架构 DMG；Linux 提供 amd64 DEB。\r\n- Android 标准版和 TV 版分别提供 APK，按设备架构选择 `arm64`、`armv7` 或 `x86_64`。覆盖升级请选相同版本类别，避免卸载造成应用数据丢失。\r\n- iOS 提供未签名 IPA，需自行签名并侧载。收藏「新更 N 集」的提醒基线仍按设备记录，不跨设备同步。\r\n\r\n## 致谢\r\n\r\n- 感谢 @makisekurisu-jp 对手机播放和「我的」页面的贡献；本版由 @zxsos 整合、验证并发布，也感谢反馈桌面布局和吃瓜闪烁问题的用户。\r\n\r\n## 验证\r\n\r\n- [候选版 CI #44678989121](https://github.com/zxsos/HGhubX/actions/runs/44678989121)：标准版与 TV 版前端构建通过；Rust 114 项通过、4 项忽略；浏览器 smoke 7／7 通过；播放核心 7／7、扩展 4／4 通过。浏览器回归确认连续划到第 2、3 集时未跳到其他剧。",
+          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.3/HGhubX_2.2.3_ios.ipa",
+          "size": 3895060,
           "minOSVersion": "15.0"
         }
       ]
@@ -518,11 +518,11 @@
       "tintColor": "#1E5A96",
       "versions": [
         {
-          "version": "0.9.18",
-          "date": "2026-11-17T15:21:21Z",
-          "localizedDescription": "> **Requires:** iOS 26.0 – 26.7.2, or iOS 27.0 up to 27.3 beta 1. **Not supported:** iOS 27.3 beta 2 and later, where Apple patched worse_query. Tested on iOS 27.0.1, 27.2.1, 27.3 beta 1 (confirmed by a user) and 26.7.1; see [Tested devices](https://github.com/kolbicz/WQFiles#tested-devices).\n> **Needs:** a sideloading tool that keeps the App Group entitlement; see [Signing](https://github.com/kolbicz/WQFiles#signing-the-app-group) in the README.\n\n# Worse Query Files 0.9.18\n\nYour own inspectors, your own cleaning targets, and Japanese.\n\n## New\n\n- **Custom inspectors** ([#45](https://github.com/kolbicz/WQFiles/issues/45)): small JavaScript programs that show a file's contents your way. Long-press a file → **Open As → Custom Inspector…**. WQ Files ships only the runtime; the inspectors are yours.\n  - **Install:** open a `.zip` holding an inspector with WQ Files (share sheet, AirDrop, Files app), or copy its folder into **Settings → Inspectors**. Installing one with the same name again updates it.\n  - **Write one:** a folder with `manifest.json` and `inspect.js`. The script gets the file as bytes, as text and, for property lists, already parsed, and returns sections with rows or text. A `data.json` can hold your own lookup tables. Two examples and the full format are in the [README](https://github.com/kolbicz/WQFiles#custom-inspectors).\n  - **Results:** tap a value to copy it; Share sends everything as text. Script errors show with their line number.\n  - **Safe by design:** inspectors only read. A script has no access to other files, the network or the app, and is stopped after 2 seconds.\n- **Your own folders and files in the Cache Cleaner:** long-press a folder or file inside an app's data → **Add to Cache Cleaner**. Instagram, for example, keeps uploaded videos in `Library/Application Support/Instagram/VideoUpload` long after they're posted.\n  - Choose **Always Select** (selected after every scan and by Select All, like caches) or **Select by Hand** (you pick it each time). Long-press it in the Cache Cleaner to switch **Select Automatically** later, or to take it off the list.\n  - A folder is emptied (the folder itself stays), a file is deleted.\n  - Only add what the app can do without: anything it keeps there (drafts, downloads, logins) is gone once cleaned. The app's settings folders can't be added.\n  - Saved per app, so it keeps working when the app moves to a new container.\n- **Japanese** ([#69](https://github.com/kolbicz/WQFiles/pull/69)), the 14th language. Thanks to kinboy56.\n\n## Credit\n\nNew design: GpGp700. Sandbox technique: [worse_query](https://github.com/forcequitOS/worse_query) by Taj C (forcequit). Container enumeration: [KAMUI](https://github.com/murk-sus/kamui-escape) by murk-sus. Resumable scans: hhh2210. Custom inspectors idea: deltaII. Translations: iosrxwy and FrogTool (Simplified Chinese), kinboy56 (Japanese), hfip (Arabic), hooray804 (Korean), Reinascape (Russian), romlayvn-93 (Vietnamese), buraakkcayir (Turkish review). Thanks to everyone who sent screenshots and Logs. GPL-3.0-or-later.\n\nSHA-256 of WQFiles.ipa: `177b383c541f6deb04db331a8c7b5ed3ba8f574d85e24a72cb867f3699550a18`",
-          "downloadURL": "https://github.com/kolbicz/WQFiles/releases/download/v0.9.18/WQFiles.ipa",
-          "size": 2171189,
+          "version": "0.9.19",
+          "date": "2026-11-20T01:16:50Z",
+          "localizedDescription": "> **Requires:** iOS 26.0 – 26.7.2, or iOS 27.0 up to 27.3 beta 1. **Not supported:** iOS 27.3 beta 2 and later, where Apple patched worse_query. Tested on iOS 27.0.1, 27.2.1, 27.3 beta 1 (confirmed by a user) and 26.7.1; see [Tested devices](https://github.com/kolbicz/WQFiles#tested-devices).\n> **Needs:** a sideloading tool that keeps the App Group entitlement; see [Signing](https://github.com/kolbicz/WQFiles#signing-the-app-group) in the README.\n\n# Worse Query Files 0.9.19\n\nA small fix release, plus optional App Store icons.\n\n## New\n\n- **Settings → App Store Icons** (off by default): other apps' icons can't be read with worse_query, so WQ Files can fetch them from Apple's public App Store lookup instead. This sends the bundle ids of your installed apps and your region to Apple. Sideloaded apps and apps that were removed from the App Store keep the placeholder. Icons are stored in WQ Files (about 7 KB each, not backed up); turning the setting off deletes them.\n\n## Fixed\n\n- **Apps with one-word bundle ids** like Pinterest (`pinterest`) showed \"container identity unavailable\" and 0 KB, and couldn't be opened, backed up or cleared. They work now.\n- **App icons:** other apps' icons can't be read with worse_query, so they show a placeholder. Third-party apps now all get the neutral one, instead of misleading guesses like the Books icon for Facebook or the Music icon for TikTok. Apple services that iOS only gives a placeholder for no longer show iOS's grey grid in dark mode.\n- **Apps list on iOS 27:** the header above the list (number of apps and their size) showed as an empty band, leaving a large gap. It shows its text again, with less space above it.\n- **iOS 27 beta 5 / public beta 3** ([#70](https://github.com/kolbicz/WQFiles/issues/70)): after swiping back from App Backups, the first row on the Backups tab stopped responding. It keeps working now. The blurred band under the bar can still look too tall on that beta; that's an iOS bug. Release versions of iOS aren't affected.\n\n## Credit\n\nNew design: GpGp700. Sandbox technique: [worse_query](https://github.com/forcequitOS/worse_query) by Taj C (forcequit). Container enumeration: [KAMUI](https://github.com/murk-sus/kamui-escape) by murk-sus. Resumable scans: hhh2210. Custom inspectors idea: deltaII. Translations: iosrxwy and FrogTool (Simplified Chinese), kinboy56 (Japanese), hfip (Arabic), hooray804 (Korean), Reinascape (Russian), romlayvn-93 (Vietnamese), buraakkcayir (Turkish review). Thanks to control0forver for testing four debug builds, and to everyone who sent screenshots and Logs. GPL-3.0-or-later.\n\nSHA-256 of WQFiles.ipa: `32a0821d16b4ddedcc7b2063f90530952a644308009db0522c618c23233cacca`",
+          "downloadURL": "https://github.com/kolbicz/WQFiles/releases/download/v0.9.19/WQFiles.ipa",
+          "size": 2182170,
           "minOSVersion": "26.0"
         }
       ]
@@ -618,11 +618,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.19",
-          "date": "2026-11-19T18:09:56Z",
-          "localizedDescription": "- 全屏播放器重做：状态栏、对齐的工具图标、清晰度与选集面板、倍速菜单、手势提示和锁定；内嵌播放器改用同一套进度条与拖动预览\n- 番剧简介按官方客户端重排：分类标签、标题与追番、数据与详情、单集互动数据、选集卡片、花絮分组、相关 UP 主和相关推荐；上滑时播放器折叠\n- 选集与花絮面板分段显示，支持左右滑动翻页\n- 首页顶栏与状态栏改为毛玻璃，内容从下方滑过，头像套玻璃圆\n- 视频或番剧页在后台被系统回收后，重新打开会回到原页面和进度\n- “我的”页面观看记录移到历史、稍后再看、收藏、离线下方，分组标题字号调小\n- 发评论按钮和图标加大；视频详情页内容延伸到屏幕底部，去掉底部白条\n- 大幅减少首页、视频详情页、评论区、动态和切换标签时的卡顿掉帧\n- 预加载：首页封面提前解码，按下视频卡片即开始加载详情，列表提前加载下一页，启动后在后台预热图形与字体\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.19/LiLite-1.0.19-unsigned.ipa",
-          "size": 115589636,
+          "version": "1.0.20",
+          "date": "2026-11-20T03:03:33Z",
+          "localizedDescription": "- 修复 iOS 17/18 上播放器点不动的问题（画面、控件按钮都没反应）\n- 看视频时不再自动息屏，暂停或离开播放页后恢复自动锁屏\n- 播放器手势和控件显隐与官方客户端一致：双击画面播放/暂停；播放中 3 秒后隐藏控件，暂停时保留；拖完进度条或横滑快进后收起控件；横滑快进的幅度随视频时长调整；亮度、音量滑动更跟手\n- 返回和主页按钮随播放控件一起隐藏\n- 全屏播放器：画面上下撑满，控件对齐画面左右边缘，修正图标高低不齐；新的快进提示，暂停时画面中央显示播放按钮\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.20/LiLite-1.0.20-unsigned.ipa",
+          "size": 115726180,
           "minOSVersion": "17.0"
         }
       ]
@@ -649,6 +649,39 @@
   ],
   "news": [
     {
+      "appID": "com.hghubx.app",
+      "title": "HGhub 2.2.3 · 20 Nov 2026",
+      "identifier": "HGhub-release-v2.2.3",
+      "caption": "HGhub 2.2.3 is available.",
+      "date": "2026-11-20T05:33:55Z",
+      "tintColor": "#60C0F0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HGhub/images/news.png",
+      "notify": true,
+      "url": "https://github.com/zxsos/HGhubX/releases/tag/v2.2.3"
+    },
+    {
+      "appID": "com.liuliuya.PiliNative",
+      "title": "轻哩 1.0.20 · 20 Nov 2026",
+      "identifier": "轻哩-release-v1.0.20",
+      "caption": "轻哩 1.0.20 is available.",
+      "date": "2026-11-20T03:03:33Z",
+      "tintColor": "#D0E0F0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
+      "notify": true,
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.20"
+    },
+    {
+      "appID": "cz.kolbi.wqfiles",
+      "title": "WQ Files 0.9.19 · 20 Nov 2026",
+      "identifier": "WQ Files-release-v0.9.19",
+      "caption": "WQ Files 0.9.19 is available.",
+      "date": "2026-11-20T01:16:50Z",
+      "tintColor": "#1E5A96",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/images/news.png",
+      "notify": true,
+      "url": "https://github.com/kolbicz/WQFiles/releases/tag/v0.9.19"
+    },
+    {
       "appID": "nsk-1695.v-team.cn",
       "title": "cilicili 1.1.6 · 19 Nov 2026",
       "identifier": "cilicili-release-v1.1.6",
@@ -660,17 +693,6 @@
       "url": "https://github.com/Rone89/cilicili/releases/tag/v1.1.6"
     },
     {
-      "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.19 · 19 Nov 2026",
-      "identifier": "轻哩-release-v1.0.19",
-      "caption": "轻哩 1.0.19 is available.",
-      "date": "2026-11-19T18:09:56Z",
-      "tintColor": "#D0E0F0",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
-      "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.19"
-    },
-    {
       "appID": "com.qingtang.3106",
       "title": "3106 3.2.8 · 19 Nov 2026",
       "identifier": "3106-release-v3.2.8",
@@ -680,17 +702,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/3106/images/news.png",
       "notify": true,
       "url": "https://github.com/QuinnTang74/3106/releases/tag/v3.2.8"
-    },
-    {
-      "appID": "com.hghubx.app",
-      "title": "HGhub 2.2.2 · 19 Nov 2026",
-      "identifier": "HGhub-release-v2.2.2",
-      "caption": "HGhub 2.2.2 is available.",
-      "date": "2026-11-19T04:39:12Z",
-      "tintColor": "#60C0F0",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HGhub/images/news.png",
-      "notify": true,
-      "url": "https://github.com/zxsos/HGhubX/releases/tag/v2.2.2"
     },
     {
       "appID": "org.animeko.animeko",
@@ -735,17 +746,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/iPadn/images/news.png",
       "notify": true,
       "url": "https://github.com/mengangs/ipadn/releases/tag/v2.2.1"
-    },
-    {
-      "appID": "cz.kolbi.wqfiles",
-      "title": "WQ Files 0.9.18 · 17 Nov 2026",
-      "identifier": "WQ Files-release-v0.9.18",
-      "caption": "WQ Files 0.9.18 is available.",
-      "date": "2026-11-17T15:21:21Z",
-      "tintColor": "#1E5A96",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/images/news.png",
-      "notify": true,
-      "url": "https://github.com/kolbicz/WQFiles/releases/tag/v0.9.18"
     },
     {
       "appID": "com.karliang.mangadock",

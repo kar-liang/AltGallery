@@ -16,11 +16,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.19",
-          "date": "2026-11-19T18:09:56Z",
-          "localizedDescription": "- 全屏播放器重做：状态栏、对齐的工具图标、清晰度与选集面板、倍速菜单、手势提示和锁定；内嵌播放器改用同一套进度条与拖动预览\n- 番剧简介按官方客户端重排：分类标签、标题与追番、数据与详情、单集互动数据、选集卡片、花絮分组、相关 UP 主和相关推荐；上滑时播放器折叠\n- 选集与花絮面板分段显示，支持左右滑动翻页\n- 首页顶栏与状态栏改为毛玻璃，内容从下方滑过，头像套玻璃圆\n- 视频或番剧页在后台被系统回收后，重新打开会回到原页面和进度\n- “我的”页面观看记录移到历史、稍后再看、收藏、离线下方，分组标题字号调小\n- 发评论按钮和图标加大；视频详情页内容延伸到屏幕底部，去掉底部白条\n- 大幅减少首页、视频详情页、评论区、动态和切换标签时的卡顿掉帧\n- 预加载：首页封面提前解码，按下视频卡片即开始加载详情，列表提前加载下一页，启动后在后台预热图形与字体\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.19/LiLite-1.0.19-unsigned.ipa",
-          "size": 115589636,
+          "version": "1.0.20",
+          "date": "2026-11-20T03:03:33Z",
+          "localizedDescription": "- 修复 iOS 17/18 上播放器点不动的问题（画面、控件按钮都没反应）\n- 看视频时不再自动息屏，暂停或离开播放页后恢复自动锁屏\n- 播放器手势和控件显隐与官方客户端一致：双击画面播放/暂停；播放中 3 秒后隐藏控件，暂停时保留；拖完进度条或横滑快进后收起控件；横滑快进的幅度随视频时长调整；亮度、音量滑动更跟手\n- 返回和主页按钮随播放控件一起隐藏\n- 全屏播放器：画面上下撑满，控件对齐画面左右边缘，修正图标高低不齐；新的快进提示，暂停时画面中央显示播放按钮\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.20/LiLite-1.0.20-unsigned.ipa",
+          "size": 115726180,
           "minOSVersion": "17.0"
         }
       ]
@@ -29,14 +29,14 @@
   "news": [
     {
       "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.19 · 19 Nov 2026",
-      "identifier": "轻哩-release-v1.0.19",
-      "caption": "轻哩 1.0.19 is available.",
-      "date": "2026-11-19T18:09:56Z",
+      "title": "轻哩 1.0.20 · 20 Nov 2026",
+      "identifier": "轻哩-release-v1.0.20",
+      "caption": "轻哩 1.0.20 is available.",
+      "date": "2026-11-20T03:03:33Z",
       "tintColor": "#D0E0F0",
       "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
       "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.19"
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.20"
     }
   ]
 }
