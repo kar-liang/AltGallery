@@ -16,11 +16,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.20",
-          "date": "2026-11-20T03:03:33Z",
-          "localizedDescription": "- 修复 iOS 17/18 上播放器点不动的问题（画面、控件按钮都没反应）\n- 看视频时不再自动息屏，暂停或离开播放页后恢复自动锁屏\n- 播放器手势和控件显隐与官方客户端一致：双击画面播放/暂停；播放中 3 秒后隐藏控件，暂停时保留；拖完进度条或横滑快进后收起控件；横滑快进的幅度随视频时长调整；亮度、音量滑动更跟手\n- 返回和主页按钮随播放控件一起隐藏\n- 全屏播放器：画面上下撑满，控件对齐画面左右边缘，修正图标高低不齐；新的快进提示，暂停时画面中央显示播放按钮\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.20/LiLite-1.0.20-unsigned.ipa",
-          "size": 115726180,
+          "version": "1.0.22",
+          "date": "2026-11-20T10:07:20Z",
+          "localizedDescription": "- 直播间按官方客户端重做：模糊封面暗色背景、主播栏（看过人数、开播时长、关注、高能榜）、深色弹幕列表（粉丝牌、主播标签、新消息提示）和底部输入栏；画质、线路、定时停止等设置收进 ⋯ 菜单；竖屏直播和横屏有各自的布局\n- 修复直播实时弹幕连不上（提示“Brotli 直播帧无效”）\n- 修复视频全屏时点几次就卡死、锁定后解不开\n- 修复番剧和剧集弹幕密集时闪烁\n- 修复界面缩放调小后首页加载不出来、顶栏跑到右边；运行中切换缩放后频道页不再错位\n- 首页推荐像官方客户端一样无限下滑自动加载，不再显示“加载更多”按钮\n- 性能优化：首页封面预取更快，打开视频、简介与评论滑动、UP 主空间更流畅\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.22/LiLite-1.0.22-unsigned.ipa",
+          "size": 116795428,
           "minOSVersion": "17.0"
         }
       ]
@@ -29,14 +29,14 @@
   "news": [
     {
       "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.20 · 20 Nov 2026",
-      "identifier": "轻哩-release-v1.0.20",
-      "caption": "轻哩 1.0.20 is available.",
-      "date": "2026-11-20T03:03:33Z",
+      "title": "轻哩 1.0.22 · 20 Nov 2026",
+      "identifier": "轻哩-release-v1.0.22",
+      "caption": "轻哩 1.0.22 is available.",
+      "date": "2026-11-20T10:07:20Z",
       "tintColor": "#D0E0F0",
       "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
       "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.20"
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.22"
     }
   ]
 }
