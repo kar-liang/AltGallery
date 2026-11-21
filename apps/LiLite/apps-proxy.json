@@ -16,11 +16,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.23",
-          "date": "2026-11-20T17:32:37Z",
-          "localizedDescription": "- 视频详情页的点赞、不喜欢、投币、收藏、分享换成官方客户端图标，加上玻璃底和点按动画\n- 修复进入视频不自动播放\n- 一镜到底：从首页、空间等卡片打开视频时页面从卡片展开，返回时缩回卡片；同时修复打开页面没有转场动画\n- 修复从视频返回首页时底栏透明、闪一下\n- 楼中楼里侧滑只关闭楼中楼，不再直接退出视频\n- 评论图片改为全屏查看器，打开时先显示缩略图，单击关闭\n- 评论区装扮卡片按官方客户端布局重做，编号不再和卡图叠在一起，支持渐变色编号\n- 番剧页显示评论数，新增“点我发弹幕”\n- 追番追剧页按官方布局重做（追番 / 追剧、想看 / 在看 / 看过、管理），返回后列表不再残留选中态\n- UP 主空间：投稿里显示图文，主页背景改为白色，进入时顶部不再闪白条\n- 首页点头像切到“我的”加入过渡动画，简介展开、列表加载、关注等切换补上动画\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.23/LiLite-1.0.23-unsigned.ipa",
-          "size": 117684148,
+          "version": "1.0.24",
+          "date": "2026-11-21T01:08:27Z",
+          "localizedDescription": "- 头像上的大会员角标改为原版尺寸：列表头像 14pt，UP 主空间大头像 20pt，不再过大\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.24/LiLite-1.0.24-unsigned.ipa",
+          "size": 117700532,
           "minOSVersion": "17.0"
         }
       ]
@@ -29,14 +29,14 @@
   "news": [
     {
       "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.23 · 20 Nov 2026",
-      "identifier": "轻哩-release-v1.0.23",
-      "caption": "轻哩 1.0.23 is available.",
-      "date": "2026-11-20T17:32:37Z",
+      "title": "轻哩 1.0.24 · 21 Nov 2026",
+      "identifier": "轻哩-release-v1.0.24",
+      "caption": "轻哩 1.0.24 is available.",
+      "date": "2026-11-21T01:08:27Z",
       "tintColor": "#D0E0F0",
       "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
       "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.23"
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.24"
     }
   ]
 }
