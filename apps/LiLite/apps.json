@@ -16,11 +16,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.24",
-          "date": "2026-11-21T01:08:27Z",
-          "localizedDescription": "- 头像上的大会员角标改为原版尺寸：列表头像 14pt，UP 主空间大头像 20pt，不再过大\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.24/LiLite-1.0.24-unsigned.ipa",
-          "size": 117700532,
+          "version": "1.0.25",
+          "date": "2026-11-21T18:39:41Z",
+          "localizedDescription": "**交互与返回**\n- 直播间、视频页、番剧页、UP 主空间、搜索结果等页面支持全屏宽度右划返回；在后面的标签页右划先回到上一个标签，播放器区域仍用于拖动进度\n- 评论区点开图片后可以右划关闭，只关闭图片，视频继续播放，不会再退回首页\n- 播放器左上角的回到首页按钮已移除\n- 长按倍速按官方客户端的判定（0.25 秒），倍速时手指轻微移动不再变成拖动进度条\n\n**界面**\n- 合集改为从播放器下方滑出的面板，风格与评论详情一致：顶部固定封面、标题、视频数和订阅按钮，支持分节与正倒序，自动定位到正在播放的一集\n- 视频简介、全屏“更多”面板按官方客户端重做\n- 官方赛事直播间新增赛程、回放、选手评分\n\n**iPad 与 iPhone Duo**\n- 一镜到底在 iPad 与 Duo（展开、半折叠）上直接落到播放器位置，过渡连贯；右划缩回卡片的手感与手机一致\n- 视频页并排布局与侧栏宽度调整，窄栏中的标签与发弹幕按钮不再被截断\n\n**性能与修复**\n- 修复播放视频时返回首页、再进入视频的卡顿\n- 修复听视频部分地址 403 无法播放\n- 离开播放后释放播放器与渲染资源，降低内存占用\n- 改用 Xcode 原生构建\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.25/LiLite-1.0.25-unsigned.ipa",
+          "size": 23543836,
           "minOSVersion": "17.0"
         }
       ]
@@ -29,14 +29,14 @@
   "news": [
     {
       "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.24 · 21 Nov 2026",
-      "identifier": "轻哩-release-v1.0.24",
-      "caption": "轻哩 1.0.24 is available.",
-      "date": "2026-11-21T01:08:27Z",
+      "title": "轻哩 1.0.25 · 21 Nov 2026",
+      "identifier": "轻哩-release-v1.0.25",
+      "caption": "轻哩 1.0.25 is available.",
+      "date": "2026-11-21T18:39:41Z",
       "tintColor": "#D0E0F0",
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
       "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.24"
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.25"
     }
   ]
 }

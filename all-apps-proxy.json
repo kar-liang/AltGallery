@@ -218,11 +218,11 @@
       "tintColor": "#60C0F0",
       "versions": [
         {
-          "version": "2.2.5",
-          "date": "2026-11-20T18:49:08Z",
-          "localizedDescription": "# HGhubX v2.2.5\r\n\r\n聚焦多语言支持（简体中文、繁体中文、英语）、播放器微光效果与多端播放交互修复；覆盖 Windows、macOS、Linux、Android 与 iOS 标准版。\r\n@makisekurisu-jp @zxsos\r\n## 新增与优化\r\n1. **简体中文、繁体中文与英语界面切换（#190）**：默认使用简体中文，可在「设置 → 外观 → 语言」中一键切换简体中文、繁體中文与 English，切换后立即生效并跨重启持久化；繁体中文与英语词典按需异步加载，首屏默认体积接近零增长。\r\n2. **播放器微光效果（#192）**：低分辨率实时采样当前播放画面颜色并柔和扩散至视频黑边区域；可在「设置 → 播放 → 微光效果」中随时开关（默认开启，关闭后不挂载采样层以节省电量）。\r\n3. **精简移动端长按倍速交互（#193）**：移除拖动至顶部胶囊锁定倍速的繁琐交互，长按右侧仅作临时加速、长按左侧临时 0.5x 减速、松手即恢复原倍速；持久倍速统一在全屏倍速按钮或「更多 → 播放设置」中调整。\r\n\r\n## 修复\r\n1. **桌面端开启「上下划切集」滚轮切集失效（#195）**：桌面端开启「上下划切集」后，鼠标滚轮或触控板纵向滑动原本直接触发列表原生滚动跳到下一部剧；现拦截播放区纵向滚轮并在当前剧内顺滑切集、弹出集数提示，底部控制栏「下一集 ↓ / 下一部 ↓」按钮同步遵循该开关。\r\n2. **清屏锁定后锁图标常驻遮挡画面（#194）**：移动端清屏模式点击锁定后立即隐藏右侧锁图标，锁定期间仅在点按屏幕触发「轻触即可解锁」提示时同步显示解锁按钮 2.2 秒，避免图标常驻干扰观看。\r\n3. **横屏全屏切集时集数提示重复闪现（#191）**：横屏全屏切集时暂存集数提示，待下一集视频尺寸解析完成并真正开播后再于横屏旋转舞台弹出一次，消除切换瞬间在竖屏和横屏位置各弹一次的问题。\r\n\r\n## 安装与兼容提示\r\n- Windows 提供 NSIS 安装包与便携压缩包；macOS 提供 Universal DMG；Linux 提供 amd64 `.deb`；Android 标准版按 ABI 提供已签名 APK（`versionCode=2002005`）；iOS 提供未签名 `.ipa`（需自行签名安装）。\r\n- 覆盖安装保留本机收藏、观看记录、界面语言、线路与内容偏好；Android TV 版（`com.hghubx.tv`）由独立 `tv-v*` 标签单独发布。\r\n\r\n## 致谢\r\n- 感谢 `@makisekurisu-jp` 贡献 #191、#192、#193、#194 播放器视觉与手势交互优化。\r\n\r\n## 验证\r\n- 本地 `make check`（Rust 114 项单元测试、TypeScript 三套配置与 Vite 构建、791 项多语言词典键一致性校验、文档链接、尺寸预算、版本同步）、`pnpm test:smoke`（8/8 套件通过）与 `pnpm test:playback`（`seek`、`gesture`、`episode-toast`、`ambient`、`portrait-fit` 5/5 场景通过）全量验证通过。\r\n- 各平台正式安装包由 `v2.2.5` 标签触发的 GitHub Actions `CI/CD` 工作流构建并校验。",
-          "downloadURL": "https://gh-proxy.com/https://github.com/zxsos/HGhubX/releases/download/v2.2.5/HGhubX_2.2.5_ios.ipa",
-          "size": 3927965,
+          "version": "2.2.6",
+          "date": "2026-11-21T17:01:54Z",
+          "localizedDescription": "# HGhubX v2.2.6\n\n聚焦分类频道与官网排序同步、全站分页上滑自动加载、海报角标、多页左右滑动切栏与 FakeIP 代理连接修复；覆盖 Windows、macOS、Linux、Android 与 iOS 标准版。\n\n## 新增与优化\n1. **分类与原创频道与官网排序同步（#202、#211）**：短剧、漫剧频道的「最近更新」「当前热播」「精选推荐」以及「原创」频道的「全部原创」「原创漫剧」「原创短剧」优先解析官网服务端渲染频道页，与网站更新排序、总页数、标签及统计保持一致，解析异常时自动回退原有 JSON 接口。\n2. **海报左上角新增「原创」「热播」「新片」角标（#202、#211）**：瀑布流与横向预览卡片海报左上角按「原创」「热播」「新片」（72 小时窗口）顺序显示高对比度角标，避免与右上角评分重叠；集数状态移至海报底部遮罩左侧与播放量同排展示，「我的」页继续保留「新更 N 集」角标。\n3. **分页列表统一改为上滑自动加载（#202、#211）**：频道页、吃瓜列表、专题详情、标签详情、关注/创作者作品与全局/栏目搜索均在接近底部时自动续载下一页，不再常驻手动「加载更多」按钮；开启标签屏蔽时同样保持自动加载，仅当连续 2 页过滤后均无可见条目时熔断暂停并展示手动兜底按钮。\n4. **多页面支持左右滑动切换标签栏（#208、#209）**：排行榜支持左右滑动切换热播/推荐/潜力榜；「我的」页支持左右滑动切换收藏/历史；分类频道页支持左右滑动切换筛选 tab。\n5. **「我的」页批量管理新增「全选」（#205）**：收藏与观看历史进入多选模式后支持一键「全选」，并移除历史页底部多余的独立清空按钮，统一收口到批量管理操作栏。\n\n## 修复\n1. **iOS / 桌面 TUN FakeIP 代理导致请求全部被拒（#199）**：开启 Shadowrocket / Clash / Surge / sing-box 等 FakeIP 代理后，系统 DNS 同时返回 FakeIP IPv4 与合成 ULA IPv6 假地址，此前整组校验会误判私网并拒绝请求；现严格模式在系统解析路径丢弃不可直达的假 IPv6 ULA、仅固定可放行的地址，整组均不可放行时仍拒绝，且不放宽任何安全白名单。\n2. **搜索历史长按编辑态胶囊字号与尺寸异常（#207）**：修正搜索历史进入编辑态时胶囊字号与内边距跳动问题，保持常规态与编辑态视觉一致。\n\n## 安装与兼容提示\n- Windows 提供 NSIS 安装包与便携压缩包；macOS 提供 Universal DMG；Linux 提供 amd64 `.deb`；Android 标准版按 ABI 提供已签名 APK（`versionCode=2002006`）；iOS 提供未签名 `.ipa`（需自行签名安装）。\n- 覆盖安装保留本机收藏、观看记录、界面语言、线路与内容偏好；Android TV 版（`com.hghubx.tv`）由独立 `tv-v2.2.4` 标签单独发布。\n\n## 致谢\n- 感谢 @zxsos 完成 #202/#211 分类频道与官网排序同步、全站上滑自动加载、海报角标以及 #210/#212/#214 工作流拆分与自动预览体系建设。\n- 感谢 @oahceh 贡献 #199 FakeIP DNS 混合结果固定修复。\n- 感谢 @makisekurisu-jp 贡献 #205、#207、#208、#209 批量全选、搜索历史样式与多页滑动切栏优化。\n\n## 验证\n- 本地 `make check`（Rust 118 项单元测试通过 / 0 失败 / 4 联网测试跳过、TypeScript 三套配置与 Vite 构建、789 项多语言词典键一致性校验、文档链接、尺寸预算、版本同步）与 `pnpm test:smoke`（12/12 套件通过，含 `channel-autoload-badges`、`profile-swipe`、`channel-swipe`、`rank-swipe`）全量通过。\n- 各平台正式安装包由 `v2.2.6` 标签触发的 GitHub Actions `Release` 工作流构建并校验。",
+          "downloadURL": "https://gh-proxy.com/https://github.com/zxsos/HGhubX/releases/download/v2.2.6/HGhubX_2.2.6_ios.ipa",
+          "size": 3990783,
           "minOSVersion": "15.0"
         }
       ]
@@ -266,7 +266,7 @@
           "date": "2026-11-21T14:14:24Z",
           "localizedDescription": "## iPadn 2.3.3\r\n\r\n**目录 / Contents**：[简体中文](#-核心修复与优化) · [TestFlight 说明与免责](#-testflight-实验性说明与免责声明) · [English](#english) · [TestFlight Notice](#testflight-experimental-notice--disclaimer)\r\n\r\n本次为 **v2.3.3** 全面加固与体验升级版：重点修复下载/领许可时偶发「Apple 暂时无法完成该操作」的协议盲区（补齐 `1008` 会话过期刷新、`-128` 地区自动纠偏、新版条款提示与 HTTP 200 诊断日志）；升级「下载」页多选与统一撤销删除，新增安装包构建 SDK / Xcode 版本速查，修复「应用包」左滑变灰遮罩，并完成一轮覆盖安全脱敏、滚动性能、深浅色对比度与 11 语言本地化的全面审计优化。安装包均未签名，请使用自用签名工具签名后安装。\r\n\r\n### 🔧 核心修复与优化\r\n\r\n- **修复 Apple 下载/获取报错「暂时无法完成该操作」与诊断盲区**\r\n  - 补齐 `1008`（设备验证/会话过期）在下载、历史版本票据、领免费许可及 Mac 包路径中的自动刷新与重新登录处理；补充密码已更改（`Your password has changed.`）与账号停用（`Your account is disabled.`）的明确引导。\r\n  - 新增 `-128`（`MZCommerce.CountryMismatch`）自动纠偏：安全校验 Apple 返回的 `resetAndRedirect?dsf=` 商店代码，自动更新账号真实地区并重试，避免 `+86` 手机号或转区账号卡在地区错配。\r\n  - 新增 `buyProductFailure` 新版 App Store 条款（`termsPage`）检测与严格 `purchaseSuccess` 判定，并补全 `buyProduct` 请求参数与 `pod` 路由。\r\n  - 消除诊断盲区：Apple HTTP 200 plist 业务失败现自动写入严格脱敏的 `RequestFailureLog`（仅记录错误码、文档与弹窗标识，零隐私泄露），未知数字错误码亦会附带在提示末尾便于一眼定位。\r\n- **「下载」页多选体验升级与统一撤销删除**\r\n  - 「下载」页多选改为与「应用包」一致的就地勾选交互，同时纳入 **TestFlight** 任务支持全选与批量删除。\r\n  - 常规下载与 TestFlight 删除（单条左滑或批量多选）统一接入 5 秒撤销倒计时栈，点击撤销可一次性恢复全部已删任务与文件。\r\n- **安装包构建 SDK / Xcode 版本速查与交互修复**\r\n  - 下载详情、应用包与 TestFlight 详情新增构建 **SDK 与 Xcode 版本**快捷查看（自动结合 `Info.plist` 与 Mach-O `LC_BUILD_VERSION` 解析）。\r\n  - 修复专业模式「应用包」与「解密记录」列表左滑操作时整行变灰/出现半透明遮罩的问题。\r\n- **安全、性能与多语言体验全面加固**\r\n  - **安全性与稳定性**：加固诊断脱敏与 TestFlight 多账号 Cookie 隔离、强化 `TFSINF` `cryptid` 校验，提升已购历史同步容错并消除页面生命周期竞态。\r\n  - **滚动流畅度**：移除主线程同步磁盘 I/O 与文件扫描，补充图标与元数据缓存，显著提升「下载」「应用包」「已购」「TestFlight」长列表帧率与响应速度。\r\n  - **UI / 无障碍 / 11 语言**：补全 11 种语言本地化与阿拉伯语 RTL 适配，优化深浅色对比度、账号头像自适应灰阶与 TestFlight 统一占位图标。\r\n\r\n---\r\n\r\n### 📢 官方频道与反馈说明\r\n\r\n- **官方 Telegram 频道**：👉 [**https://t.me/ipadn_official**](https://t.me/ipadn_official)\r\n- **GitHub Issues 仅保留只读归档**：新版安装包与源码优先在官方 Telegram 频道发布；使用问题、排障与 Bug 反馈请直接前往频道**对应版本贴文评论区**提交。\r\n\r\n### ⚠️ TestFlight 实验性说明与免责声明\r\n\r\n- **实验性功能提醒**：TestFlight 下载与原生安装为 `v2.3.x` 系列推出的**实验性功能**，受 Apple 服务端策略、账号当前有效 Beta 资格、本地网络/代理与本机配对影响，建议先使用备用 Apple 账号体验，勿分享配对文件、令牌或完整备份；详细用法与排障指南见 [README — TestFlight 实验性新功能](README.md#testflight-实验性新功能)。\r\n- **免责声明**：iPadn 基于 [GPL-2.0-or-later](LICENSE) 开源，仅限个人合法备份、授权测试与技术研究，与 Apple Inc. 无关；因使用本工具带来的账号风控或数据风险由使用者自行承担。\r\n\r\n### 📦 安装包与签名源\r\n\r\n- `iPadn-2.3.3-unsigned.ipa`：标准版，含实时活动（灵动岛、锁屏进度）与桌面小组件扩展，签名需要 2 个 App ID。\r\n- `iPadn-2.3.3-lite-unsigned.ipa`：精简版，移除扩展，只需 1 个 App ID；不提供实时活动或小组件，其他功能完全一致。\r\n- SideStore、AltStore、Feather 等签名工具可添加源：`https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json`。\r\n\r\n---\r\n\r\n### English\r\n\r\n**v2.3.3** is a comprehensive reliability, performance, and UX refinement release: it fixes opaque \"Apple couldn't complete the operation\" download/purchase errors (`1008` session refresh, `-128` storefront auto-recovery, updated App Store terms detection, and redacted HTTP 200 plist diagnostics), upgrades **Downloads** multi-select and unified 5-second Undo across regular & TestFlight items, adds quick **SDK / Xcode build version** inspection, fixes the gray dimming mask when swiping rows in **Packages**, and ships a full security, smoothness, contrast, and 11-language localization audit. Both packages are unsigned—sign with your own tool before installing.\r\n\r\n#### Fixes & Improvements Since v2.3.2\r\n\r\n- **Fixed Apple Download Errors & Diagnostic Blind Spots**\r\n  - Handles `failureType = 1008` (device verification / session expired) consistently with `2034 / 2042` across downloads, version tickets, free license acquisition, and Mac offers, plus explicit messages for password changes and disabled accounts.\r\n  - Adds strict `-128` (`MZCommerce.CountryMismatch`) storefront auto-correction (`resetAndRedirect?dsf=`) that persists the account's real storefront, retries `buyProduct`, and prevents login echo headers from overwriting corrected storefronts.\r\n  - Detects `buyProductFailure` App Store Terms prompts (`termsPage`), enforces `purchaseSuccess` validation, adds `pod` routing and standard purchase parameters, records redacted metadata for HTTP 200 Apple plist failures into `RequestFailureLog`, and includes strictly validated numeric error codes on unmapped fallback alerts.\r\n- **Upgraded Downloads Multi-Select & Unified Undo**\r\n  - Aligns **Downloads** multi-select with **Packages** using smooth in-place row selection covering both standard and **TestFlight** items (including Select All and bulk delete).\r\n  - Unifies regular download and TestFlight deletions into a single 5-second Undo stack that restores both tasks and files together.\r\n- **Quick SDK / Xcode Build Inspection & Swipe Mask Fix**\r\n  - Displays compiled **SDK & Xcode versions** (from `Info.plist` and Mach-O `LC_BUILD_VERSION`) in Package & TestFlight details.\r\n  - Fixes the gray veil/highlight dimming mask when swiping rows left in Pro mode **Packages** and **Decryption History**.\r\n- **Security, Performance & Localization Hardening**\r\n  - **Security & Stability**: Hardened diagnostic redaction, per-account TestFlight cookie isolation, `TFSINF` `cryptid` verification, owned-history resilience, and view lifecycle races.\r\n  - **Scroll Smoothness**: Moved synchronous disk I/O off the main thread and improved icon/metadata caching for fluid scrolling across Downloads, Packages, Purchased, and TestFlight.\r\n  - **UI, Accessibility & 11 Languages**: Completed 11-language localization & Arabic RTL polish, refined Light/Dark contrast, adaptive account avatars, and unified TestFlight icon placeholders.\r\n\r\n#### Official Telegram Channel & GitHub Issues Archive\r\n- **Official Telegram Channel**: [**https://t.me/ipadn_official**](https://t.me/ipadn_official) (new builds & source archives land here first).\r\n- **GitHub Issues Read-Only**: Please post support questions, TestFlight diagnostics, and bug reports under the matching release post in our Telegram channel.\r\n\r\n#### TestFlight Experimental Notice & Disclaimer\r\n- TestFlight download and native installation in `v2.3.x` are **experimental** and depend on Apple server behavior, active per-account invitations, proxy/DNS setup, and device pairing state. Testing with a secondary Apple Account first is recommended, and never share pairing files, tokens, or unencrypted backups (see [README_EN — TestFlight Experimental](README_EN.md#testflight-experimental)).\r\n- Released under [GPL-2.0-or-later](LICENSE) for authorized personal testing, backups, and research; unaffiliated with Apple Inc., with all account or data risks assumed by the user.\r\n\r\n#### Packages\r\n- `iPadn-2.3.3-unsigned.ipa`: Standard build with Live Activities & Widgets (requires 2 App IDs).\r\n- `iPadn-2.3.3-lite-unsigned.ipa`: Lite build without extensions (requires 1 App ID; identical core features).\r\n- AltStore / SideStore / Feather repo: `https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json`.\r\n\r\n更早版本的更新内容见 [Releases](https://github.com/mengangs/ipadn/releases)。",
           "downloadURL": "https://gh-proxy.com/https://github.com/mengangs/ipadn/releases/download/v2.3.3/iPadn-2.3.3-lite-unsigned.ipa",
-          "size": 51103775,
+          "size": 49730145,
           "minOSVersion": "17.0"
         }
       ]
@@ -518,11 +518,11 @@
       "tintColor": "#1E5A96",
       "versions": [
         {
-          "version": "0.9.19",
-          "date": "2026-11-20T01:16:50Z",
-          "localizedDescription": "> **Requires:** iOS 26.0 – 26.7.2, or iOS 27.0 up to 27.3 beta 1. **Not supported:** iOS 27.3 beta 2 and later, where Apple patched worse_query. Tested on iOS 27.0.1, 27.2.1, 27.3 beta 1 (confirmed by a user) and 26.7.1; see [Tested devices](https://github.com/kolbicz/WQFiles#tested-devices).\n> **Needs:** a sideloading tool that keeps the App Group entitlement; see [Signing](https://github.com/kolbicz/WQFiles#signing-the-app-group) in the README.\n\n# Worse Query Files 0.9.19\n\nA small fix release, plus optional App Store icons.\n\n## New\n\n- **Settings → App Store Icons** (off by default): other apps' icons can't be read with worse_query, so WQ Files can fetch them from Apple's public App Store lookup instead. This sends the bundle ids of your installed apps and your region to Apple. Sideloaded apps and apps that were removed from the App Store keep the placeholder. Icons are stored in WQ Files (about 7 KB each, not backed up); turning the setting off deletes them.\n\n## Fixed\n\n- **Apps with one-word bundle ids** like Pinterest (`pinterest`) showed \"container identity unavailable\" and 0 KB, and couldn't be opened, backed up or cleared. They work now.\n- **App icons:** other apps' icons can't be read with worse_query, so they show a placeholder. Third-party apps now all get the neutral one, instead of misleading guesses like the Books icon for Facebook or the Music icon for TikTok. Apple services that iOS only gives a placeholder for no longer show iOS's grey grid in dark mode.\n- **Apps list on iOS 27:** the header above the list (number of apps and their size) showed as an empty band, leaving a large gap. It shows its text again, with less space above it.\n- **iOS 27 beta 5 / public beta 3** ([#70](https://github.com/kolbicz/WQFiles/issues/70)): after swiping back from App Backups, the first row on the Backups tab stopped responding. It keeps working now. The blurred band under the bar can still look too tall on that beta; that's an iOS bug. Release versions of iOS aren't affected.\n\n## Credit\n\nNew design: GpGp700. Sandbox technique: [worse_query](https://github.com/forcequitOS/worse_query) by Taj C (forcequit). Container enumeration: [KAMUI](https://github.com/murk-sus/kamui-escape) by murk-sus. Resumable scans: hhh2210. Custom inspectors idea: deltaII. Translations: iosrxwy and FrogTool (Simplified Chinese), kinboy56 (Japanese), hfip (Arabic), hooray804 (Korean), Reinascape (Russian), romlayvn-93 (Vietnamese), buraakkcayir (Turkish review). Thanks to control0forver for testing four debug builds, and to everyone who sent screenshots and Logs. GPL-3.0-or-later.\n\nSHA-256 of WQFiles.ipa: `32a0821d16b4ddedcc7b2063f90530952a644308009db0522c618c23233cacca`",
-          "downloadURL": "https://gh-proxy.com/https://github.com/kolbicz/WQFiles/releases/download/v0.9.19/WQFiles.ipa",
-          "size": 2182170,
+          "version": "0.9.20",
+          "date": "2026-11-21T21:41:37Z",
+          "localizedDescription": "> **Requires:** iOS 26.0 – 26.7.2, or iOS 27.0 up to 27.3 beta 1. **Not supported:** iOS 27.3 beta 2 and later, where Apple patched worse_query. Tested on iOS 27.0.1, 27.2.1, 27.3 beta 1 (confirmed by a user) and 26.7.1; see [Tested devices](https://github.com/kolbicz/WQFiles#tested-devices).\n> **Needs:** a sideloading tool that keeps the App Group entitlement; see [Signing](https://github.com/kolbicz/WQFiles#signing-the-app-group) in the README.\n\n# Worse Query Files 0.9.20\n\nApps Manager backups, and safer handling of databases that are in use.\n\n## New\n\n- **Import Apps Manager backups** ([#19](https://github.com/kolbicz/WQFiles/issues/19)): **Apps** → tap the app → **Import as Backup…** now accepts `.adbk` files from Apps Manager. The app's data is saved as a normal WQ Files backup, ready to restore.\n  - Only the app's own data folder is imported. App Group data in the file isn't, because WQ Files backups don't include App Groups. The keychain items Apps Manager saves are encrypted, so they can't be imported either. When you import, WQ Files lists what it left out.\n  - If the file says it belongs to a different app than the one you tapped, WQ Files asks first, as with any other import.\n  - Opening an `.adbk` from the Files app or the share sheet doesn't start an import; start it from Apps.\n\n## Fixed\n\n- **Files another app is using:** deleting or replacing them, for example an app's database in its App Group while the app runs, failed with \"Resource temporarily unavailable (errno 35)\". WQ Files now says another app is using the file and that quitting that app and trying again should work. Its extensions or widgets can keep the file open even after you quit it.\n- **Databases in use stay intact:** an app's database comes with `-wal` and `-shm` files next to it, and while the app runs, iOS doesn't lock the `-wal` file. WQ Files could delete or replace it while refusing the database file, which lost the app's newest data. Now a database and its `-wal`, `-shm` and `-journal` files are only changed together: if one of them is in use, none of them is touched. This applies to deleting (also whole folders), replacing on import and editing.\n- **Deleting or importing several files at once:** each database is handled before its `-wal` and `-shm` files, which are skipped if the database itself couldn't be deleted or replaced. \"N of M files were imported\" is translated now.\n\n## Credit\n\nNew design: GpGp700. Sandbox technique: [worse_query](https://github.com/forcequitOS/worse_query) by Taj C (forcequit). Container enumeration: [KAMUI](https://github.com/murk-sus/kamui-escape) by murk-sus. Resumable scans: hhh2210. Custom inspectors idea: deltaII. Translations: iosrxwy and FrogTool (Simplified Chinese), kinboy56 (Japanese), hfip (Arabic), hooray804 (Korean), Reinascape (Russian), romlayvn-93 (Vietnamese), buraakkcayir (Turkish review). Thanks to braless for the Apps Manager sample, and to everyone who sent screenshots and Logs. GPL-3.0-or-later.\n\nSHA-256 of WQFiles.ipa: `9ddfa3c1ff01de4d76f601d3b6b76390436136d529f029b9bfaa48c501cfe197`",
+          "downloadURL": "https://gh-proxy.com/https://github.com/kolbicz/WQFiles/releases/download/v0.9.20/WQFiles.ipa",
+          "size": 2199929,
           "minOSVersion": "26.0"
         }
       ]
@@ -618,11 +618,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.24",
-          "date": "2026-11-21T01:08:27Z",
-          "localizedDescription": "- 头像上的大会员角标改为原版尺寸：列表头像 14pt，UP 主空间大头像 20pt，不再过大\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.24/LiLite-1.0.24-unsigned.ipa",
-          "size": 117700532,
+          "version": "1.0.25",
+          "date": "2026-11-21T18:39:41Z",
+          "localizedDescription": "**交互与返回**\n- 直播间、视频页、番剧页、UP 主空间、搜索结果等页面支持全屏宽度右划返回；在后面的标签页右划先回到上一个标签，播放器区域仍用于拖动进度\n- 评论区点开图片后可以右划关闭，只关闭图片，视频继续播放，不会再退回首页\n- 播放器左上角的回到首页按钮已移除\n- 长按倍速按官方客户端的判定（0.25 秒），倍速时手指轻微移动不再变成拖动进度条\n\n**界面**\n- 合集改为从播放器下方滑出的面板，风格与评论详情一致：顶部固定封面、标题、视频数和订阅按钮，支持分节与正倒序，自动定位到正在播放的一集\n- 视频简介、全屏“更多”面板按官方客户端重做\n- 官方赛事直播间新增赛程、回放、选手评分\n\n**iPad 与 iPhone Duo**\n- 一镜到底在 iPad 与 Duo（展开、半折叠）上直接落到播放器位置，过渡连贯；右划缩回卡片的手感与手机一致\n- 视频页并排布局与侧栏宽度调整，窄栏中的标签与发弹幕按钮不再被截断\n\n**性能与修复**\n- 修复播放视频时返回首页、再进入视频的卡顿\n- 修复听视频部分地址 403 无法播放\n- 离开播放后释放播放器与渲染资源，降低内存占用\n- 改用 Xcode 原生构建\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.25/LiLite-1.0.25-unsigned.ipa",
+          "size": 23543836,
           "minOSVersion": "17.0"
         }
       ]
@@ -648,6 +648,39 @@
     }
   ],
   "news": [
+    {
+      "appID": "cz.kolbi.wqfiles",
+      "title": "WQ Files 0.9.20 · 21 Nov 2026",
+      "identifier": "WQ Files-release-v0.9.20",
+      "caption": "WQ Files 0.9.20 is available.",
+      "date": "2026-11-21T21:41:37Z",
+      "tintColor": "#1E5A96",
+      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/images/news.png",
+      "notify": true,
+      "url": "https://github.com/kolbicz/WQFiles/releases/tag/v0.9.20"
+    },
+    {
+      "appID": "com.liuliuya.PiliNative",
+      "title": "轻哩 1.0.25 · 21 Nov 2026",
+      "identifier": "轻哩-release-v1.0.25",
+      "caption": "轻哩 1.0.25 is available.",
+      "date": "2026-11-21T18:39:41Z",
+      "tintColor": "#D0E0F0",
+      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
+      "notify": true,
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.25"
+    },
+    {
+      "appID": "com.hghubx.app",
+      "title": "HGhub 2.2.6 · 21 Nov 2026",
+      "identifier": "HGhub-release-v2.2.6",
+      "caption": "HGhub 2.2.6 is available.",
+      "date": "2026-11-21T17:01:54Z",
+      "tintColor": "#60C0F0",
+      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HGhub/images/news.png",
+      "notify": true,
+      "url": "https://github.com/zxsos/HGhubX/releases/tag/v2.2.6"
+    },
     {
       "appID": "app.local.iPadn",
       "title": "iPadn 2.3.3 · 21 Nov 2026",
@@ -693,28 +726,6 @@
       "url": "https://github.com/Rone89/cilicili/releases/tag/v1.1.7"
     },
     {
-      "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.24 · 21 Nov 2026",
-      "identifier": "轻哩-release-v1.0.24",
-      "caption": "轻哩 1.0.24 is available.",
-      "date": "2026-11-21T01:08:27Z",
-      "tintColor": "#D0E0F0",
-      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
-      "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.24"
-    },
-    {
-      "appID": "com.hghubx.app",
-      "title": "HGhub 2.2.5 · 20 Nov 2026",
-      "identifier": "HGhub-release-v2.2.5",
-      "caption": "HGhub 2.2.5 is available.",
-      "date": "2026-11-20T18:49:08Z",
-      "tintColor": "#60C0F0",
-      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HGhub/images/news.png",
-      "notify": true,
-      "url": "https://github.com/zxsos/HGhubX/releases/tag/v2.2.5"
-    },
-    {
       "appID": "com.kodjodevf.mangayomi",
       "title": "Mangayomi 0.9.97 · 20 Nov 2026",
       "identifier": "Mangayomi-release-v0.9.97",
@@ -724,17 +735,6 @@
       "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Mangayomi/images/news.png",
       "notify": true,
       "url": "https://github.com/kodjodevf/mangayomi/releases/tag/v0.9.97"
-    },
-    {
-      "appID": "cz.kolbi.wqfiles",
-      "title": "WQ Files 0.9.19 · 20 Nov 2026",
-      "identifier": "WQ Files-release-v0.9.19",
-      "caption": "WQ Files 0.9.19 is available.",
-      "date": "2026-11-20T01:16:50Z",
-      "tintColor": "#1E5A96",
-      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/images/news.png",
-      "notify": true,
-      "url": "https://github.com/kolbicz/WQFiles/releases/tag/v0.9.19"
     },
     {
       "appID": "com.qingtang.3106",
