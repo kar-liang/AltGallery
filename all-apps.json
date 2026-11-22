@@ -286,11 +286,11 @@
       "tintColor": "#EC4949",
       "versions": [
         {
-          "version": "0.3.37",
-          "date": "2026-11-14T11:23:41Z",
-          "localizedDescription": "![分享评论 · Share a comment](https://raw.githubusercontent.com/missuo/kumone/v0.3.37/docs/releases/0.3.37-comment-share.png)\n\n![macOS 播放页评论 · Comments on the macOS now-playing page](https://raw.githubusercontent.com/missuo/kumone/v0.3.37/docs/releases/0.3.37-macos-comments.png)\n\n### Added\n\n- **Comments**: long-press a comment (right-click on macOS) to share it as a picture — the comment and who wrote it, with the song's title, artist and cover, over the cover's colours — then share it or save it to Photos (copy it on macOS). Copy Comment copies its text.\n- **Comments**: on macOS (and iPad), a Lyrics | Comments switch above the now-playing lyrics shows the playing song's comments in their place; songs without lyrics but with comments now get the column too.\n\n### Fixed\n\n- **iOS 17**: tapping the mini player no longer freezes the app with the now-playing page never appearing; the cause has been found and fixed. Swiping from the lyrics to the comments is back on iOS 16/17 (#213).\n- **Now playing**: on iPhone, the volume panel now closes when you tap anywhere else on the page, not only the speaker button again.\n\n---\n\n### 新增\n\n- **评论**：长按一条评论（macOS 上右键）即可把它分享成一张图片：评论内容和评论者，配上歌名、歌手和专辑封面，底色取自封面；可以直接分享或保存到相册（macOS 上为拷贝图片）。「复制评论」可复制评论文字。\n- **评论**：macOS（以及 iPad）播放页的歌词上方新增「歌词 | 评论」切换，可在歌词的位置查看正在播放歌曲的评论；没有歌词但有评论的歌曲也会显示这一栏。\n\n### 修复\n\n- **iOS 17**：点击迷你播放条后应用卡死、播放页一直出不来的问题已找到原因并修复；iOS 16/17 上也恢复了歌词左滑查看评论（#213）。\n- **播放页**：iPhone 上打开音量面板后，点页面其他任意位置即可关闭，不必再点一次喇叭按钮。",
-          "downloadURL": "https://github.com/missuo/kumone/releases/download/v0.3.37/Kumone-iOS-0.3.37.ipa",
-          "size": 4407346,
+          "version": "0.3.38",
+          "date": "2026-11-22T15:28:06Z",
+          "localizedDescription": "### Added\n\n- **macOS**: an Add to Playlist button next to the heart in the player bar saves the playing song to one of your playlists in one click (#232, thanks @WillowBranch127).\n- **iOS**: a Swipe Left from Lyrics for Comments switch in Settings turns the swipe off for anyone who triggers it by accident; View Comments stays in the now-playing menu (#225).\n\n### Fixed\n\n- **iOS**: skipping to another song now stops the previous one straight away, instead of letting it play on for a few seconds under the new song's title and lyrics (#221).\n- **Now playing**: after a relaunch, the restored song's lyrics load right away instead of spinning until you press play (#219).\n- **macOS 26**: with Liquid Glass, the page no longer covers part of the floating sidebar; a gap now runs between them, also with the window inactive (#229).\n- **macOS**: opening Roam with a song loaded no longer pushes the sidebar up under the window buttons (#227).\n- **macOS**: dragging the desktop lyrics no longer brings a minimized or hidden main window back to the front (#187).\n- **Comments**: shared comment pictures no longer have a thin white line along the bottom.\n\n---\n\n### 新增\n\n- **macOS**：播放条爱心旁新增「收藏到歌单」按钮，一键把正在播放的歌收藏到歌单（#232，感谢 @WillowBranch127）。\n- **iOS**：设置中新增「左滑歌词查看评论」开关，容易误触的话可以关掉；关掉后播放页菜单中的「查看评论」仍然可用（#225）。\n\n### 修复\n\n- **iOS**：切歌时会立刻停掉上一首，不会再在新歌的歌名和歌词下继续播放上一首几秒（#221）。\n- **播放页**：重新打开应用后，恢复的歌曲会直接加载歌词，不用等按下播放才出来（#219）。\n- **macOS 26**：开启液态玻璃时，主界面不会再盖住悬浮侧边栏的一部分，两者之间留出间距，窗口失去焦点时也一样（#229）。\n- **macOS**：有歌曲时打开「漫游」，侧边栏不会再被顶到窗口按钮下面（#227）。\n- **macOS**：拖动桌面歌词时，不会再把已最小化或隐藏的主窗口带回前台（#187）。\n- **评论**：分享的评论图片底部不会再有一条细白线。",
+          "downloadURL": "https://github.com/missuo/kumone/releases/download/v0.3.38/Kumone-iOS-0.3.38.ipa",
+          "size": 4420454,
           "minOSVersion": "16.0"
         }
       ]
@@ -618,11 +618,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.26",
-          "date": "2026-11-22T05:07:27Z",
-          "localizedDescription": "**iPad**\n- 评论区开着“横屏时在面板中查看”时，看图后右划只关闭图片，视频继续播放，不会再退出视频页；图片面板新增关闭按钮和图片菜单\n- 动态页重做：去掉左栏，关注的人改为顶部横排，标题栏按钮合并，内容不再被遮挡\n- 搜索结果改为多列网格\n- 首页信息流滑动更流畅，减少掉帧\n- 修复部分情况下进入视频只有声音、画面黑屏\n\n**iPhone Duo**\n- 半折叠时首页顶栏按折痕分成两段，频道标签不再被挤压\n- 折叠、展开过程中顶部搜索栏不再来回跳动\n- 折叠、展开时视频画面不再黑一下\n\n**播放**\n- 音量调节（手势、键盘、触控板）改为调节设备系统音量，按实体音量键时显示音量提示\n- 修复快速返回后再打开另一个视频时只有声音没有画面\n- 大屏视频页并排布局时，简介放到播放器下方，利用播放器下面的空间\n- 移除标签页中的“选集”（与合集重复）及对应设置\n\n**界面**\n- 视频简介等页面的字号跟随阅读字号与系统字体大小，iPhone 上各页面比例统一\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.26/LiLite-1.0.26-unsigned.ipa",
-          "size": 23573515,
+          "version": "1.0.27",
+          "date": "2026-11-22T17:49:05Z",
+          "localizedDescription": "**播放**\n- 全屏手势提示（亮度、音量、进度、倍速）与控件排版重新设计\n- 锁定屏幕改为玻璃材质按钮：iPhone 横屏锁定后两侧都有解锁键，iPad 为右侧单键，直播全屏也可以锁定\n- 全屏「倍速」改为与画质相同的面板，点开后不会立刻收起\n- 全屏控件显示时，弹幕在顶栏和底栏处自动淡出，不再挡住标题、时间和按钮\n- 选集面板的标题去掉共同的剧名前缀，能分清每一集\n- 从卡片打开视频时，封面一直显示到开始播放，不再黑一下；从列表打开视频也有同样的放大过渡\n- 视频页加载时，关注按钮和右侧标签不再闪变\n- AVPlayer 内核长按 3 倍速播放不再一顿一顿\n- 退出全屏后视频页不再钻到状态栏下面\n\n**iPad**\n- 「我的」在概览和其他页面之间切换时顶部不再跳动，当前页会高亮，旋转后保留所在页面\n- 设置的二级页面保留左侧分区栏，内容不再铺满整屏；分区栏选中样式与「我的」统一\n- 动态多列时显示为卡片，深色模式下也能分清边界\n- 竖屏时首页频道单独占一行，不再被标签栏挡住\n- 历史、收藏、离线缓存等列表的缩略图统一，筛选标签与列表对齐\n- 私信输入栏铺满右栏，当前会话会高亮\n\n**iPhone Duo**\n- 半折叠时，搜索结果、热搜、直播、分区排行、动态详情、消息、「我的」和设置都按折痕分栏，内容不再压在折痕上；空状态和报错提示也移到折痕一侧\n- 折叠状态变化后，首页网格会重新排列\n- 设置卡片不再伸进状态栏那一列\n\n**iPhone**\n- 横屏时首页切换频道不再错位\n- 横屏搜索结果不再露出相邻分页\n- 直播间从左边缘右滑返回时不会误触弹幕\n- 横屏视频页播放器两侧不再露白\n\n**直播**\n- 全屏时左上角可以直接退出\n- 已播时长的写法统一，没有弹幕时显示提示\n- 分区页按屏幕宽度排列，「我的常用」为空时不再报错\n- 贡献榜背景与直播间一致\n\n**其他**\n- 稍后再看、收藏夹右上角的按钮收进「⋯」菜单，标题位置与观看历史一致\n- 评论区底部为悬浮的发评论按钮留出空间，不再挡住最后几条评论\n- 新增深色与色调桌面图标\n- 关于页加入开发者与致谢\n- 「页面动画与回弹」在 iPhone 上可以正常进入\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.27/LiLite-1.0.27-unsigned.ipa",
+          "size": 25276856,
           "minOSVersion": "17.0"
         }
       ]
@@ -649,6 +649,28 @@
   ],
   "news": [
     {
+      "appID": "com.liuliuya.PiliNative",
+      "title": "轻哩 1.0.27 · 22 Nov 2026",
+      "identifier": "轻哩-release-v1.0.27",
+      "caption": "轻哩 1.0.27 is available.",
+      "date": "2026-11-22T17:49:05Z",
+      "tintColor": "#D0E0F0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
+      "notify": true,
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.27"
+    },
+    {
+      "appID": "sb.moe.kumone-ios",
+      "title": "Kumone 0.3.38 · 22 Nov 2026",
+      "identifier": "Kumone-release-v0.3.38",
+      "caption": "Kumone 0.3.38 is available.",
+      "date": "2026-11-22T15:28:06Z",
+      "tintColor": "#EC4949",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Kumone/images/news.png",
+      "notify": true,
+      "url": "https://github.com/missuo/kumone/releases/tag/v0.3.38"
+    },
+    {
       "appID": "com.hghubx.app",
       "title": "HGhub 2.2.7 · 22 Nov 2026",
       "identifier": "HGhub-release-v2.2.7",
@@ -669,17 +691,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/iPadn/images/news.png",
       "notify": true,
       "url": "https://github.com/mengangs/ipadn/releases/tag/v2.3.4"
-    },
-    {
-      "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.26 · 22 Nov 2026",
-      "identifier": "轻哩-release-v1.0.26",
-      "caption": "轻哩 1.0.26 is available.",
-      "date": "2026-11-22T05:07:27Z",
-      "tintColor": "#D0E0F0",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
-      "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.26"
     },
     {
       "appID": "com.ligg.anime_flow",
@@ -801,17 +812,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/MangaDock/images/news.png",
       "notify": true,
       "url": "https://github.com/kar-liang/MangaDock/releases/tag/v3.4"
-    },
-    {
-      "appID": "sb.moe.kumone-ios",
-      "title": "Kumone 0.3.37 · 14 Nov 2026",
-      "identifier": "Kumone-release-v0.3.37",
-      "caption": "Kumone 0.3.37 is available.",
-      "date": "2026-11-14T11:23:41Z",
-      "tintColor": "#EC4949",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Kumone/images/news.png",
-      "notify": true,
-      "url": "https://github.com/missuo/kumone/releases/tag/v0.3.37"
     },
     {
       "appID": "com.example.piliplus",
