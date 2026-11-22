@@ -16,11 +16,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.25",
-          "date": "2026-11-21T18:39:41Z",
-          "localizedDescription": "**交互与返回**\n- 直播间、视频页、番剧页、UP 主空间、搜索结果等页面支持全屏宽度右划返回；在后面的标签页右划先回到上一个标签，播放器区域仍用于拖动进度\n- 评论区点开图片后可以右划关闭，只关闭图片，视频继续播放，不会再退回首页\n- 播放器左上角的回到首页按钮已移除\n- 长按倍速按官方客户端的判定（0.25 秒），倍速时手指轻微移动不再变成拖动进度条\n\n**界面**\n- 合集改为从播放器下方滑出的面板，风格与评论详情一致：顶部固定封面、标题、视频数和订阅按钮，支持分节与正倒序，自动定位到正在播放的一集\n- 视频简介、全屏“更多”面板按官方客户端重做\n- 官方赛事直播间新增赛程、回放、选手评分\n\n**iPad 与 iPhone Duo**\n- 一镜到底在 iPad 与 Duo（展开、半折叠）上直接落到播放器位置，过渡连贯；右划缩回卡片的手感与手机一致\n- 视频页并排布局与侧栏宽度调整，窄栏中的标签与发弹幕按钮不再被截断\n\n**性能与修复**\n- 修复播放视频时返回首页、再进入视频的卡顿\n- 修复听视频部分地址 403 无法播放\n- 离开播放后释放播放器与渲染资源，降低内存占用\n- 改用 Xcode 原生构建\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.25/LiLite-1.0.25-unsigned.ipa",
-          "size": 23543836,
+          "version": "1.0.26",
+          "date": "2026-11-22T05:07:27Z",
+          "localizedDescription": "**iPad**\n- 评论区开着“横屏时在面板中查看”时，看图后右划只关闭图片，视频继续播放，不会再退出视频页；图片面板新增关闭按钮和图片菜单\n- 动态页重做：去掉左栏，关注的人改为顶部横排，标题栏按钮合并，内容不再被遮挡\n- 搜索结果改为多列网格\n- 首页信息流滑动更流畅，减少掉帧\n- 修复部分情况下进入视频只有声音、画面黑屏\n\n**iPhone Duo**\n- 半折叠时首页顶栏按折痕分成两段，频道标签不再被挤压\n- 折叠、展开过程中顶部搜索栏不再来回跳动\n- 折叠、展开时视频画面不再黑一下\n\n**播放**\n- 音量调节（手势、键盘、触控板）改为调节设备系统音量，按实体音量键时显示音量提示\n- 修复快速返回后再打开另一个视频时只有声音没有画面\n- 大屏视频页并排布局时，简介放到播放器下方，利用播放器下面的空间\n- 移除标签页中的“选集”（与合集重复）及对应设置\n\n**界面**\n- 视频简介等页面的字号跟随阅读字号与系统字体大小，iPhone 上各页面比例统一\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.26/LiLite-1.0.26-unsigned.ipa",
+          "size": 23573515,
           "minOSVersion": "17.0"
         }
       ]
@@ -29,14 +29,14 @@
   "news": [
     {
       "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.25 · 21 Nov 2026",
-      "identifier": "轻哩-release-v1.0.25",
-      "caption": "轻哩 1.0.25 is available.",
-      "date": "2026-11-21T18:39:41Z",
+      "title": "轻哩 1.0.26 · 22 Nov 2026",
+      "identifier": "轻哩-release-v1.0.26",
+      "caption": "轻哩 1.0.26 is available.",
+      "date": "2026-11-22T05:07:27Z",
       "tintColor": "#D0E0F0",
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
       "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.25"
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.26"
     }
   ]
 }

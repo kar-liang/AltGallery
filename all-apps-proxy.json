@@ -113,11 +113,11 @@
       "tintColor": "#124EB3",
       "versions": [
         {
-          "version": "2.6.8",
-          "date": "2026-11-13T20:37:13Z",
-          "localizedDescription": "### 🔄 更新内容\n\n## 2.6.8 更新\n\n## 新增\n\n- 壁纸页面支持关键词筛选、支持收藏壁纸集合(登录后)、我的页面右上角打开收藏集合\n- 重构视频资源下载模块，下载功能完全和播放页解耦不在需要等待内容解析完成后才能看到下载菜单，可以在番剧详情剧集弹窗和播放页剧集区域进入下载页面\n- 排行榜页面加载动画替换成骨架屏\n- 壁纸页面加载动画替换成骨架屏\n- 播放页的番剧详情信息展示方式从原来的内嵌路由替换成抽屉方式展示\n-  Linux 支持 Nix 安装(详情在仓库README下载项查看) #128 (@yebei199)\n\n## 优化\n\n- 优化更新信息页面布局\n- 优化大屏设置侧边栏效果(开启磨砂玻璃ui)\n- 优化推荐、排行榜页面开始磨砂玻璃时的页面顶部状态效果\n- 离开社区页面10秒后取消实时数据更新订阅减小服务器压力\n- 优化animeflow服务器网络请求延迟(可能有用)\n\n## 修复\n\n- 修复部分数据源线路名称文字ui溢出问题\n- 修复宽屏设备打开壁纸详情页时切换tabview时的异常问题\n- 修复在切换视频播放源时没有自动保持播放进度问题\n- 修复 Linux 客户端窗口问题 #129 (@lyndon0na)\n\n---\n\n### 📦 下载\n- 每个设备的安装包后缀: ``苹果手机(.ipa)、 安卓手机(.apk)、windows电脑(.zip或.exe)、mac电脑(.dmg)、linux电脑(.tar.gz或.deb)``\n- android分多个包: ``v7a(32位架构旧手机或TV)、arm64(新手机,推荐用这个)、x86(模拟器) ``\n- windows分多个包: ``.zip(解压直接使用)、.exe(安装后使用，推荐用这个) ``",
-          "downloadURL": "https://gh-proxy.com/https://github.com/openAnimeFlow/AnimeFlow/releases/download/v2.6.8/AnimeFlow-ios-2.6.8.ipa",
-          "size": 29518672,
+          "version": "2.7.0",
+          "date": "2026-11-22T04:50:04Z",
+          "localizedDescription": "### 🔄 更新内容\n\n## 2.7.0 更新\n\n## 新增\n\n- 在数据源弹窗右上角点击文件按钮支持导入播放本地视频进行播放\n- android(ExoPlayer)、ios(AVPlayer)原生播放器支持超分辨效率挡\n- 字体库支持多线路下载资源\n\n## 优化\n\n- 优化播放器亮度、音量调节ui效果\n\n## 修复\n\n- 修复切换播放源时没有立即结束当前正在播放的视频\n- 修复播放器亮度、音量调节ui抖动问题\n- 修复Linux平台在NVIDIA上窗口画面偏移问题\n\n---\n\n### 📦 下载\n- 每个设备的安装包后缀: ``苹果手机(.ipa)、 安卓手机(.apk)、windows电脑(.zip或.exe)、mac电脑(.dmg)、linux电脑(.tar.gz或.deb)``\n- android分多个包: ``v7a(32位架构旧手机或TV)、arm64(新手机,推荐用这个)、x86(模拟器) ``\n- windows分多个包: ``.zip(解压直接使用)、.exe(安装后使用，推荐用这个) ``",
+          "downloadURL": "https://gh-proxy.com/https://github.com/openAnimeFlow/AnimeFlow/releases/download/v2.7.0/AnimeFlow-ios-2.7.0.ipa",
+          "size": 29735422,
           "minOSVersion": "13.0"
         }
       ]
@@ -158,7 +158,7 @@
         {
           "version": "3.1.0",
           "date": "2026-11-21T13:52:36Z",
-          "localizedDescription": "## 📝 更新日志\n## [v3.1.0]\n\n### 功能更新\n\n- 添加鸿蒙（HarmonyOS NEXT）支持\n- 添加导入外部漫画功能，支持文件夹与 CBZ / CBR / CB7 / CBT 等压缩包\n- 编辑已下载漫画时支持导入章节与图片、编辑分卷\n- 外观设置新增「漫画详情页」样式，可分别隐藏点赞、评论、本地收藏与云收藏按钮\n- 新增显示滚动条与滚动条常驻开关\n- 同步设置支持自定义自动同步间隔\n- 阅读设置新增「条漫放大后连续滚动」实验性开关 by [0kitasan](https://github.com/0kitasan)\n\n### 修复\n\n- 修复书架文件夹的漫画数量不随来源筛选变化的问题\n- 修复下载任务重启后进度丢失的问题\n- 修复不包含下载内容的备份无法导入的问题\n\n### 优化\n\n- 优化插件启动速度\n- 优化内存占用\n\n### ui调整\n\n- 调整部分ui样式\n\n### 杂项\n\n- 数据存储全面迁移到 SQLite\n\n---\n\n### 📦 推荐下载\n| 平台 | 下载链接 |\n| :--- | :--- |\n| **Windows** | [windows-installer-v3.1.0.exe](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/windows-installer-v3.1.0.exe) |\n| **macOS** | [Breeze-macOS-v3.1.0.dmg](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/Breeze-macOS-v3.1.0.dmg) |\n| **Android** | [app-arm64-v8a-release-v3.1.0.apk](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/app-arm64-v8a-release-v3.1.0.apk) |\n| **iOS** | [Breeze-iOS-v3.1.0.ipa](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/Breeze-iOS-v3.1.0.ipa) |\n| **Linux** | [breeze-v3.1.0.flatpak](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/breeze-v3.1.0.flatpak) |\n| **Linux (DEB)** | [breeze_3.1.0_amd64-v3.1.0.deb](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/breeze_3.1.0_amd64-v3.1.0.deb) |\n| **HarmonyOS (未签名)** | [Breeze-ohos-arm64-v3.1.0.hap](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/Breeze-ohos-arm64-v3.1.0.hap) |\n\n> 💡 **不知道该下载哪个文件？**\n> 请查看 [详细安装指南](https://github.com/breeze-project-org/Breeze#-%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85)。\n> ⚠️ **HarmonyOS HAP 未签名**（仅 arm64，最低 HarmonyOS 5.0.5(17)）：需要用自己设备信任的证书/profile 自签后安装，不能用 OpenHarmony 测试证书装零售机。",
+          "localizedDescription": "## 📝 更新日志\r\n## [v3.1.0]\r\n\r\n### 功能更新\r\n\r\n- 添加鸿蒙（HarmonyOS NEXT）支持\r\n- 添加导入外部漫画功能，支持文件夹与 CBZ / CBR / CB7 / CBT 等压缩包\r\n- 编辑已下载漫画时支持导入章节与图片、编辑分卷\r\n- 外观设置新增「漫画详情页」样式，可分别隐藏点赞、评论、本地收藏与云收藏按钮\r\n- 新增显示滚动条与滚动条常驻开关\r\n- 同步设置支持自定义自动同步间隔\r\n- 阅读设置新增「条漫放大后连续滚动」实验性开关 by [0kitasan](https://github.com/0kitasan)\r\n\r\n### 修复\r\n\r\n- 修复书架文件夹的漫画数量不随来源筛选变化的问题\r\n- 修复下载任务重启后进度丢失的问题\r\n- 修复不包含下载内容的备份无法导入的问题\r\n\r\n### 优化\r\n\r\n- 优化插件启动速度\r\n- 优化内存占用\r\n\r\n### ui调整\r\n\r\n- 调整部分ui样式\r\n\r\n### 杂项\r\n\r\n- 数据存储全面迁移到 SQLite\r\n\r\n---\r\n\r\n### 📦 推荐下载\r\n| 平台 | 下载链接 |\r\n| :--- | :--- |\r\n| **Windows** | [windows-installer-v3.1.0.exe](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/windows-installer-v3.1.0.exe) |\r\n| **macOS** | [Breeze-macOS-v3.1.0.dmg](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/Breeze-macOS-v3.1.0.dmg) |\r\n| **Android** | [app-arm64-v8a-release-v3.1.0.apk](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/app-arm64-v8a-release-v3.1.0.apk) |\r\n| **iOS** | [Breeze-iOS-v3.1.0.ipa](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/Breeze-iOS-v3.1.0.ipa) |\r\n| **Linux** | [breeze-v3.1.0.flatpak](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/breeze-v3.1.0.flatpak) |\r\n| **Linux (DEB)** | [breeze_3.1.0_amd64-v3.1.0.deb](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/breeze_3.1.0_amd64-v3.1.0.deb) |\r\n| **HarmonyOS** | [Breeze-ohos-arm64-v3.1.0.hap](https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/Breeze-ohos-arm64-v3.1.0.hap) |\r\n\r\n> 💡 **不知道该下载哪个文件？**\r\n> 请查看 [详细安装指南](https://github.com/breeze-project-org/Breeze#-%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85)。",
           "downloadURL": "https://gh-proxy.com/https://github.com/breeze-project-org/Breeze/releases/download/v3.1.0/Breeze-iOS-v3.1.0.ipa",
           "size": 27861953,
           "minOSVersion": "15.0"
@@ -618,11 +618,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.25",
-          "date": "2026-11-21T18:39:41Z",
-          "localizedDescription": "**交互与返回**\n- 直播间、视频页、番剧页、UP 主空间、搜索结果等页面支持全屏宽度右划返回；在后面的标签页右划先回到上一个标签，播放器区域仍用于拖动进度\n- 评论区点开图片后可以右划关闭，只关闭图片，视频继续播放，不会再退回首页\n- 播放器左上角的回到首页按钮已移除\n- 长按倍速按官方客户端的判定（0.25 秒），倍速时手指轻微移动不再变成拖动进度条\n\n**界面**\n- 合集改为从播放器下方滑出的面板，风格与评论详情一致：顶部固定封面、标题、视频数和订阅按钮，支持分节与正倒序，自动定位到正在播放的一集\n- 视频简介、全屏“更多”面板按官方客户端重做\n- 官方赛事直播间新增赛程、回放、选手评分\n\n**iPad 与 iPhone Duo**\n- 一镜到底在 iPad 与 Duo（展开、半折叠）上直接落到播放器位置，过渡连贯；右划缩回卡片的手感与手机一致\n- 视频页并排布局与侧栏宽度调整，窄栏中的标签与发弹幕按钮不再被截断\n\n**性能与修复**\n- 修复播放视频时返回首页、再进入视频的卡顿\n- 修复听视频部分地址 403 无法播放\n- 离开播放后释放播放器与渲染资源，降低内存占用\n- 改用 Xcode 原生构建\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.25/LiLite-1.0.25-unsigned.ipa",
-          "size": 23543836,
+          "version": "1.0.26",
+          "date": "2026-11-22T05:07:27Z",
+          "localizedDescription": "**iPad**\n- 评论区开着“横屏时在面板中查看”时，看图后右划只关闭图片，视频继续播放，不会再退出视频页；图片面板新增关闭按钮和图片菜单\n- 动态页重做：去掉左栏，关注的人改为顶部横排，标题栏按钮合并，内容不再被遮挡\n- 搜索结果改为多列网格\n- 首页信息流滑动更流畅，减少掉帧\n- 修复部分情况下进入视频只有声音、画面黑屏\n\n**iPhone Duo**\n- 半折叠时首页顶栏按折痕分成两段，频道标签不再被挤压\n- 折叠、展开过程中顶部搜索栏不再来回跳动\n- 折叠、展开时视频画面不再黑一下\n\n**播放**\n- 音量调节（手势、键盘、触控板）改为调节设备系统音量，按实体音量键时显示音量提示\n- 修复快速返回后再打开另一个视频时只有声音没有画面\n- 大屏视频页并排布局时，简介放到播放器下方，利用播放器下面的空间\n- 移除标签页中的“选集”（与合集重复）及对应设置\n\n**界面**\n- 视频简介等页面的字号跟随阅读字号与系统字体大小，iPhone 上各页面比例统一\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://gh-proxy.com/https://github.com/liuliuya2333/LiLite/releases/download/v1.0.26/LiLite-1.0.26-unsigned.ipa",
+          "size": 23573515,
           "minOSVersion": "17.0"
         }
       ]
@@ -649,6 +649,28 @@
   ],
   "news": [
     {
+      "appID": "com.liuliuya.PiliNative",
+      "title": "轻哩 1.0.26 · 22 Nov 2026",
+      "identifier": "轻哩-release-v1.0.26",
+      "caption": "轻哩 1.0.26 is available.",
+      "date": "2026-11-22T05:07:27Z",
+      "tintColor": "#D0E0F0",
+      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
+      "notify": true,
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.26"
+    },
+    {
+      "appID": "com.ligg.anime_flow",
+      "title": "AnimeFlow 2.7.0 · 22 Nov 2026",
+      "identifier": "AnimeFlow-release-v2.7.0",
+      "caption": "AnimeFlow 2.7.0 is available.",
+      "date": "2026-11-22T04:50:04Z",
+      "tintColor": "#124EB3",
+      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/AnimeFlow/images/news.png",
+      "notify": true,
+      "url": "https://github.com/openAnimeFlow/AnimeFlow/releases/tag/v2.7.0"
+    },
+    {
       "appID": "cz.kolbi.wqfiles",
       "title": "WQ Files 0.9.20 · 21 Nov 2026",
       "identifier": "WQ Files-release-v0.9.20",
@@ -658,17 +680,6 @@
       "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/WQFiles/images/news.png",
       "notify": true,
       "url": "https://github.com/kolbicz/WQFiles/releases/tag/v0.9.20"
-    },
-    {
-      "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.25 · 21 Nov 2026",
-      "identifier": "轻哩-release-v1.0.25",
-      "caption": "轻哩 1.0.25 is available.",
-      "date": "2026-11-21T18:39:41Z",
-      "tintColor": "#D0E0F0",
-      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
-      "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.25"
     },
     {
       "appID": "com.hghubx.app",
@@ -823,17 +834,6 @@
       "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Placard/images/news.png",
       "notify": true,
       "url": "https://github.com/frs0n/placard/releases/tag/v2.0.3"
-    },
-    {
-      "appID": "com.ligg.anime_flow",
-      "title": "AnimeFlow 2.6.8 · 13 Nov 2026",
-      "identifier": "AnimeFlow-release-v2.6.8",
-      "caption": "AnimeFlow 2.6.8 is available.",
-      "date": "2026-11-13T20:37:13Z",
-      "tintColor": "#124EB3",
-      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/AnimeFlow/images/news.png",
-      "notify": true,
-      "url": "https://github.com/openAnimeFlow/AnimeFlow/releases/tag/v2.6.8"
     },
     {
       "appID": "org.zhaohe.MiniWatts",
