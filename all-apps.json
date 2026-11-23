@@ -218,11 +218,11 @@
       "tintColor": "#60C0F0",
       "versions": [
         {
-          "version": "2.2.7",
-          "date": "2026-11-22T12:13:11Z",
-          "localizedDescription": "# HGhubX v2.2.7\n\n围绕搜索与排行榜、标签排序、吃瓜正文站内视频直达及播放器全屏交互稳定性打磨体验，并新增 Android 13+ Material You 动态主题图标适配；覆盖 Windows、macOS、Linux、Android 与 iOS 标准版。\n\n## 新增与优化\n1. **Android 13+ Material You 动态主题图标（#216）**：补充 `108dp × 108dp` 纯单色自适应矢量图层（`ic_launcher_monochrome.xml`）及圆角/默认自适应配置，支持 Android 13+ 启动器按壁纸动态着色，同时保持 Android 8–12 与既有彩色桌面图标外观不变。\n2. **搜索热搜榜官网同步与单行紧凑布局（#221、#225）**：搜索页热搜请求改为直连干净路径 `{base}/search/`（移除防缓存查询串），与官网 CDN 边缘快照条目、名次及播放量保持同源同序；卡片布局调整为「序号 + 单行省略片名 + 右对齐播放量 + 右箭头」的官网紧凑单行样式。\n3. **视频页操作区与全屏交互打磨（#217、#218、#219、#220）**：统一视频页顶部「搜短剧」与清晰度徽标高度及基线对齐；右侧评论入口改为与点赞/收藏一致的空心线条图标；点赞、收藏、关注共用 `playback-hint` 提示单槽位避免连续点击堆叠；全屏锁屏图标改为随闲置控件同步自动隐藏。\n\n## 修复\n1. **排行榜「热播榜」与官网实时热度不同步（#221、#226）**：修正匿名 JSON `/api/ranks/hot` 返回历史累计总榜导致的内容偏差，热播榜改为优先解析官网 `/ranks/hot/` 服务端渲染页面中的实时热度 TOP20（解析失败自动回退 `/api/ranks/hot`），「推荐榜」「潜力榜」与既有 `RankItem` 契约保持不变。\n2. **标签页短剧默认排序与官网不一致（#223、#228）**：`api_tag_videos` 与前端 `tagVideos` 显式默认携带 `sort=latest`（仅明确指定 `\"hot\"` 时切热播排序），使标准版标签页与 TV 端标签筛选对齐官网 `/tag/{slug}/` 默认最新排序。\n3. **吃瓜详情「点击观看」站内短剧链接跳出系统浏览器（#224、#229）**：新增主站及当前激活线路同源 `/video/{id}/` 严格识别校验；在吃瓜详情与 Feed 图文详情中点击站内视频链接时直接在应用内打开播放页，其余外链与非规范路径仍按原安全策略交由系统浏览器或剪贴板处理。\n4. **横屏全屏切集时旋转舞台瞬时退回竖屏与提示坐标错位（#200、#215）**：同剧同作用域切集加载期间保留最近确认的视频宽高比例，避免 `.player-root` 丢掉 `.fs-landscape` 导致切集提示闪现竖屏底部；`ToastHost` 改由 `registerRotatedToastHost` 响应式同步挂载宿主，退全屏时立即回归竖屏底部。\n\n## 安装与兼容提示\n- Windows 提供 NSIS 安装包与便携压缩包；macOS 提供 Universal DMG；Linux 提供 amd64 `.deb`；Android 标准版按 ABI 提供已签名 APK（`versionCode=2002007`）；iOS 提供未签名 `.ipa`（需自行签名安装）。\n- 覆盖安装保留本机收藏、观看记录、界面语言、线路与内容偏好；Android TV 版（`com.hghubx.tv`）独立沿用 `tv-v2.2.4` 发布。\n\n## 致谢\n- 感谢 @zxsos 审查整合全部待合入 PR、排查并修复热播榜/热搜榜/标签排序/站内视频跳转及全屏舞台问题并完成发布验证。\n- 感谢 @makisekurisu-jp 贡献视频页顶部布局对齐、空心评论图标、操作提示防堆叠、全屏锁随控隐藏等体验优化并提交多项缺陷反馈。\n\n## 验证\n- 合入后本地严检：`make check`（Rust `118 passed; 0 failed; 4 ignored`、`pnpm build` 三套 `tsc` + Vite 构建、789 项 i18n 键校验、文档链接、代码尺寸预算及 `release-check: ok 2.2.7, android versionCode=2002007`）、`pnpm test:smoke`（12/12 套件通过）、`pnpm test:playback`（6/6 场景通过，含 `episode-toast` 与 `portrait-fit`）以及 TV 兼容性验证 `make test-tv` + `node scripts/test-tv-remote.mjs`（14/14 场景通过）全部通过。\n- 合入后默认分支 GitHub Actions：`CI`（`45019595931`）与 `TV CI`（`45019595940`）全绿通过；各平台正式产物由 `v2.2.7` 标签触发的 GitHub Actions `Release` 工作流构建并校验。",
-          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.7/HGhubX_2.2.7_ios.ipa",
-          "size": 3992968,
+          "version": "2.2.8",
+          "date": "2026-11-23T03:55:29Z",
+          "localizedDescription": "# HGhubX v2.2.8\n\n围绕分类导航快捷入口、搜索交互、吃瓜列表官网同步、「我的收藏」排序与已完结封面标签以及播放器全屏暂停提示打磨体验；覆盖 Windows、macOS、Linux、Android 与 iOS 标准版。\n\n## 新增与优化\n1. **分类总览 2×2 快捷入口并接入「最近上新」「热门推荐」（#233、#238）**：移除移动端与搜索页重复的「排行榜」单列入口（保留搜索页右上角与桌面侧栏「排行榜」），在移动端与桌面端统一展示「最近上新」「热门推荐」「专题」「标签」2×2 等宽卡片；「最近上新」「热门推荐」优先解析官网 `/newest/` 与 `/recommend/` 服务端渲染页面（失败时按 `/api/videos?sort=new|hot` 回退），支持自动分页与切线重载。\n2. **「我的 → 收藏 → 短剧」排序与已完结封面标签（#235、#239）**：在「我的收藏 → 短剧」新增「最近添加」「最近更新」「完结进度」（点击可切换「已完结优先 ↕」/「更新中优先 ↕」）排序，切到更新/完结排序时自动分批补齐全部收藏详情；全站剧集卡片在左上角按「原创」「热播」「新片」「完结」显示角标，「我的」页已完结短剧使用绿色封面标签（兼有未看新集时并行显示「新更 N 集」与「完结」角标）。\n3. **搜索页左右滑动切 Tab 与底栏快捷复位（#230、#234）**：搜索结果支持左右滑动切换「视频 / 帖子」Tab（未提交查询时不拦截横向手势）；在移动端底栏再次点击激活的「搜索」可一键清空结果并回到热搜与历史界面，且不主动弹出软键盘。\n4. **全屏双击暂停显示当前集数提示（#236）**：移动端全屏下双击暂停时，在 `playback-hint` 提示槽常驻展示「第 X 集 / Y」，随恢复播放、退出全屏、拖动进度或锁屏同步收起。\n\n## 修复\n1. **吃瓜列表与分类预览排序同官网不一致（#231、#232）**：修复匿名 JSON `/api/posts/category/remen-chigua?sort=latest` 按 `publish_time` 排序导致的顺序偏移，`api_post_category` 优先解析官网 `/blog/gossip/` 服务端渲染列表并补全邻近标签与时间字段，使「吃瓜」列表与分类预览同官网保持一致。\n2. **多次从标签进入播放后画面遮盖、缺失与闪烁（#240）**：被页面栈覆盖的底层主标签页与历史栈页自动从合成器隐藏并隔离堆叠上下文（返回时保留列表滚动位置、豁免画中画），非活跃播放页卸载 `AmbientGlow` / `blur-3xl` 模糊层并释放被覆盖页 `hls.js` 与 `<video>` 硬件解码器（返回时按原进度与暂停意图恢复），同时移除海报卡片逐项 `translateZ(0)` 强提层并限制导航栈最大深度为 8 层，避免 Android WebView GPU 合成层与解码器耗尽。\n\n## 安装与兼容提示\n- Windows 提供 NSIS 安装包与便携压缩包；macOS 提供 Universal DMG；Linux 提供 amd64 `.deb`；Android 标准版按 ABI 提供已签名 APK（`versionCode=2002008`）；iOS 提供未签名 `.ipa`（需自行签名安装）。\n- 覆盖安装保留本机收藏、观看记录、界面语言、线路与内容偏好；Android TV 版（`com.hghubx.tv`）独立沿用 `tv-v2.2.4` 发布。\n\n## 致谢\n- 感谢 @zxsos 审查合入本轮全部 PR、梳理修复分类快捷入口与吃瓜排序并完成 #235 与版本发布校验。\n- 感谢 @makisekurisu-jp 贡献搜索 Tab 滑动切换、底栏搜索复位与全屏暂停集数提示并反馈分类入口及吃瓜排序问题。\n- 感谢 `enjue` 提出 #235 收藏排序与已完结封面标签建议。\n- 感谢 `Rabbit2108` 反馈 #240 Android 标签跳转播放画面遮盖与闪烁问题并提供现场截图。\n\n## 验证\n- 合入后本地严检：`make check`（Rust `118 passed; 0 failed; 4 ignored`、`pnpm build` 三套 `tsc` + Vite 构建、799 项 i18n 键校验、文档链接、代码尺寸预算及 `release-check: ok 2.2.8, android versionCode=2002008`）、`pnpm test:smoke`（14/14 套件通过）、`node scripts/test-playback.mjs`（10/10 场景通过，含 `episode-toast`、`ambient`、`balance-volume` 与 `post-flicker`）以及 TV 兼容性验证 `make test-tv` + `node scripts/test-tv-remote.mjs`（14/14 场景通过）全部通过。\n- 各功能与修复 PR（#230、#232、#234、#236、#238、#239 及 #240 修复 PR）均在 GitHub Actions 审查检查全绿通过后合入；各平台正式产物由 `v2.2.8` 标签触发的 GitHub Actions `Release` 工作流构建并校验。",
+          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.8/HGhubX_2.2.8_ios.ipa",
+          "size": 4004198,
           "minOSVersion": "15.0"
         }
       ]
@@ -618,11 +618,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.27",
-          "date": "2026-11-22T17:49:05Z",
-          "localizedDescription": "**播放**\n- 全屏手势提示（亮度、音量、进度、倍速）与控件排版重新设计\n- 锁定屏幕改为玻璃材质按钮：iPhone 横屏锁定后两侧都有解锁键，iPad 为右侧单键，直播全屏也可以锁定\n- 全屏「倍速」改为与画质相同的面板，点开后不会立刻收起\n- 全屏控件显示时，弹幕在顶栏和底栏处自动淡出，不再挡住标题、时间和按钮\n- 选集面板的标题去掉共同的剧名前缀，能分清每一集\n- 从卡片打开视频时，封面一直显示到开始播放，不再黑一下；从列表打开视频也有同样的放大过渡\n- 视频页加载时，关注按钮和右侧标签不再闪变\n- AVPlayer 内核长按 3 倍速播放不再一顿一顿\n- 退出全屏后视频页不再钻到状态栏下面\n\n**iPad**\n- 「我的」在概览和其他页面之间切换时顶部不再跳动，当前页会高亮，旋转后保留所在页面\n- 设置的二级页面保留左侧分区栏，内容不再铺满整屏；分区栏选中样式与「我的」统一\n- 动态多列时显示为卡片，深色模式下也能分清边界\n- 竖屏时首页频道单独占一行，不再被标签栏挡住\n- 历史、收藏、离线缓存等列表的缩略图统一，筛选标签与列表对齐\n- 私信输入栏铺满右栏，当前会话会高亮\n\n**iPhone Duo**\n- 半折叠时，搜索结果、热搜、直播、分区排行、动态详情、消息、「我的」和设置都按折痕分栏，内容不再压在折痕上；空状态和报错提示也移到折痕一侧\n- 折叠状态变化后，首页网格会重新排列\n- 设置卡片不再伸进状态栏那一列\n\n**iPhone**\n- 横屏时首页切换频道不再错位\n- 横屏搜索结果不再露出相邻分页\n- 直播间从左边缘右滑返回时不会误触弹幕\n- 横屏视频页播放器两侧不再露白\n\n**直播**\n- 全屏时左上角可以直接退出\n- 已播时长的写法统一，没有弹幕时显示提示\n- 分区页按屏幕宽度排列，「我的常用」为空时不再报错\n- 贡献榜背景与直播间一致\n\n**其他**\n- 稍后再看、收藏夹右上角的按钮收进「⋯」菜单，标题位置与观看历史一致\n- 评论区底部为悬浮的发评论按钮留出空间，不再挡住最后几条评论\n- 新增深色与色调桌面图标\n- 关于页加入开发者与致谢\n- 「页面动画与回弹」在 iPhone 上可以正常进入\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.27/LiLite-1.0.27-unsigned.ipa",
-          "size": 25276856,
+          "version": "1.0.31",
+          "date": "2026-11-23T05:46:56Z",
+          "localizedDescription": "**首页**\n- 旋转屏幕后，首页边缘不再露出旁边频道的一窄条：不在屏幕上的频道（如直播）会按新的宽度重新排列，不再沿用旋转前的列宽溢出到当前频道下面\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.31/LiLite-1.0.31-unsigned.ipa",
+          "size": 25282176,
           "minOSVersion": "17.0"
         }
       ]
@@ -650,14 +650,25 @@
   "news": [
     {
       "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.27 · 22 Nov 2026",
-      "identifier": "轻哩-release-v1.0.27",
-      "caption": "轻哩 1.0.27 is available.",
-      "date": "2026-11-22T17:49:05Z",
+      "title": "轻哩 1.0.31 · 23 Nov 2026",
+      "identifier": "轻哩-release-v1.0.31",
+      "caption": "轻哩 1.0.31 is available.",
+      "date": "2026-11-23T05:46:56Z",
       "tintColor": "#D0E0F0",
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
       "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.27"
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.31"
+    },
+    {
+      "appID": "com.hghubx.app",
+      "title": "HGhub 2.2.8 · 23 Nov 2026",
+      "identifier": "HGhub-release-v2.2.8",
+      "caption": "HGhub 2.2.8 is available.",
+      "date": "2026-11-23T03:55:29Z",
+      "tintColor": "#60C0F0",
+      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HGhub/images/news.png",
+      "notify": true,
+      "url": "https://github.com/zxsos/HGhubX/releases/tag/v2.2.8"
     },
     {
       "appID": "sb.moe.kumone-ios",
@@ -669,17 +680,6 @@
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/Kumone/images/news.png",
       "notify": true,
       "url": "https://github.com/missuo/kumone/releases/tag/v0.3.38"
-    },
-    {
-      "appID": "com.hghubx.app",
-      "title": "HGhub 2.2.7 · 22 Nov 2026",
-      "identifier": "HGhub-release-v2.2.7",
-      "caption": "HGhub 2.2.7 is available.",
-      "date": "2026-11-22T12:13:11Z",
-      "tintColor": "#60C0F0",
-      "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HGhub/images/news.png",
-      "notify": true,
-      "url": "https://github.com/zxsos/HGhubX/releases/tag/v2.2.7"
     },
     {
       "appID": "app.local.iPadn",
