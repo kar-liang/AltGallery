@@ -16,11 +16,11 @@
       "tintColor": "#D0E0F0",
       "versions": [
         {
-          "version": "1.0.31",
-          "date": "2026-11-23T05:46:56Z",
-          "localizedDescription": "**首页**\n- 旋转屏幕后，首页边缘不再露出旁边频道的一窄条：不在屏幕上的频道（如直播）会按新的宽度重新排列，不再沿用旋转前的列宽溢出到当前频道下面\n\n附件为未签名 IPA，需要自行签名安装",
-          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.31/LiLite-1.0.31-unsigned.ipa",
-          "size": 25282176,
+          "version": "1.0.36",
+          "date": "2026-11-23T16:26:19Z",
+          "localizedDescription": "**iPad / iOS 18**\n- 从卡片打开视频不再出现转场错乱：iOS 18 上打开后页面停在放大状态（播放器铺满整屏、画面挤到角落），或返回后视频页缩成卡片大小留在首页上继续播放，现已修复。iOS 26 以下改用 App 自带的一镜到底动画，iOS 26 起仍可在设置里选择系统缩放\n- 冷启动时首页顶栏偶尔拆成两行（标签栏单独一行、头像和分区在下面一行）的问题已修复\n\n**播放器**\n- 竖屏全屏，以及开启「播放画面延伸到屏幕边缘」时，长按倍速的「快进」提示、顶部控件和弹幕不再被灵动岛遮住\n\n附件为未签名 IPA，需要自行签名安装",
+          "downloadURL": "https://github.com/liuliuya2333/LiLite/releases/download/v1.0.36/LiLite-1.0.36-unsigned.ipa",
+          "size": 25337586,
           "minOSVersion": "17.0"
         }
       ]
@@ -29,14 +29,14 @@
   "news": [
     {
       "appID": "com.liuliuya.PiliNative",
-      "title": "轻哩 1.0.31 · 23 Nov 2026",
-      "identifier": "轻哩-release-v1.0.31",
-      "caption": "轻哩 1.0.31 is available.",
-      "date": "2026-11-23T05:46:56Z",
+      "title": "轻哩 1.0.36 · 23 Nov 2026",
+      "identifier": "轻哩-release-v1.0.36",
+      "caption": "轻哩 1.0.36 is available.",
+      "date": "2026-11-23T16:26:19Z",
       "tintColor": "#D0E0F0",
       "imageURL": "https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/LiLite/images/news.png",
       "notify": true,
-      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.31"
+      "url": "https://github.com/liuliuya2333/LiLite/releases/tag/v1.0.36"
     }
   ]
 }
