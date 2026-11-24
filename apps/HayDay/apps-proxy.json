@@ -1,0 +1,42 @@
+{
+  "name": "HayDay 助手",
+  "subtitle": "HayDay 助手 AltStore 源",
+  "description": "Auto-updated AltStore source for HayDay 助手",
+  "iconURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HayDay/icon.png",
+  "website": "https://github.com/kar-liang/PackageCounter",
+  "tintColor": "#1090F0",
+  "apps": [
+    {
+      "name": "HayDay 助手",
+      "bundleIdentifier": "com.karliang.packagecounter",
+      "developerName": "kar-liang",
+      "subtitle": "HayDay 助手 — 来自 kar-liang/PackageCounter 的 iOS 应用。",
+      "localizedDescription": "HayDay 助手 — 来自 kar-liang/PackageCounter 的 iOS 应用。",
+      "iconURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HayDay/icon.png",
+      "tintColor": "#1090F0",
+      "versions": [
+        {
+          "version": "1.0-10",
+          "date": "2026-11-24T07:25:42Z",
+          "localizedDescription": "HayDay 助手 — 来自 kar-liang/PackageCounter 的 iOS 应用。",
+          "downloadURL": "https://gh-proxy.com/https://github.com/kar-liang/PackageCounter/releases/download/v1.0-10/PackageCounter.ipa",
+          "size": 3415737,
+          "minOSVersion": "26.0"
+        }
+      ]
+    }
+  ],
+  "news": [
+    {
+      "appID": "com.karliang.packagecounter",
+      "title": "HayDay 助手 1.0-10 · 24 Nov 2026",
+      "identifier": "HayDay 助手-release-v1.0-10",
+      "caption": "HayDay 助手 1.0-10 is available.",
+      "date": "2026-11-24T07:25:42Z",
+      "tintColor": "#1090F0",
+      "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HayDay/images/news.png",
+      "notify": true,
+      "url": "https://github.com/kar-liang/PackageCounter/releases/tag/v1.0-10"
+    }
+  ]
+}

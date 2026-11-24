@@ -1,0 +1,5 @@
+# render_news.py config: python3 tools/render_news.py --out apps/HayDay
+name = "HayDay 助手"
+tagline = "v1.0"
+
+[colors]

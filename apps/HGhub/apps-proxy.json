@@ -16,11 +16,11 @@
       "tintColor": "#60C0F0",
       "versions": [
         {
-          "version": "2.2.8",
-          "date": "2026-11-23T03:55:29Z",
-          "localizedDescription": "# HGhubX v2.2.8\n\n围绕分类导航快捷入口、搜索交互、吃瓜列表官网同步、「我的收藏」排序与已完结封面标签以及播放器全屏暂停提示打磨体验；覆盖 Windows、macOS、Linux、Android 与 iOS 标准版。\n\n## 新增与优化\n1. **分类总览 2×2 快捷入口并接入「最近上新」「热门推荐」（#233、#238）**：移除移动端与搜索页重复的「排行榜」单列入口（保留搜索页右上角与桌面侧栏「排行榜」），在移动端与桌面端统一展示「最近上新」「热门推荐」「专题」「标签」2×2 等宽卡片；「最近上新」「热门推荐」优先解析官网 `/newest/` 与 `/recommend/` 服务端渲染页面（失败时按 `/api/videos?sort=new|hot` 回退），支持自动分页与切线重载。\n2. **「我的 → 收藏 → 短剧」排序与已完结封面标签（#235、#239）**：在「我的收藏 → 短剧」新增「最近添加」「最近更新」「完结进度」（点击可切换「已完结优先 ↕」/「更新中优先 ↕」）排序，切到更新/完结排序时自动分批补齐全部收藏详情；全站剧集卡片在左上角按「原创」「热播」「新片」「完结」显示角标，「我的」页已完结短剧使用绿色封面标签（兼有未看新集时并行显示「新更 N 集」与「完结」角标）。\n3. **搜索页左右滑动切 Tab 与底栏快捷复位（#230、#234）**：搜索结果支持左右滑动切换「视频 / 帖子」Tab（未提交查询时不拦截横向手势）；在移动端底栏再次点击激活的「搜索」可一键清空结果并回到热搜与历史界面，且不主动弹出软键盘。\n4. **全屏双击暂停显示当前集数提示（#236）**：移动端全屏下双击暂停时，在 `playback-hint` 提示槽常驻展示「第 X 集 / Y」，随恢复播放、退出全屏、拖动进度或锁屏同步收起。\n\n## 修复\n1. **吃瓜列表与分类预览排序同官网不一致（#231、#232）**：修复匿名 JSON `/api/posts/category/remen-chigua?sort=latest` 按 `publish_time` 排序导致的顺序偏移，`api_post_category` 优先解析官网 `/blog/gossip/` 服务端渲染列表并补全邻近标签与时间字段，使「吃瓜」列表与分类预览同官网保持一致。\n2. **多次从标签进入播放后画面遮盖、缺失与闪烁（#240）**：被页面栈覆盖的底层主标签页与历史栈页自动从合成器隐藏并隔离堆叠上下文（返回时保留列表滚动位置、豁免画中画），非活跃播放页卸载 `AmbientGlow` / `blur-3xl` 模糊层并释放被覆盖页 `hls.js` 与 `<video>` 硬件解码器（返回时按原进度与暂停意图恢复），同时移除海报卡片逐项 `translateZ(0)` 强提层并限制导航栈最大深度为 8 层，避免 Android WebView GPU 合成层与解码器耗尽。\n\n## 安装与兼容提示\n- Windows 提供 NSIS 安装包与便携压缩包；macOS 提供 Universal DMG；Linux 提供 amd64 `.deb`；Android 标准版按 ABI 提供已签名 APK（`versionCode=2002008`）；iOS 提供未签名 `.ipa`（需自行签名安装）。\n- 覆盖安装保留本机收藏、观看记录、界面语言、线路与内容偏好；Android TV 版（`com.hghubx.tv`）独立沿用 `tv-v2.2.4` 发布。\n\n## 致谢\n- 感谢 @zxsos 审查合入本轮全部 PR、梳理修复分类快捷入口与吃瓜排序并完成 #235 与版本发布校验。\n- 感谢 @makisekurisu-jp 贡献搜索 Tab 滑动切换、底栏搜索复位与全屏暂停集数提示并反馈分类入口及吃瓜排序问题。\n- 感谢 `enjue` 提出 #235 收藏排序与已完结封面标签建议。\n- 感谢 `Rabbit2108` 反馈 #240 Android 标签跳转播放画面遮盖与闪烁问题并提供现场截图。\n\n## 验证\n- 合入后本地严检：`make check`（Rust `118 passed; 0 failed; 4 ignored`、`pnpm build` 三套 `tsc` + Vite 构建、799 项 i18n 键校验、文档链接、代码尺寸预算及 `release-check: ok 2.2.8, android versionCode=2002008`）、`pnpm test:smoke`（14/14 套件通过）、`node scripts/test-playback.mjs`（10/10 场景通过，含 `episode-toast`、`ambient`、`balance-volume` 与 `post-flicker`）以及 TV 兼容性验证 `make test-tv` + `node scripts/test-tv-remote.mjs`（14/14 场景通过）全部通过。\n- 各功能与修复 PR（#230、#232、#234、#236、#238、#239 及 #240 修复 PR）均在 GitHub Actions 审查检查全绿通过后合入；各平台正式产物由 `v2.2.8` 标签触发的 GitHub Actions `Release` 工作流构建并校验。",
-          "downloadURL": "https://gh-proxy.com/https://github.com/zxsos/HGhubX/releases/download/v2.2.8/HGhubX_2.2.8_ios.ipa",
-          "size": 4004198,
+          "version": "2.2.9",
+          "date": "2026-11-24T00:07:31Z",
+          "localizedDescription": "# HGhubX v2.2.9\n\n重点修复 Android WebView 播放页合成器闪烁问题，并升级「我的收藏」单图标追剧状态筛选与频道/标签结果页指标排序；覆盖 Windows、macOS、Linux、Android 与 iOS 标准版。\n\n## 新增与优化\n1. **「我的收藏 → 短剧」单图标追剧状态筛选与底栏快捷复位（#243）**：收藏短剧右上角合并为单图标筛选胶囊，点击展开「追剧状态」菜单并展示「在追剧」「连载中」「已完结」及各自数量（三类允许重叠，按更新时间倒序稳定排列）；卡片统一只保留单个左上角角标随分类切换（「未看 N 集」/「更新至 N 集」/「全 N 集」）；移动端再次点击底栏激活中的「我的」可一键复位回「我的收藏 / 短剧 / 全部收藏」并回到顶部。\n2. **分类频道与标签结果页指标排序（#244）**：原创、AI 短剧、AI 漫剧频道及标签结果页短剧区块右侧新增排序入口，支持按「点赞数」「收藏数」「播放数」「评分」降序/升序切换（再次点击当前指标反转方向，切 Tab 保留当前指标），通过 `jsonOnly` 抓取完整结果并按 20 条渐进渲染，不影响标签页吃瓜帖。\n\n## 修复\n1. **Android 播放页画面闪烁与瓦片异常（#240、#242）**：针对 Android WebView（Skia/Viz）在硬件 `<video>` 上方叠加高半径模糊与持久动画层引发的闪烁问题，在 `.plat-android` 播放页关闭压在视频上的 `backdrop-filter`（改用等价半透明深色底），移除被遮盖的 `blur-3xl` 与未缩放时的 3D `translate3d`，仅在活跃条目渲染 `FeedItemChrome` 且仅缩放态挂载还原胶囊；Android 端「微光效果」改用 `8×5` 画布按 `250ms` 采样配合 GPU 双线性放大替代全屏 `filter: blur(44px)`；`LayerBox` 动画结束后立即移除入场动画类与过渡阴影，Android 进入 `feed` 栈页跳过变换/透明度入场动画。\n\n## 安装与兼容提示\n- Windows 提供 NSIS 安装包与便携压缩包；macOS 提供 Universal DMG；Linux 提供 amd64 `.deb`；Android 标准版按 ABI 提供已签名 APK（`versionCode=2002009`）；iOS 提供未签名 `.ipa`（需自行签名安装）。\n- 覆盖安装保留本机收藏、观看记录、界面语言、线路与内容偏好；Android TV 版（`com.hghubx.tv`）独立沿用 `tv-v2.2.4` 发布。\n\n## 致谢\n- 感谢 @makisekurisu-jp 贡献 #243 收藏页单图标追剧状态筛选与 #244 频道/标签指标排序。\n- 感谢 @zxsos 定位修复 #240/#242 Android 播放页合成器闪烁问题并完成本轮 PR 审查、冲突整合与版本发布校验。\n\n## 验证\n- 合入后本地严检：`make check`（Rust `118 passed; 0 failed; 4 ignored`、`pnpm build` 三套 `tsc` + Vite 构建、814 项 i18n 键校验、202 条文档链接、代码尺寸预算及 `release-check: ok 2.2.9, android versionCode=2002009`）、`pnpm test:smoke`（17/17 套件通过）、`node scripts/test-playback.mjs`（10/10 场景通过）以及 TV 兼容性验证 `make test-tv` + `node scripts/test-tv-remote.mjs`（14/14 场景通过）全部通过。\n- PR #242、#243、#244 均在 GitHub Actions 审查检查（8/8）全绿通过后合入；各平台正式产物由 `v2.2.9` 标签触发的 GitHub Actions `Release` 工作流构建并校验。",
+          "downloadURL": "https://gh-proxy.com/https://github.com/zxsos/HGhubX/releases/download/v2.2.9/HGhubX_2.2.9_ios.ipa",
+          "size": 4009527,
           "minOSVersion": "15.0"
         }
       ]
@@ -29,14 +29,14 @@
   "news": [
     {
       "appID": "com.hghubx.app",
-      "title": "HGhub 2.2.8 · 23 Nov 2026",
-      "identifier": "HGhub-release-v2.2.8",
-      "caption": "HGhub 2.2.8 is available.",
-      "date": "2026-11-23T03:55:29Z",
+      "title": "HGhub 2.2.9 · 24 Nov 2026",
+      "identifier": "HGhub-release-v2.2.9",
+      "caption": "HGhub 2.2.9 is available.",
+      "date": "2026-11-24T00:07:31Z",
       "tintColor": "#60C0F0",
       "imageURL": "https://gh-proxy.com/https://raw.githubusercontent.com/kar-liang/AltGallery/refs/heads/master/apps/HGhub/images/news.png",
       "notify": true,
-      "url": "https://github.com/zxsos/HGhubX/releases/tag/v2.2.8"
+      "url": "https://github.com/zxsos/HGhubX/releases/tag/v2.2.9"
     }
   ]
 }
